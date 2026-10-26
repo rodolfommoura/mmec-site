@@ -34,13 +34,13 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | G-12 | `index.html:63` | `Navegação` | menu heading | keep | Also the footer column title (`index.html:485`). |
 | G-13 | `index.html:64` to `:67` | `01` to `04` next to menu items | decoration | drop | Decorative numbering. |
 | G-14 | `index.html:69`, `:452`, `:482` | `Brasília · Distrito Federal` | location line | keep | |
-| G-15 | `index.html:70`, `:438`, `:465`; `404.html:53`; `privacidade.html:81` | `contato@mouraeribeiro.adv.br` | email | needs-owner | Old domain. Keep until the owner confirms an `@mmec.adv.br` mailbox (Q-03). Lives in one config file. |
+| G-15 | `index.html:70`, `:438`, `:465`; `404.html:53`; `privacidade.html:81` | `contato@mouraeribeiro.adv.br` | email | keep | Old domain, kept in the single contact config file until the owner confirms the new `@mmec.adv.br` address (Q-03). |
 | G-16 | `index.html:482` | `Direito da radiodifusão.` / `Brasília · Distrito Federal.` | footer tagline | keep | |
 | G-17 | `index.html:491` | `Informações` | footer column title | keep | |
 | G-18 | `index.html:493` | `Política de privacidade` | footer link | keep | |
 | G-19 | `index.html:494` | `Termos de uso` | footer link | keep | |
 | G-20 | `index.html:499`; all pages | `© <year> Machado Moura e Cardoso Advogados Associados.` | copyright | keep | Year is filled by JavaScript on most pages; the new site renders it at build time. |
-| G-21 | `index.html:500` | `Desenvolvido por Henrique Moura.` | credit | needs-owner | Credit for the legacy site. Q-15. |
+| G-21 | `index.html:500` | `Desenvolvido por Henrique Moura.` | credit | drop | Credit for the legacy site; not on the new footer (Q-15). |
 | G-22 | `index.html:501`; publication pages | `Voltar ao topo ↑` | link | drop | Not needed on short pages; no arrow glyphs. |
 | G-23 | `privacidade.html:88`; `termos.html:56`; `404.html:46` | `Voltar à página inicial` | link | keep | |
 | G-24 | `cartilha-eleicoes-2026.html:127` and other publication pages | `Material` / `Abrir PDF` / `Baixar PDF` | footer column | drop | Duplicates the page's own PDF buttons. |
@@ -75,7 +75,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-13 | `index.html:115` | `Atuação estratégica em Brasília.` | attribute text | rewrite | Keep only the fact "em Brasília" (already in H-23). |
 | H-14 | `index.html:118` | `Visão preventiva` | attribute | drop | Decorative claim. |
 | H-15 | `index.html:119` | `Antecipação de riscos e gestão de prazos.` | attribute text | rewrite | Deadline management is a real service (H-50); state it there, not as a claim. |
-| H-16 | `index.html:128` | `Desde 2004` | stamp | needs-owner | Founding year; it is also the basis for the "22+ anos" figure. Confirm the year and whether it refers to MMEC or a predecessor firm (Q-02). |
+| H-16 | `index.html:128` | `Desde 2004` | stamp | keep | Confirmed as the founding reference (Q-02). |
 | H-17 | `index.html:131` | `Conheça o escritório` | scroll cue | drop | Animated scroll cue; not in the allowed vocabulary. |
 
 ### Ticker
@@ -103,7 +103,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
-| H-29 | `index.html:180` | `22+` / `anos de atuação` | animated counter | needs-owner | Animated counters are banned. "22+" is wrong or at best borderline: 2026 minus 2004 is 22, not "more than 22". Default: drop the figure and keep "Desde 2004" only (Q-02). |
+| H-29 | `index.html:180` | `22+` / `anos de atuação` | animated counter | drop | No counter and no "22+"; "Desde 2004" (H-16) is the only time reference (Q-02). |
 | H-30 | `index.html:184` | `360°` / `visão jurídica e regulatória` | metric | drop | Decorative, unverifiable (Q-04). |
 | H-31 | `index.html:188` | `DF` / `presença estratégica em Brasília` | metric | drop | Not a metric; location already stated (Q-04). |
 | H-32 | `index.html:192` | `01` / `foco setorial: radiodifusão` | metric | drop | Decorative (Q-04). |
@@ -150,9 +150,9 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-63 | `index.html:328` | radar rings and beam around the symbol | animation | drop | Banned radar motif; the symbol is not a radio wave (`docs/brand.md`). |
 | H-64 | `index.html:338` | `Nosso posicionamento` | eyebrow | drop | Section dropped. |
 | H-65 | `index.html:339` | `Antecipar movimentos. Reduzir riscos. Sustentar decisões.` | `h2` | drop | Slogan that implies outcomes (art. 3, IV; art. 6). |
-| H-66 | `index.html:345` | `Profundidade técnica` / `Análise detalhada, fundamentação consistente e conhecimento setorial.` | principle | needs-owner | Self-praise (art. 3, IV). Default: drop (Q-07). |
-| H-67 | `index.html:352` | `Proximidade` / `Atendimento direto e compreensão da realidade operacional do cliente.` | principle | needs-owner | "Atendimento direto" is a fact the owner can confirm; the rest is self-praise. Default: drop (Q-07). |
-| H-68 | `index.html:359` | `Responsividade` / `Organização de prazos e resposta ágil às mudanças do ambiente regulatório.` | principle | needs-owner | "resposta ágil" reads as a service-level promise. Default: drop (Q-07). |
+| H-66 | `index.html:345` | `Profundidade técnica` / `Análise detalhada, fundamentação consistente e conhecimento setorial.` | principle | drop | Self-praise (art. 3, IV) (Q-07). |
+| H-67 | `index.html:352` | `Proximidade` / `Atendimento direto e compreensão da realidade operacional do cliente.` | principle | drop | Self-praise (art. 3, IV) (Q-07). |
+| H-68 | `index.html:359` | `Responsividade` / `Organização de prazos e resposta ágil às mudanças do ambiente regulatório.` | principle | drop | "resposta ágil" reads as a service-level promise (Q-07). |
 
 ### Publications (`#inteligencia`)
 
@@ -192,12 +192,12 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-90 | `index.html:432` | `Converse com o escritório.` | `h2` | keep | Neutral. |
 | H-91 | `index.html:434` | `Atendimento jurídico e institucional a empresas e entidades do setor de radiodifusão.` | paragraph | keep | |
 | H-92 | `index.html:439` | `E-mail` | label | keep | |
-| H-93 | `index.html:443` | `Telefone` / `(61) 3703-5558` / `tel:+556137035558` | phone | needs-owner | The PDFs list a second number, `(61) 3879-5003`, as "Telefone / WhatsApp" (Q-05). |
+| H-93 | `index.html:443` | `Telefone` / `(61) 3703-5558` / `tel:+556137035558` | phone | keep | Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003` (source: P1, P2). The second is labelled as WhatsApp and is the only one with a WhatsApp link (Q-05). |
 | H-94 | `index.html:453` | `SHIS QI 05, Bloco F, Sala 332` | address | keep | Matches P1 and P2. P3 adds the postcode `CEP 71.615-560` (Q-05). |
 | H-95 | `index.html:454` | `Lago Sul · Brasília/DF` | address | keep | |
-| H-96 | `index.html:457` | `Mapa do escritório em Brasília` (embedded Google Maps iframe) | map | needs-owner | Third-party embed loads Google before consent and needs a CSP exception. Default: no iframe; a plain link (Q-10). |
+| H-96 | `index.html:457` | `Mapa do escritório em Brasília` (embedded Google Maps iframe) | map | drop | No iframe; the address is shown as text with a plain map link (Q-10). |
 | H-97 | `index.html:466` | `Enviar mensagem` | button | keep | `mailto:` link. |
-| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | needs-owner | Listing still under the old name (Q-03). Default: link to the coordinates `-15.8521537,-47.8945894` instead of the listing. |
+| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | rewrite | The owner has renamed the listing. Phase 3 checks it shows the current firm name: if so, link to the listing; otherwise to the coordinates `-15.8521537,-47.8945894` (Q-03). |
 
 ## Publication: Eleições 2026 (`cartilha-eleicoes-2026.html`)
 
@@ -298,15 +298,15 @@ The policy must be rewritten after the analytics decision in Phase 5 (`0003-anal
 | PR-05 | `:57` | `Esta Política de Privacidade explica como coletamos, usamos e protegemos as informações de quem visita nosso site (mmec.adv.br), em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).` | paragraph | keep | |
 | PR-06 | `:59` | `1. Dados que coletamos` | `h2` | keep | |
 | PR-07 | `:60` | `Durante a navegação em nosso site, podemos coletar os seguintes tipos de dados:` | paragraph | keep | |
-| PR-08 | `:62` | `Dados de navegação (Cookies): Coletamos informações automáticas sobre como você interage com o nosso site, como endereço IP, tipo de navegador, páginas visitadas, tempo de permanência e cliques.` | list item | needs-owner | Depends on the analytics decision (Q-09). |
-| PR-09 | `:63` | `Dados fornecidos voluntariamente: Caso você entre em contato conosco via e-mail ou WhatsApp, coletaremos os dados necessários para o atendimento (como nome, e-mail, telefone e o conteúdo da mensagem).` | list item | needs-owner | The site offers no WhatsApp channel, but the PDFs advertise one (Q-05, Q-09). |
-| PR-10 | `:66` | `2. Como usamos as ferramentas de rastreamento` | `h2` | needs-owner | Q-09. |
-| PR-11 | `:67` | `Utilizamos ferramentas de terceiros para melhorar a experiência do usuário e analisar o tráfego do nosso site:` | paragraph | needs-owner | Q-09. |
-| PR-12 | `:69` | `Google Analytics 4: Utilizado para entender o volume de acessos, a região geográfica dos visitantes e quais materiais (como nossas cartilhas) são mais acessados. Os dados são anonimizados pelo Google.` | list item | needs-owner | "anonimizados" is not verified and is not accurate as an LGPD term. Q-09. |
-| PR-13 | `:70` | `Microsoft Clarity: Utilizado para entender a usabilidade do site por meio de métricas comportamentais, mapas de calor e repetição de sessões. O Clarity oculta automaticamente dados sensíveis digitados no site.` | list item | needs-owner | Session replay is hard to justify for a site with no forms. Q-09. |
+| PR-08 | `:62` | `Dados de navegação (Cookies): Coletamos informações automáticas sobre como você interage com o nosso site, como endereço IP, tipo de navegador, páginas visitadas, tempo de permanência e cliques.` | list item | rewrite | Describe Cloudflare Web Analytics (cookieless) instead; Phase 5 verifies what it collects (Q-09). |
+| PR-09 | `:63` | `Dados fornecidos voluntariamente: Caso você entre em contato conosco via e-mail ou WhatsApp, coletaremos os dados necessários para o atendimento (como nome, e-mail, telefone e o conteúdo da mensagem).` | list item | keep | WhatsApp is now a published contact channel (Q-05, Q-09). |
+| PR-10 | `:66` | `2. Como usamos as ferramentas de rastreamento` | `h2` | rewrite | No tracking tools remain; retitle for the analytics actually used (Q-09). |
+| PR-11 | `:67` | `Utilizamos ferramentas de terceiros para melhorar a experiência do usuário e analisar o tráfego do nosso site:` | paragraph | rewrite | Describe Cloudflare Web Analytics and Google Search Console (Q-09). |
+| PR-12 | `:69` | `Google Analytics 4: Utilizado para entender o volume de acessos, a região geográfica dos visitantes e quais materiais (como nossas cartilhas) são mais acessados. Os dados são anonimizados pelo Google.` | list item | drop | GA4 is not carried over (Q-09). |
+| PR-13 | `:70` | `Microsoft Clarity: Utilizado para entender a usabilidade do site por meio de métricas comportamentais, mapas de calor e repetição de sessões. O Clarity oculta automaticamente dados sensíveis digitados no site.` | list item | drop | Clarity is not carried over (Q-09). |
 | PR-14 | `:73` | `3. Compartilhamento de Dados` | `h2` | keep | |
 | PR-15 | `:74` | `O escritório não vende, aluga ou compartilha seus dados pessoais com terceiros para fins de marketing.` | paragraph | keep | |
-| PR-16 | `:74` | `Os dados de navegação são compartilhados apenas com os provedores das ferramentas de análise (Google e Microsoft) sob rigorosos termos de confidencialidade.` | paragraph | needs-owner | "rigorosos termos" is unverifiable. Q-09. |
+| PR-16 | `:74` | `Os dados de navegação são compartilhados apenas com os provedores das ferramentas de análise (Google e Microsoft) sob rigorosos termos de confidencialidade.` | paragraph | drop | Unverifiable, and Google Analytics and Clarity are dropped. Phase 4 describes the actual processors from verified facts (Q-09). |
 | PR-17 | `:76` | `4. Seus Direitos (LGPD)` | `h2` | keep | |
 | PR-18 | `:77` | `Você tem o direito de confirmar a existência de tratamento, acessar seus dados, solicitar a correção de dados incompletos ou a exclusão de dados desnecessários.` | paragraph | rewrite | Partial list of LGPD art. 18 rights. Phase 4 to complete it from the law text. |
 | PR-19 | `:77` | `Para exercer seus direitos, entre em contato através do e-mail oficial listado abaixo.` | paragraph | keep | |
@@ -330,8 +330,8 @@ The policy must be rewritten after the analytics decision in Phase 5 (`0003-anal
 | T-09 | `:41` | `A leitura dos materiais não cria uma relação advogado-cliente.` | paragraph | keep | |
 | T-10 | `:43` | `2. Propriedade Intelectual` | `h2` | keep | |
 | T-11 | `:44` | `Todos os textos, imagens, cartilhas em PDF, logotipos e design apresentados neste site são de propriedade exclusiva do escritório Machado Moura e Cardoso Advogados Associados, estando protegidos pela Lei de Direitos Autorais (Lei nº 9.610/1998).` | paragraph | keep | P3 reproduces an official act (Portaria MCOM), which is not the firm's property; Phase 4 should qualify "todos". |
-| T-12 | `:44` | `É permitida a leitura e o download dos materiais (como cartilhas eleitorais) para uso pessoal e operacional.` | paragraph | needs-owner | The PDFs say "Autorizada apenas a reprodução integral" (Q-11). |
-| T-13 | `:44` | `A reprodução comercial ou modificação sem autorização prévia é estritamente proibida.` | paragraph | needs-owner | Q-11. |
+| T-12 | `:44` | `É permitida a leitura e o download dos materiais (como cartilhas eleitorais) para uso pessoal e operacional.` | paragraph | rewrite | Align with the PDFs: reading and downloading allowed, reproduction only in full (Q-11). |
+| T-13 | `:44` | `A reprodução comercial ou modificação sem autorização prévia é estritamente proibida.` | paragraph | rewrite | Same alignment as T-12 (Q-11). |
 | T-14 | `:46` | `3. Links de Terceiros` | `h2` | keep | |
 | T-15 | `:47` | `Nosso site pode conter links para sites de terceiros (como sistemas do Governo Federal, Anatel ou Ministério das Comunicações).` | paragraph | rewrite | The site has no such links today; keep the general clause without examples. |
 | T-16 | `:47` | `Não nos responsabilizamos pelo conteúdo, políticas de privacidade ou práticas desses sites externos.` | paragraph | keep | |
@@ -367,10 +367,16 @@ Text extracted with `pdftotext` for inventory only. The PDFs are served unchange
 | ID | Source | Text | Status | Note |
 |---|---|---|---|---|
 | PDF-01 | P1 p. 28; P2 p. 7 | `Escritório sediado em Brasília/DF, com atuação especializada em radiodifusão e experiência jurídica, legislativa e regulatória no setor.` | rewrite | Same fact as H-22; same "especializada" issue (Q-06). |
-| PDF-02 | P1 p. 28 | `Análise regulatória, técnica, cível, penal, eleitoral, fiscal, tributária e trabalhista` | needs-owner | Broader list of fields than the site states. Use on the site only if the owner confirms (Q-13). |
+| PDF-02 | P1 p. 28 | `Análise regulatória, técnica, cível, penal, eleitoral, fiscal, tributária e trabalhista` | drop | Not listed on the site (Q-13). |
 | PDF-03 | P1 p. 28 | `Acompanhamento de procedimentos perante órgãos públicos em Brasília` / `Monitoramento de atos no Diário Oficial da União` / `Estudos técnicos, pareceres e informativos jurídicos setoriais` / `Assessoria em prazos e renovação de outorga` / `Assessoria jurídica permanente em radiodifusão` | keep | Confirms the six practice areas (H-39 to H-62). |
-| PDF-04 | P1 p. 29; P2 p. 8 | `Esta obra intelectual é protegida pela Lei nº 9.610/1998. Autorizada apenas a reprodução integral.` | needs-owner | Conflicts with T-12 and T-13 (Q-11). |
-| PDF-05 | P3 | `CEP 71.615-560` | needs-owner | Postcode of the current address. Use once the owner confirms it (Q-05). |
+| PDF-04 | P1 p. 29; P2 p. 8 | `Esta obra intelectual é protegida pela Lei nº 9.610/1998. Autorizada apenas a reprodução integral.` | keep | The terms follow this rule (Q-11). |
+| PDF-05 | P3 | `CEP 71.615-560` | keep | Confirmed postcode of SHIS QI 05, Bloco F, Sala 332 (Q-05). |
+
+## Facts provided by the owner
+
+| ID | Source | Text | Type | Status | Note |
+|---|---|---|---|---|---|
+| OWN-01 | Owner answer to Q-17 | `OAB/DF 0100104RS` | OAB registration of the firm | keep | Footer, exactly as written. Number final including the "RS" suffix; seccional OAB/DF confirmed. Phase 7 compares the footer with the registration certificate. |
 
 ## Images and icons
 
@@ -381,7 +387,7 @@ Text extracted with `pdftotext` for inventory only. The PDFs are served unchange
 | IMG-03 | `assets/images/brand/simbolo.png` | 2000×2000, 180 KB | drop | Replaced by `mmec-symbol-*.svg`. Used inside the radar animation. |
 | IMG-04 | `assets/images/publicacoes/capa-cartilha-eleicoes-2026.png` | 1920×1080, 100 KB | keep | Cover of P1. Convert to AVIF/WebP in Phase 4. |
 | IMG-05 | `assets/images/publicacoes/capa-propaganda-partidaria-2026.png` | 1920×1080, 101 KB | keep | Cover of P2. |
-| IMG-06 | `assets/images/publicacoes/capa-calendario-voz-do-brasil-2026.png` | 1600×900, 274 KB | needs-owner | Preview of P3; shows the letterhead with the old address (Q-12). |
+| IMG-06 | `assets/images/publicacoes/capa-calendario-voz-do-brasil-2026.png` | 1600×900, 274 KB | keep | Kept in the preview. If a new export with the current letterhead arrives before Phase 7, regenerate the cover from it; otherwise serve as is and record a known issue (Q-12). |
 | IMG-07 | `assets/icons/favicon-32x32.png`, `favicon-192x192.png`, `apple-touch-icon.png` | 32, 192, 180 px | drop | Replaced per `docs/brand.md` (provisional favicon needs owner approval). |
 
 ## Technical facts from the legacy site

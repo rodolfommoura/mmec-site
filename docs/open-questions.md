@@ -8,27 +8,27 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 
 ## Summary
 
-| ID | Topic | Blocks | Default in one line |
+| ID | Topic | Blocks | Decision in one line |
 |---|---|---|---|
 | Q-01 | Short name "MMC" vs "MMEC" | Phase 2 | Never "MMC". Full name in copy, "MMEC" only as a short form. |
-| Q-02 | "Desde 2004" and "22+ anos" | Phase 3 | Keep "Desde 2004", drop "22+". |
-| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Keep the current email; link to coordinates, not to the listing. |
+| Q-02 | "Desde 2004" and "22+ anos" | Phase 3 | "Desde 2004" confirmed; no counter, no "22+". |
+| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Keep the current email until the owner confirms the new one; Maps link to the listing if Phase 3 confirms it shows the current name, otherwise to the coordinates. |
 | Q-04 | Decorative claims "360°", "DF", "01" | Phase 3 | Drop. |
-| Q-05 | Phone numbers, WhatsApp and postcode | Phase 3 | Publish `(61) 3703-5558` only, as today. |
-| Q-06 | "Especializada" and OAB art. 3, III | Phase 3 | Avoid "especializada"; say "atuação em direito da radiodifusão". |
+| Q-05 | Phone numbers, WhatsApp and postcode | Phase 3 | Publish `(61) 3703-5558` and `(61) 3879-5003` (labelled and linked as WhatsApp); CEP `71.615-560`. |
+| Q-06 | "Especializada" and OAB art. 3, III | Phase 3 | Never "especializada" or "especialização" (no certified title); say "atuação em direito da radiodifusão". |
 | Q-07 | "Positioning" principles (self-praise) | Phase 3 | Drop. |
 | Q-08 | Disclaimer pointing to "análise jurídica do escritório" | Phase 4 | Neutral wording, as on the election booklet page. |
-| Q-09 | Privacy policy and analytics claims | Phase 4, 5 | Rewrite after the analytics decision; drop unverified claims. |
+| Q-09 | Privacy policy and analytics claims | Phase 4, 5 | Cloudflare Web Analytics plus Google Search Console; no GA4 or Clarity; ADR `0003-analytics` in Phase 5. |
 | Q-10 | Embedded Google Map | Phase 3, 5 | No iframe; plain link. |
 | Q-11 | Reuse licence: terms vs PDFs | Phase 4 | Follow the PDFs: reproduction only in full. |
-| Q-12 | Calendar PDF shows the old address and firm name | Phase 4 | Serve unchanged; ask for a new export. |
+| Q-12 | Calendar PDF shows the old address and firm name | Phase 4 | Keep in the preview; request a new export before Phase 7; if none arrives, serve unchanged and record a known issue. |
 | Q-13 | Broader list of fields in the PDFs | Phase 3 | Do not list. |
 | Q-14 | Rename "Inteligência setorial" to "Publicações" | Phase 3 | Rename. |
-| Q-15 | "Desenvolvido por Henrique Moura." credit | Phase 2 | Drop from the new footer. |
+| Q-15 | "Desenvolvido por Henrique Moura." credit | Phase 2 | Drop from the new footer (decided). |
 | Q-16 | Preview Worker name | Phase 1 | `mmec-site`, as in `CLAUDE.md`. |
-| Q-17 | OAB registration number of the firm | Phase 7 sign-off (gates Phase 8) | Required; launch waits for it. |
+| Q-17 | OAB registration number of the firm | Phase 7 (certificate check) | Resolved: the footer shows "OAB/DF 0100104RS"; Phase 7 compares it with the registration certificate. |
 | Q-18 | Contact data printed inside the PDFs | none | Leave PDFs unchanged. |
-| Q-19 | Publications whose period is over | Phase 4 | Keep as dated archive items. |
+| Q-19 | Publications whose period is over | Phase 4 | Keep all three, labelled with year and type; a new edition is a content-only change. |
 | Q-20 | Pending update of Provimento 205/2021 | Phase 7 | Re-check the OAB site before launch. |
 
 ## Naming and identity
@@ -137,7 +137,7 @@ Answer: Accepted as proposed.
 - Question: what is the registration number of Machado Moura e Cardoso Advogados Associados at OAB/DF, exactly as it should appear?
 - **Default:** the footer gets a line for it, filled only with the owner's number. No placeholder text ships. The Phase 7 content sign-off, and therefore the Phase 8 cutover, waits for this answer.
 
-Answer: The owner provided the OAB registration number `0100104RS`. Render it in the footer exactly as given. Before the Phase 7 sign-off, ask the owner to confirm the full format, for example whether it takes an "OAB/DF" prefix. Note for that check: the "RS" suffix may refer to a seccional other than OAB/DF, so the owner should confirm which seccional the number belongs to.
+Answer: Resolved. The owner provided the registration number `0100104RS` and confirmed the seccional is OAB/DF. The number is final, including the "RS" suffix. The footer shows "OAB/DF 0100104RS" exactly. One check remains for Phase 7: compare the footer text with the owner's registration certificate.
 
 ### Q-18. Contact data printed inside the PDFs
 
