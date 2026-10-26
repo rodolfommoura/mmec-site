@@ -1,0 +1,112 @@
+---
+// Privacy policy. Sources: docs/content-sources.md, rows PR-01 to PR-23, and the rewrite log
+// "Privacy policy and terms (Phase 4)". Describes the site as it works after Phase 5 (Q-09):
+// no cookies, no forms, Cloudflare Web Analytics and Google Search Console.
+// The firm's lawyer reviews the final text before launch (docs/open-questions.md, Q-26).
+import { contact, site } from "../config/site";
+import LegalLayout from "../layouts/LegalLayout.astro";
+---
+
+<LegalLayout
+  title="Política de Privacidade"
+  pageTitle="Política de Privacidade | Machado Moura e Cardoso"
+  description="Como o site de Machado Moura e Cardoso Advogados Associados trata dados pessoais, em conformidade com a LGPD."
+  path="/privacidade"
+  updated="2026-10-26"
+>
+  <p>
+    O escritório {site.name} está comprometido com a proteção dos seus dados pessoais e com a sua
+    privacidade. Esta Política de Privacidade explica como coletamos, usamos e protegemos as
+    informações de quem visita nosso site (mmec.adv.br), em conformidade com a Lei Geral de Proteção
+    de Dados (LGPD, Lei nº 13.709/2018).
+  </p>
+
+  <h2>1. Dados que coletamos</h2>
+  <p>
+    O site não utiliza cookies, não tem formulários e não exige cadastro. Durante a navegação, podem
+    ser tratados os seguintes dados:
+  </p>
+  <ul>
+    <li>
+      <strong>Dados técnicos de acesso:</strong> como em qualquer site, o endereço IP e informações
+      técnicas da requisição (como o navegador e a página solicitada) são recebidos pelo serviço de
+      hospedagem para que as páginas possam ser entregues. O site é hospedado na Cloudflare.
+    </li>
+    <li>
+      <strong>Dados de navegação agregados:</strong> estatísticas de acesso sem identificação
+      individual dos visitantes, descritas no item 2.
+    </li>
+    <li>
+      <strong>Dados fornecidos voluntariamente:</strong> caso você entre em contato conosco por
+      e-mail, telefone ou WhatsApp, coletaremos os dados necessários para o atendimento (como nome,
+      e-mail, telefone e o conteúdo da mensagem).
+    </li>
+  </ul>
+
+  <h2>2. Como medimos o uso do site</h2>
+  <p>Utilizamos duas ferramentas para entender o uso do site e a sua presença nas buscas:</p>
+  <ul>
+    <li>
+      <strong>Cloudflare Web Analytics:</strong> mede o volume de acessos e o desempenho das
+      páginas. Não grava cookies nem outros dados no seu navegador e não identifica visitantes
+      individualmente. O endereço IP é descartado pela Cloudflare e não é armazenado pela
+      ferramenta. Os dados podem ser processados em centros de dados da Cloudflare fora do Brasil.
+    </li>
+    <li>
+      <strong>Google Search Console:</strong> informa quais buscas no Google levaram ao site e como
+      as páginas aparecem nos resultados. Esses dados são obtidos pelo Google nas suas próprias
+      páginas de busca; o Search Console não instala código nem cookies neste site.
+    </li>
+  </ul>
+  <p>O site não utiliza ferramentas de publicidade, mapas de calor ou gravação de sessões.</p>
+
+  <h2>3. Compartilhamento de dados</h2>
+  <p>
+    O escritório não vende, aluga ou compartilha seus dados pessoais com terceiros para fins de
+    marketing. Os dados são tratados apenas pelos prestadores de serviço necessários ao
+    funcionamento do site e ao atendimento: a Cloudflare (hospedagem e medição de acessos) e os
+    serviços de e-mail, telefonia e WhatsApp pelos quais você escolher nos contatar.
+  </p>
+
+  <h2>4. Seus direitos (LGPD)</h2>
+  <p>Nos termos do art. 18 da LGPD, você pode solicitar ao escritório, a qualquer momento:</p>
+  <ul>
+    <li>a confirmação da existência de tratamento dos seus dados;</li>
+    <li>o acesso aos dados;</li>
+    <li>a correção de dados incompletos, inexatos ou desatualizados;</li>
+    <li>
+      a anonimização, o bloqueio ou a eliminação de dados desnecessários, excessivos ou tratados em
+      desconformidade com a lei;
+    </li>
+    <li>a portabilidade dos dados, nos termos da regulamentação da autoridade nacional;</li>
+    <li>
+      a eliminação dos dados tratados com o seu consentimento, salvo nas hipóteses previstas em lei;
+    </li>
+    <li>
+      a informação sobre as entidades públicas e privadas com as quais os dados foram
+      compartilhados;
+    </li>
+    <li>
+      a informação sobre a possibilidade de não fornecer consentimento e sobre as consequências da
+      negativa;
+    </li>
+    <li>a revogação do consentimento.</li>
+  </ul>
+  <p>
+    Para exercer seus direitos, entre em contato através do e-mail oficial listado abaixo. Você
+    também pode peticionar à Autoridade Nacional de Proteção de Dados (ANPD).
+  </p>
+
+  <h2>5. Controlador e contato</h2>
+  <p>O controlador dos dados pessoais tratados por meio deste site é {site.name}.</p>
+  <p>Se você tiver qualquer dúvida sobre esta Política de Privacidade, entre em contato conosco:</p>
+  <ul>
+    <li>
+      E-mail: <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </li>
+    <li>
+      Endereço: {contact.address.street}, {contact.address.district.replace(" · ", ", ")},
+      {contact.address.postcode}
+    </li>
+  </ul>
+</LegalLayout>

@@ -1,0 +1,67 @@
+---
+// Privacy policy and terms of use: title, "last updated" date and long-form text.
+import Prose from "../components/Prose.astro";
+import TextLink from "../components/TextLink.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  pageTitle: string;
+  description: string;
+  path: string;
+  /** Date the text was last changed, as an ISO date (YYYY-MM-DD). */
+  updated: string;
+}
+
+const { title, pageTitle, description, path, updated } = Astro.props;
+const updatedLabel = new Intl.DateTimeFormat("pt-BR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(new Date(`${updated}T00:00:00Z`));
+---
+
+<BaseLayout title={pageTitle} {description} currentPath={path} canonicalPath={path}>
+  <article class="container legal-page" aria-labelledby="pagina-titulo">
+    <header class="legal-header">
+      <h1 id="pagina-titulo">{title}</h1>
+      <!-- PR-03, T-03 rewritten: the date the new text was written -->
+      <p class="legal-updated">
+        Última atualização: <time datetime={updated}>{updatedLabel}</time>
+      </p>
+    </header>
+    <Prose>
+      <slot />
+    </Prose>
+    <!-- G-23 -->
+    <p class="legal-back no-print">
+      <TextLink href="/">Voltar à página inicial</TextLink>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-block: var(--space-section);
+  }
+
+  .legal-header {
+    display: grid;
+    gap: var(--space-3);
+    max-width: var(--measure);
+    margin-block-end: var(--space-10);
+  }
+
+  .legal-updated {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    color: var(--color-text-muted);
+  }
+
+  .legal-back {
+    margin-block-start: var(--space-12);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+  }
+</style>
