@@ -63,6 +63,7 @@ Instead of pasting each prompt by hand, the owner can run `scripts/run-phases.ps
 
 - `-From` and `-To` choose the first and last phase (2 to 7). Phases 0, 1 and 8 are never run by the script.
 - For each phase it updates `main`, runs Claude Code headless with the phase prompt plus unattended-run rules, finds the pull request, checks that the reviewer verdict is APPROVE, waits for CI and squash-merges it.
+- This means phases 2, 5 and 6 are merged without a manual review: for those phases the reviewer verdict and green CI are the only checks, and the Human gate in the phase table is not applied. Run the script with `-To` set to the phase before one you want to review by hand, or follow the manual method above.
 - **Three human gates:** after phases 3, 4 and 7 the script leaves the pull request open and stops. Review it as described in the phase file's Human gate section. To approve and continue, run the command it prints, for example `.\scripts\run-phases.ps1 -From 4 -To 7 -ApproveFirst`; `-ApproveFirst` merges the pull request of the previous phase before starting. Phase 7 is merged by hand after your written go; Phase 8 is always started by hand in an interactive session.
 - It also stops when Claude Code reports `BLOCKED:`, when a step needs the owner (`NEEDS_OWNER:` lines, such as tokens or verification codes), when a check fails or when the verdict is missing.
 - Each run writes a log to `../mmec-phase-logs/phase-NN-<timestamp>.log`, a folder next to the repository, outside Git.
