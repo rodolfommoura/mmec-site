@@ -1,7 +1,7 @@
 ---
-// Publication card: real cover, category, title, one-line summary and a link (H-72 to H-84).
+// Publication card: real cover, type and year, title, one-line summary and a link (H-72 to H-84).
 import { Picture } from "astro:assets";
-import type { Publication } from "../config/publications";
+import { publicationHref, typeAndYear, type Publication } from "../config/publications";
 
 interface Props {
   publication: Publication;
@@ -11,23 +11,26 @@ interface Props {
 
 const { publication, level = 3 } = Astro.props;
 const Heading = `h${level}` as const;
+const { cover, coverAlt, title, cardSummary, cardLinkLabel } = publication.data;
 ---
 
 <article class="publication-card">
-  <Picture
-    class="publication-cover"
-    src={publication.cover}
-    alt={publication.coverAlt}
-    formats={["avif", "webp"]}
-    widths={[480, 960]}
-    sizes="(width >= 64rem) 22rem, (width >= 48rem) 45vw, 100vw"
-  />
+  {cover && (
+    <Picture
+      class="publication-cover"
+      src={cover}
+      alt={coverAlt ?? ""}
+      formats={["avif", "webp"]}
+      widths={[480, 960]}
+      sizes="(width >= 64rem) 22rem, (width >= 48rem) 45vw, 100vw"
+    />
+  )}
   <div class="publication-body">
-    <p class="eyebrow">{publication.category}</p>
-    <Heading class="publication-title">{publication.title}</Heading>
-    <p class="publication-summary">{publication.summary}</p>
+    <p class="eyebrow">{typeAndYear(publication)}</p>
+    <Heading class="publication-title">{title}</Heading>
+    <p class="publication-summary">{cardSummary}</p>
     <p class="publication-link">
-      <a href={publication.href}>{publication.linkLabel}</a>
+      <a href={publicationHref(publication)}>{cardLinkLabel}</a>
     </p>
   </div>
 </article>
