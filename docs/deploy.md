@@ -33,7 +33,7 @@ Needs the owner's Cloudflare login and a GitHub app approval, so it is not autom
    - Project (Worker) name: `mmec-site`
    - Build command: `npm run build`
    - Deploy command: `npx wrangler deploy`
-   - Non-production branch deploy command: `npx wrangler versions upload`
+   - Non-production branch deploy command: `npx wrangler preview`
    - Root directory: `/` (leave empty)
    - Production branch: `main`
    - Builds for non-production branches: **enabled** (each PR gets a preview URL)
@@ -76,9 +76,9 @@ npm run preview    # serve dist/ on http://localhost:4321
 `.github/workflows/ci.yml`, job `ci` (the required status check on `main`, job timeout: 20 minutes):
 
 1. `npm ci`
-2. `npx playwright install --with-deps chromium` (step timeout: 10 minutes)
+2. `npx playwright install chromium` (step timeout: 10 minutes), with `~/.cache/ms-playwright` cached by `actions/cache`, keyed on the runner OS and the `package-lock.json` hash. `--with-deps` is not used: its apt step downloads font packages from a slow mirror and exceeded 10 minutes.
 3. `npm run check`
 4. `npm run test:lighthouse` (budgets: performance ≥ 0.95, accessibility, best practices and SEO = 1; the `is-crawlable` audit is skipped while the preview is `noindex`, re-enable it in Phase 8)
 5. Upload the Lighthouse report as the artifact `lighthouse-report` (and the Playwright report on failure).
 
-Only GitHub-owned actions are used (`actions/checkout`, `actions/setup-node`, `actions/upload-artifact`), pinned by commit SHA. The token is read-only (`contents: read`).
+Only GitHub-owned actions are used (`actions/checkout`, `actions/setup-node`, `actions/cache`, `actions/upload-artifact`), pinned by commit SHA. The token is read-only (`contents: read`).

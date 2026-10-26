@@ -33,9 +33,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The browser version follows the lockfile, so the lockfile hash is the cache key.
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      # No --with-deps: its apt step pulls large font packages from a slow mirror.
+      # The runner image already ships the system libraries Chromium needs.
       - name: Install Chromium for Playwright and Lighthouse
-        run: npx playwright install --with-deps chromium
-        # A stalled browser or apt download should fail the step, not eat the job timeout.
+        run: npx playwright install chromium
+        # A stalled browser download should fail the step, not eat the job timeout.
         timeout-minutes: 10
 
       # Lint, typecheck, build, HTML validation, link check and axe.
