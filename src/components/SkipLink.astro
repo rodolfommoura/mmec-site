@@ -1,0 +1,29 @@
+---
+// G-04
+import { mainContentId } from "../config/site";
+---
+
+<a class="skip-link" href={`#${mainContentId}`}>
+  Ir para o conteúdo
+</a>
+
+<style>
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--space-2);
+    z-index: 1;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-green);
+    color: var(--color-cream);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: none;
+    outline-color: var(--color-ink);
+  }
+</style>

@@ -1,0 +1,842 @@
+---
+/**
+ * Internal design specimen at /_design (docs/phases/02-design-foundations.md). Never in the
+ * production build (src/integrations/design-specimen.mjs), always noindex, not in the sitemap.
+ * Sample copy comes from docs/content-sources.md; the IDs are noted next to each sample.
+ */
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Button from "../components/Button.astro";
+import ContactBlock from "../components/ContactBlock.astro";
+import Logo from "../components/Logo.astro";
+import Prose from "../components/Prose.astro";
+import PublicationCard from "../components/PublicationCard.astro";
+import Section from "../components/Section.astro";
+import TextLink from "../components/TextLink.astro";
+import { publications } from "../config/publications";
+import { contact, site } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  colorNames,
+  colorPairs,
+  contrastRatio,
+  formatRatio,
+  minimumRatio,
+  readBrandColors,
+} from "../design/contrast";
+import tokensCss from "../styles/tokens.css?raw";
+
+const colors = readBrandColors(tokensCss);
+
+const colorUses: Record<(typeof colorNames)[number], string> = {
+  ink: "Texto, logo, títulos",
+  cream: "Fundos, texto sobre verde",
+  green: "Faixas de seção, botões, títulos de seção",
+  bronze: "Filetes, links",
+  stone: "Texto secundário, legendas",
+  line: "Divisórias e bordas; nunca texto",
+};
+
+const typeScale = [
+  { token: "--text-display", family: "Cormorant Garamond", sample: site.name },
+  {
+    token: "--text-heading-1",
+    family: "Cormorant Garamond",
+    sample: "Eleições 2026: implicações no rádio e na televisão.",
+  },
+  { token: "--text-heading-2", family: "Cormorant Garamond", sample: "Converse com o escritório." },
+  { token: "--text-heading-3", family: "Cormorant Garamond", sample: "Regulação e legislação" },
+  {
+    token: "--text-heading-4",
+    family: "Cormorant Garamond",
+    sample: "Leitura técnica das normas que estruturam o setor.",
+  },
+  {
+    token: "--text-lead",
+    family: "Newsreader",
+    sample:
+      "Assessoria e consultoria jurídica dedicada a emissoras, entidades e empresas do setor, com atuação regulatória, institucional, legislativa e preventiva.",
+  },
+  {
+    token: "--text-body",
+    family: "Newsreader",
+    sample:
+      "Sediado em Brasília, o escritório acompanha de perto o ambiente normativo, regulatório e institucional que afeta emissoras, entidades e empresas do setor.",
+  },
+  {
+    token: "--text-ui",
+    family: "Public Sans",
+    sample: "O escritório · Atuação · Publicações · Contato",
+  },
+  { token: "--text-ui-small", family: "Public Sans", sample: "Direito eleitoral · 2026" },
+];
+
+/*
+ * Heading case proposals, side by side. The site-wide switch is `--heading-case` in
+ * src/styles/tokens.css; this list is the only place the specimen sets it.
+ */
+const headingCaseProposals = [
+  { id: "mista", label: "Caixa mista (padrão atual)", className: "case-mixed" },
+  { id: "alta", label: "Caixa alta com espaçamento", className: "case-upper" },
+];
+
+const breadcrumbItems = [
+  { label: "Início", href: "/" },
+  { label: "Publicações", href: "/publicacoes" },
+  { label: "Eleições 2026", href: "/publicacoes/cartilha-eleicoes-2026" },
+];
+---
+
+<BaseLayout
+  title="Especificação visual | Machado Moura e Cardoso"
+  description="Página interna com os elementos visuais do site."
+  noindex
+>
+  <div class="container specimen-intro">
+    <p class="eyebrow">Página interna · fora do site publicado</p>
+    <h1>Especificação visual</h1>
+    <p class="lead">
+      Cores, tipografia, logotipos e componentes do novo site, com os textos já levantados no
+      inventário de conteúdo. Esta página não entra na versão de produção.
+    </p>
+    <nav aria-label="Seções da especificação">
+      <ul class="specimen-toc plain-list">
+        <li>
+          <a href="#cores">Cores</a>
+        </li>
+        <li>
+          <a href="#tipografia">Tipografia</a>
+        </li>
+        <li>
+          <a href="#caixa-dos-titulos">Caixa dos títulos</a>
+        </li>
+        <li>
+          <a href="#logotipos">Logotipos</a>
+        </li>
+        <li>
+          <a href="#componentes">Componentes</a>
+        </li>
+        <li>
+          <a href="#base">Elementos de base</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <Section id="cores" eyebrow="01" title="Cores">
+    <ul class="swatches plain-list">
+      {colorNames.map((name) => (
+        <li class="swatch">
+          <span class:list={["swatch-chip", `swatch-${name}`]} />
+          <span class="swatch-name">{name}</span>
+          <code>--color-{name}</code>
+          <code>{colors[name]}</code>
+          <span class="swatch-use">{colorUses[name]}</span>
+          <span class="swatch-ratio">
+            Sobre cream:{" "}
+            {name === "cream"
+              ? "n/a"
+              : `${formatRatio(contrastRatio(colors[name], colors.cream))}:1`}
+          </span>
+        </li>
+      ))}
+    </ul>
+    <table class="specimen-table">
+      <caption>
+        Pares usados no site e contraste calculado a partir de tokens.css (WCAG 2.2: 4,5:1 para
+        texto, 3:1 para elementos de interface).
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Amostra</th>
+          <th scope="col">Cor sobre fundo</th>
+          <th scope="col">Uso</th>
+          <th scope="col">Contraste</th>
+          <th scope="col">Mínimo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {colorPairs.map((pair) => {
+          const ratio = contrastRatio(colors[pair.foreground], colors[pair.background]);
+          return (
+            <tr>
+              <td>
+                <span
+                  class:list={["pair-sample", `fg-${pair.foreground}`, `bg-${pair.background}`]}
+                >
+                  Aa
+                </span>
+              </td>
+              <td>
+                {pair.foreground} sobre {pair.background}
+              </td>
+              <td>{pair.kind === "text" ? "Texto" : "Interface"}</td>
+              <td>{formatRatio(ratio)}:1</td>
+              <td>
+                {String(minimumRatio[pair.kind]).replace(".", ",")}:1
+                {ratio >= minimumRatio[pair.kind] ? " (atende)" : " (não atende)"}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </Section>
+
+  <Section id="tipografia" eyebrow="02" title="Tipografia">
+    <dl class="type-scale">
+      {typeScale.map((step) => (
+        <div class="type-step">
+          <dt>
+            <code>{step.token}</code> · {step.family}
+          </dt>
+          <dd class:list={["type-sample", `type-${step.token.slice(7)}`]}>{step.sample}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+
+  <Section id="caixa-dos-titulos" eyebrow="03" title="Caixa dos títulos: duas propostas">
+    <p class="specimen-note">
+      O manual define títulos em caixa alta. A proposta em uso é caixa mista; a troca é feita em um
+      único token (<code>--heading-case</code> em <code>src/styles/tokens.css</code>).
+    </p>
+    <div class="case-compare">
+      {headingCaseProposals.map((proposal) => (
+        <figure
+          class:list={["case-panel", proposal.className]}
+          aria-labelledby={`caso-${proposal.id}`}
+        >
+          <figcaption class="eyebrow" id={`caso-${proposal.id}`}>
+            {proposal.label}
+          </figcaption>
+          <p class="case-heading case-heading-1">
+            Eleições 2026: implicações no rádio e na televisão.
+          </p>
+          <p class="case-heading case-heading-2">Converse com o escritório.</p>
+          <p class="case-heading case-heading-3">Outorgas e renovações</p>
+          <p class="case-heading case-heading-4">Gestão jurídica de etapas críticas da operação.</p>
+        </figure>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="logotipos" eyebrow="04" title="Logotipos">
+    <p class="specimen-note">
+      Arquivos da pasta da marca, sem alteração do desenho. As pranchetas já incluem a área de
+      proteção (um quarto da altura do símbolo). Larguras mínimas: horizontal 300 px, vertical 200
+      px, símbolo 64 px.
+    </p>
+    <div class="logo-grid">
+      <figure class="logo-tile">
+        <Logo />
+        <figcaption>Horizontal, ink, 300 px</figcaption>
+      </figure>
+      <figure class="logo-tile band-green">
+        <Logo tone="cream" />
+        <figcaption>Horizontal, cream sobre verde, 300 px</figcaption>
+      </figure>
+      <figure class="logo-tile">
+        <Logo variant="stacked" />
+        <figcaption>Vertical, ink, 200 px</figcaption>
+      </figure>
+      <figure class="logo-tile band-ink">
+        <Logo variant="stacked" tone="cream" />
+        <figcaption>Vertical, cream sobre ink, 200 px</figcaption>
+      </figure>
+      <figure class="logo-tile">
+        <Logo variant="symbol" />
+        <figcaption>Símbolo, ink, 64 px (mínimo)</figcaption>
+      </figure>
+      <figure class="logo-tile">
+        <div class="favicon-row">
+          <img src="/favicon.svg" width="16" height="16" alt="" />
+          <img src="/favicon.svg" width="32" height="32" alt="" />
+          <img src="/favicon.svg" width="48" height="48" alt="" />
+        </div>
+        <figcaption>Favicon simplificado (variante F), 16, 32 e 48 px. Provisório.</figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section id="componentes" eyebrow="05" title="Componentes">
+    <div class="component-list">
+      <article class="component" aria-labelledby="c-cabecalho">
+        <h3 id="c-cabecalho">Cabeçalho e navegação</h3>
+        <p class="specimen-note">
+          O cabeçalho real está no topo desta página. Em telas estreitas, com JavaScript, a
+          navegação fica atrás do botão "Menu" (Esc fecha); sem JavaScript, os links ficam visíveis
+          abaixo do logotipo.
+        </p>
+      </article>
+
+      <article class="component" aria-labelledby="c-pular">
+        <h3 id="c-pular">Link para pular ao conteúdo</h3>
+        <p class="specimen-note">
+          Primeiro elemento da página: pressione Tab ao carregar para vê-lo.
+        </p>
+      </article>
+
+      <article class="component" aria-labelledby="c-trilha">
+        <h3 id="c-trilha">Trilha de navegação</h3>
+        <Breadcrumb items={breadcrumbItems} />
+      </article>
+
+      <article class="component" aria-labelledby="c-botoes">
+        <h3 id="c-botoes">Botões</h3>
+        <div class="state-grid">
+          <Button href="/#contato">Fale com o escritório</Button>
+          <Button href="/" state="hover">
+            Passar o cursor
+          </Button>
+          <Button href="/" state="focus">
+            Foco
+          </Button>
+          <Button disabled>Indisponível</Button>
+        </div>
+        <div class="state-grid">
+          <Button variant="secondary" href="/#atuacao">
+            Conheça nossa atuação
+          </Button>
+          <Button variant="secondary" href="/" state="hover">
+            Passar o cursor
+          </Button>
+          <Button variant="secondary" href="/" state="focus">
+            Foco
+          </Button>
+          <Button variant="secondary" disabled>
+            Indisponível
+          </Button>
+        </div>
+        <div class="state-grid band-green band-sample">
+          <Button href={`mailto:${contact.email}`}>Enviar mensagem</Button>
+          <Button href="/" state="hover">
+            Passar o cursor
+          </Button>
+          <Button variant="secondary" href={contact.mapUrl} rel="noopener noreferrer">
+            Abrir no Google Maps
+          </Button>
+          <Button variant="secondary" href="/" state="focus">
+            Foco
+          </Button>
+        </div>
+      </article>
+
+      <article class="component" aria-labelledby="c-links">
+        <h3 id="c-links">Links de texto</h3>
+        <p class="state-grid">
+          <TextLink href="/">Voltar à página inicial</TextLink>
+          <TextLink href="/" state="hover">
+            Passar o cursor
+          </TextLink>
+          <TextLink href="/" state="focus">
+            Foco
+          </TextLink>
+          <TextLink href={contact.mapUrl}>Abrir no Google Maps</TextLink>
+        </p>
+        <p class="state-grid band-green band-sample">
+          <TextLink href="/">Voltar à página inicial</TextLink>
+          <TextLink href="/" state="focus">
+            Foco
+          </TextLink>
+        </p>
+      </article>
+
+      <article class="component" aria-labelledby="c-prosa">
+        <h3 id="c-prosa">Texto corrido</h3>
+        {/* E-12, E-13, E-14, E-18, E-20 to E-25, PDF-04 */}
+        <Prose>
+          <p>
+            O material organiza as principais obrigações eleitorais das emissoras em seis frentes
+            operacionais. Cada seção apresenta o que observar, quando agir, quais evidências manter
+            e quais riscos evitar.
+          </p>
+          <p>As orientações são gerais e não substituem a análise jurídica de casos concretos.</p>
+          <h4>Conteúdo da cartilha</h4>
+          <ol>
+            <li>Calendário eleitoral</li>
+            <li>Pesquisas</li>
+            <li>Programação normal</li>
+            <li>Debates</li>
+            <li>Horário gratuito</li>
+            <li>Direito de resposta</li>
+          </ol>
+          <hr />
+          <p>
+            <em>Esta obra intelectual é protegida pela Lei nº 9.610/1998.</em> Autorizada apenas a
+            reprodução integral.
+          </p>
+        </Prose>
+      </article>
+
+      <article class="component" aria-labelledby="c-cartoes">
+        <h3 id="c-cartoes">Cartões de publicação</h3>
+        <div class="card-grid">
+          {publications.map((publication) => (
+            <PublicationCard publication={publication} level={4} />
+          ))}
+        </div>
+      </article>
+
+      <article class="component" aria-labelledby="c-contato">
+        <h3 id="c-contato">Bloco de contato</h3>
+        <ContactBlock />
+      </article>
+    </div>
+  </Section>
+
+  <Section id="secao-faixa" eyebrow="Contato" title="Converse com o escritório." band="green">
+    <p class="lead">
+      Atendimento jurídico e institucional a empresas e entidades do setor de radiodifusão.
+    </p>
+  </Section>
+
+  <Section id="base" eyebrow="06" title="Elementos de base">
+    <div class="component-list">
+      <article class="component" aria-labelledby="b-listas">
+        <h3 id="b-listas">Listas</h3>
+        <ul>
+          <li>Consultoria jurídica recorrente</li>
+          <li>Revisão de riscos regulatórios</li>
+          <li>Apoio a decisões administrativas</li>
+        </ul>
+      </article>
+
+      <article class="component" aria-labelledby="b-tabela">
+        <h3 id="b-tabela">Tabela</h3>
+        <table>
+          <caption>Publicações do escritório</caption>
+          <thead>
+            <tr>
+              <th scope="col">Publicação</th>
+              <th scope="col">Categoria</th>
+            </tr>
+          </thead>
+          <tbody>
+            {publications.map((publication) => (
+              <tr>
+                <td>{publication.title}</td>
+                <td>{publication.category}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </article>
+
+      <article class="component" aria-labelledby="b-formulario">
+        <h3 id="b-formulario">Campos de formulário</h3>
+        <p class="specimen-note">
+          O site não tem formulário. Os estilos ficam prontos para uso futuro: rótulo visível, foco,
+          erro indicado por texto e borda (não só por cor) e estado desabilitado.
+        </p>
+        <form
+          class="specimen-form"
+          aria-labelledby="b-formulario"
+          action="/_design"
+          method="get"
+          novalidate
+        >
+          <div class="field">
+            <label for="campo-nome">Nome</label>
+            <input id="campo-nome" name="nome" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="campo-email">E-mail</label>
+            <input
+              id="campo-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              value="contato@"
+              aria-invalid="true"
+              aria-describedby="campo-email-erro"
+            />
+            <p class="field-error" id="campo-email-erro">
+              Erro: informe um e-mail completo.
+            </p>
+          </div>
+          <div class="field">
+            <label for="campo-mensagem">Mensagem</label>
+            <textarea
+              id="campo-mensagem"
+              name="mensagem"
+              rows="4"
+              aria-describedby="campo-mensagem-dica"
+            ></textarea>
+            <p class="field-hint" id="campo-mensagem-dica">
+              Campo de exemplo.
+            </p>
+          </div>
+          <div class="field">
+            <label for="campo-desabilitado">Campo desabilitado</label>
+            <input id="campo-desabilitado" name="desabilitado" type="text" disabled />
+          </div>
+          <div class="field-check">
+            <input id="campo-aceite" name="aceite" type="checkbox" />
+            <label for="campo-aceite">Opção de seleção</label>
+          </div>
+          <div>
+            <Button type="submit">Botão de envio</Button>
+          </div>
+        </form>
+      </article>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .specimen-intro {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-section) var(--space-8);
+  }
+
+  .specimen-intro .lead {
+    max-width: var(--measure);
+  }
+
+  .specimen-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-6);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+  }
+
+  .specimen-toc li {
+    margin: 0;
+  }
+
+  .specimen-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+  }
+
+  .specimen-note {
+    max-width: var(--measure);
+    margin-block-end: var(--space-6);
+    color: var(--color-text-muted);
+  }
+
+  code {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+  }
+
+  /* Colours */
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--column-min-narrow)), 1fr));
+    gap: var(--space-6) var(--grid-gutter);
+    margin-block-end: var(--space-12);
+  }
+
+  .swatch {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+  }
+
+  .swatch-chip {
+    block-size: var(--space-20);
+    margin-block-end: var(--space-2);
+    border: var(--rule);
+  }
+
+  .swatch-ink {
+    background: var(--color-ink);
+  }
+
+  .swatch-cream {
+    background: var(--color-cream);
+  }
+
+  .swatch-green {
+    background: var(--color-green);
+  }
+
+  .swatch-bronze {
+    background: var(--color-bronze);
+  }
+
+  .swatch-stone {
+    background: var(--color-stone);
+  }
+
+  .swatch-line {
+    background: var(--color-line);
+  }
+
+  .swatch-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .swatch-use,
+  .swatch-ratio {
+    color: var(--color-text-muted);
+  }
+
+  .pair-sample {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    border: var(--rule);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+  }
+
+  .fg-ink {
+    color: var(--color-ink);
+  }
+
+  .fg-cream {
+    color: var(--color-cream);
+  }
+
+  .fg-green {
+    color: var(--color-green);
+  }
+
+  .fg-bronze {
+    color: var(--color-bronze);
+  }
+
+  .fg-stone {
+    color: var(--color-stone);
+  }
+
+  .bg-cream {
+    background: var(--color-cream);
+  }
+
+  .bg-green {
+    background: var(--color-green);
+  }
+
+  .bg-ink {
+    background: var(--color-ink);
+  }
+
+  .specimen-table {
+    max-width: var(--container-max);
+  }
+
+  /* Type scale */
+
+  .type-scale {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .type-step {
+    display: grid;
+    gap: var(--space-2);
+    padding-block-end: var(--space-6);
+    border-bottom: var(--rule);
+  }
+
+  .type-sample {
+    max-width: var(--measure);
+  }
+
+  .type-display,
+  .type-heading-1,
+  .type-heading-2,
+  .type-heading-3,
+  .type-heading-4 {
+    font-family: var(--font-display);
+    line-height: var(--line-height-heading);
+    text-transform: var(--heading-case);
+    letter-spacing: var(--heading-letter-spacing);
+  }
+
+  .type-display {
+    font-size: var(--text-display);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .type-heading-1 {
+    font-size: var(--text-heading-1);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .type-heading-2 {
+    font-size: var(--text-heading-2);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-heading-accent);
+  }
+
+  .type-heading-3 {
+    font-size: var(--text-heading-3);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .type-heading-4 {
+    font-size: var(--text-heading-4);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .type-lead {
+    font-size: var(--text-lead);
+  }
+
+  .type-body {
+    font-size: var(--text-body);
+  }
+
+  .type-ui,
+  .type-ui-small {
+    font-family: var(--font-ui);
+  }
+
+  .type-ui {
+    font-size: var(--text-ui);
+  }
+
+  .type-ui-small {
+    font-size: var(--text-ui-small);
+  }
+
+  /* Heading case comparison */
+
+  .case-compare {
+    display: grid;
+    gap: var(--space-10) var(--grid-gutter);
+  }
+
+  .case-panel {
+    display: grid;
+    align-content: start;
+    gap: var(--space-5);
+    padding-block-start: var(--space-4);
+    border-top: var(--rule-accent);
+  }
+
+  .case-mixed {
+    --heading-case: none;
+    --heading-letter-spacing: 0;
+  }
+
+  .case-upper {
+    --heading-case: uppercase;
+    --heading-letter-spacing: var(--letter-spacing-display-caps);
+  }
+
+  .case-heading {
+    font-family: var(--font-display);
+    line-height: var(--line-height-heading);
+    text-transform: var(--heading-case);
+    letter-spacing: var(--heading-letter-spacing);
+  }
+
+  .case-heading-1 {
+    font-size: var(--text-heading-1);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .case-heading-2 {
+    font-size: var(--text-heading-2);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-heading-accent);
+  }
+
+  .case-heading-3 {
+    font-size: var(--text-heading-3);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .case-heading-4 {
+    font-size: var(--text-heading-4);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Logos */
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--column-min-wide)), 1fr));
+    gap: var(--grid-gutter);
+  }
+
+  .logo-tile {
+    display: grid;
+    align-content: space-between;
+    justify-items: start;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border: var(--rule);
+    overflow-x: auto;
+  }
+
+  .logo-tile figcaption {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+    color: var(--color-text-muted);
+  }
+
+  .favicon-row {
+    display: flex;
+    align-items: end;
+    gap: var(--space-6);
+  }
+
+  /* Components */
+
+  .component-list {
+    display: grid;
+    gap: var(--space-16);
+  }
+
+  .component {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .state-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+  }
+
+  .band-sample {
+    padding: var(--space-6);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: var(--space-10) var(--grid-gutter);
+  }
+
+  .specimen-form {
+    display: grid;
+    gap: var(--space-6);
+    max-width: var(--measure-narrow);
+  }
+
+  .field-check {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--control-min-size);
+  }
+
+  .field-check label {
+    font-weight: var(--font-weight-regular);
+  }
+
+  @media (width >= 48rem) {
+    .case-compare,
+    .card-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64rem) {
+    .card-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,125 @@
+---
+/**
+ * Button or button-styled link. `href` renders an <a>; otherwise a <button>.
+ * `primary` is a solid green fill, `secondary` a hairline outline. Both adapt on dark bands.
+ * `state` forces a visual state, for the design specimen only.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+type Variant = "primary" | "secondary";
+
+interface Props {
+  variant?: Variant;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  download?: boolean | string;
+  rel?: string;
+  state?: "hover" | "focus";
+  class?: HTMLAttributes<"a">["class"];
+}
+
+const {
+  variant = "primary",
+  href,
+  type = "button",
+  disabled = false,
+  download,
+  rel,
+  state,
+  class: className,
+} = Astro.props;
+
+const classes = ["button", `button-${variant}`, className];
+---
+
+{href ? (
+  <a class:list={classes} {href} {download} {rel} data-state={state}>
+    <slot />
+  </a>
+) : (
+  <button class:list={classes} {type} {disabled} data-state={state}>
+    <slot />
+  </button>
+)}
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--control-min-size);
+    padding: var(--control-padding-block) var(--control-padding-inline);
+    border: var(--hairline) solid var(--button-border);
+    border-radius: var(--radius);
+    background: var(--button-background);
+    color: var(--button-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-ui);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-colour) var(--easing),
+      border-color var(--duration-colour) var(--easing),
+      color var(--duration-colour) var(--easing);
+  }
+
+  /* On cream: green fill, ink on hover. */
+  .button-primary {
+    --button-background: var(--color-green);
+    --button-border: var(--color-green);
+    --button-text: var(--color-cream);
+    --button-hover-background: var(--color-ink);
+    --button-hover-text: var(--color-cream);
+  }
+
+  .button-secondary {
+    --button-background: transparent;
+    --button-border: var(--color-ink);
+    --button-text: var(--color-ink);
+    --button-hover-background: var(--color-ink);
+    --button-hover-text: var(--color-cream);
+  }
+
+  /* On dark bands: cream fill with green text, or a cream outline. */
+  :global(.band-green, .band-ink) .button-primary {
+    --button-background: var(--color-cream);
+    --button-border: var(--color-cream);
+    --button-text: var(--color-green);
+    --button-hover-background: transparent;
+    --button-hover-text: var(--color-cream);
+  }
+
+  :global(.band-ink) .button-primary {
+    --button-text: var(--color-ink);
+  }
+
+  :global(.band-green, .band-ink) .button-secondary {
+    --button-border: var(--color-cream);
+    --button-text: var(--color-cream);
+    --button-hover-background: var(--color-cream);
+    --button-hover-text: var(--color-green);
+  }
+
+  :global(.band-ink) .button-secondary {
+    --button-hover-text: var(--color-ink);
+  }
+
+  .button:hover,
+  .button[data-state="hover"] {
+    border-color: var(--button-hover-text);
+    background: var(--button-hover-background);
+    color: var(--button-hover-text);
+  }
+
+  .button:disabled {
+    border-style: dashed;
+    border-color: var(--color-stone);
+    background: transparent;
+    color: var(--color-stone);
+    cursor: not-allowed;
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+// Publication card: real cover, category, title, one-line summary and a link (H-72 to H-84).
+import { Picture } from "astro:assets";
+import type { Publication } from "../config/publications";
+
+interface Props {
+  publication: Publication;
+  /** Heading level of the card title inside its section. */
+  level?: 2 | 3 | 4;
+}
+
+const { publication, level = 3 } = Astro.props;
+const Heading = `h${level}` as const;
+---
+
+<article class="publication-card">
+  <Picture
+    class="publication-cover"
+    src={publication.cover}
+    alt={publication.coverAlt}
+    formats={["avif", "webp"]}
+    widths={[480, 960]}
+    sizes="(width >= 64rem) 22rem, (width >= 48rem) 45vw, 100vw"
+  />
+  <div class="publication-body">
+    <p class="eyebrow">{publication.category}</p>
+    <Heading class="publication-title">{publication.title}</Heading>
+    <p class="publication-summary">{publication.summary}</p>
+    <p class="publication-link">
+      <a href={publication.href}>{publication.linkLabel}</a>
+    </p>
+  </div>
+</article>
+
+<style>
+  .publication-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-top: var(--rule-accent);
+    padding-block-start: var(--space-4);
+  }
+
+  .publication-card :global(.publication-cover) {
+    width: 100%;
+    border: var(--rule);
+  }
+
+  .publication-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-block-start: var(--space-5);
+  }
+
+  .publication-title {
+    font-size: var(--text-heading-4);
+    color: var(--color-text);
+  }
+
+  .publication-summary {
+    color: var(--color-text-muted);
+  }
+
+  .publication-link {
+    margin-block-start: auto;
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+  }
+</style>

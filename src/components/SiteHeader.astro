@@ -1,0 +1,161 @@
+---
+/**
+ * Site header. Without JavaScript the navigation is always visible (a wrapped list below the
+ * logo on small screens). With JavaScript, small screens get a "Menu" disclosure button.
+ * The horizontal logo keeps its 300 px brand minimum at every width.
+ */
+import Logo from "./Logo.astro";
+import { mainNavigation, site } from "../config/site";
+
+interface Props {
+  /** Path of the current page, to mark the matching item with aria-current. */
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+const menuId = "menu-principal";
+---
+
+<header class="site-header" data-site-header>
+  <div class="container site-header-inner">
+    <a class="home-link" href="/">
+      <Logo alt={site.name} loading="eager" />
+      <span class="visually-hidden">, página inicial</span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls={menuId} hidden>
+        Menu
+      </button>
+      <ul class="site-nav-list plain-list" id={menuId}>
+        {mainNavigation.map((item) => (
+          <li>
+            <a href={item.href} aria-current={item.href === currentPath ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Progressive enhancement: collapse the navigation behind a button on small screens.
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const toggle = header?.querySelector<HTMLButtonElement>(".menu-toggle");
+
+  if (header && toggle) {
+    const setOpen = (open: boolean) => toggle.setAttribute("aria-expanded", String(open));
+    header.dataset.enhanced = "true";
+    toggle.hidden = false;
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    header.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    border-bottom: var(--rule);
+  }
+
+  .site-header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-8);
+    padding-block: var(--space-2);
+  }
+
+  .home-link {
+    display: block;
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+  }
+
+  .site-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-6);
+  }
+
+  .site-nav-list li {
+    margin: 0;
+  }
+
+  .site-nav-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+    color: var(--color-text);
+    text-decoration-color: transparent;
+  }
+
+  .site-nav-list a:hover,
+  .site-nav-list a[aria-current="page"] {
+    text-decoration-color: currentcolor;
+  }
+
+  .site-nav-list a[aria-current="page"] {
+    text-decoration-thickness: var(--border-strong);
+  }
+
+  .menu-toggle {
+    min-height: var(--control-min-size);
+    padding: var(--space-2) var(--space-4);
+    border: var(--hairline) solid var(--color-ink);
+    border-radius: var(--radius);
+    background: transparent;
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-colour) var(--easing),
+      color var(--duration-colour) var(--easing);
+  }
+
+  .menu-toggle:hover,
+  .menu-toggle[aria-expanded="true"] {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  @media (width < 64rem) {
+    .site-nav {
+      flex-basis: 100%;
+    }
+
+    [data-enhanced] .site-nav-list {
+      flex-basis: 100%;
+      flex-direction: column;
+      padding-block-end: var(--space-2);
+    }
+
+    [data-enhanced] .menu-toggle[aria-expanded="false"] + .site-nav-list {
+      display: none;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .menu-toggle {
+      display: none;
+    }
+  }
+</style>

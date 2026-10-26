@@ -1,0 +1,55 @@
+---
+/**
+ * Section wrapper with an optional eyebrow and a title. `band="green"` gives a solid green
+ * band with cream text (docs/brand.md: about 15% of a page).
+ */
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  /** Heading level of the title; the eyebrow is never a heading. */
+  level?: 2 | 3;
+  band?: "none" | "green";
+}
+
+const { id, eyebrow, title, level = 2, band = "none" } = Astro.props;
+const Heading = `h${level}` as const;
+const headingId = id ? `${id}-titulo` : undefined;
+---
+
+<section
+  class:list={["section", { "band-green": band === "green" }]}
+  {id}
+  aria-labelledby={headingId}
+>
+  <div class="container">
+    <header class="section-header">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <Heading class="section-title" id={headingId}>
+        {title}
+      </Heading>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-section);
+  }
+
+  .section + .section:not(.band-green) {
+    border-top: var(--rule);
+  }
+
+  .section-header {
+    display: grid;
+    gap: var(--space-3);
+    max-width: var(--measure);
+    margin-block-end: var(--space-8);
+  }
+
+  .section-title {
+    color: var(--color-heading-accent);
+  }
+</style>

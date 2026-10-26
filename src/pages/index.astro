@@ -1,18 +1,17 @@
 ---
+// Placeholder until Phase 3 builds the home page.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../config/site";
 ---
 
-<BaseLayout title={site.name} description={site.description}>
-  <main id="conteudo-principal">
+<BaseLayout title={site.name} description={site.description} currentPath="/">
+  <div class="container placeholder">
     <h1>{site.name}</h1>
-  </main>
+  </div>
 </BaseLayout>
 
 <style>
-  main {
-    max-width: 60rem;
-    margin: 0 auto;
-    padding: 4rem 1rem;
+  .placeholder {
+    padding-block: var(--space-section);
   }
 </style>

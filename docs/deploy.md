@@ -22,6 +22,16 @@ State on 2026-10-26: the Cloudflare account has only the Worker `mmec`. `mmec-si
 
 `public/_headers` sends `X-Robots-Tag: noindex, nofollow` on every response, and every page carries `<meta name="robots" content="noindex, nofollow">` (`src/config/site.ts`, `indexable: false`). Both stay until Phase 8.
 
+## Design specimen (`/_design`)
+
+The internal specimen page is injected by `src/integrations/design-specimen.mjs` only when:
+
+- running `npm run dev`;
+- `DESIGN_SPECIMEN=true` (`npm run build:specimen`, used by `npm run check`);
+- Workers Builds builds a branch other than `main` (the default build variable `WORKERS_CI_BRANCH`), so pull request previews show it.
+
+A plain `npm run build`, and every Workers Builds build of `main`, has no `/_design`. No Cloudflare setting is needed. The page is always `noindex` and must stay out of the sitemap added in Phase 5.
+
 ## One-time setup: connect the repository (owner)
 
 Needs the owner's Cloudflare login and a GitHub app approval, so it is not automated.

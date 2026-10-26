@@ -1,0 +1,75 @@
+---
+/**
+ * Brand logo from public/brand (docs/brand.md). The artboards already include the clear space
+ * (a quarter of the symbol height) on every side, so no extra margin is added here. Widths
+ * below the brand minimum are rejected at build time. On dark bands use `tone="cream"`; the
+ * ink file is swapped in for print.
+ */
+import { site } from "../config/site";
+
+type Variant = "horizontal" | "stacked" | "symbol";
+type Tone = "ink" | "cream";
+
+interface Props {
+  variant?: Variant;
+  tone?: Tone;
+  /** Rendered width in CSS pixels; defaults to the brand minimum. */
+  width?: number;
+  /** Empty when the logo sits next to visible text with the same name. */
+  alt?: string;
+  loading?: "eager" | "lazy";
+}
+
+// Artboard sizes of the files in public/brand/svg, and minimum on-screen widths (brand.md).
+const files: Record<Variant, { artboard: [number, number]; minWidth: number; name: string }> = {
+  horizontal: { artboard: [3600, 1200], minWidth: 300, name: "mmec-logo-horizontal" },
+  stacked: { artboard: [2000, 2000], minWidth: 200, name: "mmec-logo-stacked" },
+  symbol: { artboard: [2000, 2000], minWidth: 64, name: "mmec-symbol" },
+};
+
+const {
+  variant = "horizontal",
+  tone = "ink",
+  width = files[variant].minWidth,
+  alt = site.name,
+  loading = "lazy",
+} = Astro.props;
+
+const file = files[variant];
+if (width < file.minWidth) {
+  throw new Error(
+    `Logo "${variant}" must be at least ${file.minWidth}px wide (docs/brand.md), got ${width}px.`,
+  );
+}
+const height = Math.round((width * file.artboard[1]) / file.artboard[0]);
+const src = (fileTone: Tone) => `/brand/svg/${file.name}-${fileTone}.svg`;
+---
+
+<img
+  class:list={["logo", { "logo-screen-only": tone === "cream" }]}
+  src={src(tone)}
+  {width}
+  {height}
+  {alt}
+  {loading}
+  decoding="async"
+/>
+{tone === "cream" && (
+  <img
+    class="logo logo-print-only"
+    src={src("ink")}
+    {width}
+    {height}
+    alt=""
+    loading="lazy"
+    decoding="async"
+  />
+)}
+
+<style>
+  /* The brand minimum wins over the global `max-width: 100%` for images. */
+  .logo {
+    flex: none;
+    max-width: none;
+  }
+</style>
