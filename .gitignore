@@ -7,6 +7,7 @@ dist/
 .wrangler/
 .cache/
 coverage/
+.lighthouseci/
 lighthouse-report/
 playwright-report/
 test-results/
