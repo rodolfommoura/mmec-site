@@ -125,6 +125,10 @@
   --logo-stacked-width: 200px;
   --logo-symbol-width: 64px;
 
+  /* Symbol watermark (docs/brand.md): low-opacity ink, used once, large and cropped. */
+  --watermark-size: 36rem;
+  --watermark-opacity: 0.06;
+
   /* Motion: colour transitions only (docs/brand.md allows at most 150 ms). */
   --duration-colour: 150ms;
   --easing: ease-out;
