@@ -143,7 +143,8 @@ function Get-OpenPr {
     param([string]$Branch)
     $json = & gh pr list --head $Branch --state open --json number,url,body --limit 1
     if ($LASTEXITCODE -ne 0) { Stop-Run 'gh pr list failed. Check gh auth status.' }
-    $items = @($json | ConvertFrom-Json)
+    # Windows PowerShell 5.1 emits a JSON array as one object; unroll it so '[]' gives Count 0.
+    $items = @($json | ConvertFrom-Json | ForEach-Object { $_ })
     if ($items.Count -eq 0) { return $null }
     return $items[0]
 }
@@ -224,7 +225,9 @@ function Invoke-Phase {
     if ($Model) { $claudeArgs += @('--model', $Model) }
 
     Write-Host "Running Claude Code (log: $log). This can take 20 to 40 minutes."
-    $output = $prompt | & claude @claudeArgs 2>&1 | Tee-Object -FilePath $log | ForEach-Object { Write-Host $_; $_ }
+    # With ErrorActionPreference Stop, 5.1 aborts on the first stderr line redirected by 2>&1.
+    $output = & { $ErrorActionPreference = 'Continue'; $prompt | & claude @claudeArgs 2>&1 } |
+        ForEach-Object { "$_" } | Tee-Object -FilePath $log | ForEach-Object { Write-Host $_; $_ }
     if ($LASTEXITCODE -ne 0) {
         Stop-Run "Claude Code exited with code $LASTEXITCODE. If the usage limit was reached, wait for the reset and run the same command again. Log: $log"
     }
@@ -247,7 +250,11 @@ function Invoke-Phase {
         Write-Host 'Owner actions needed before this phase can be merged:' -ForegroundColor Yellow
         foreach ($m in $owner) { Write-Host $m.Value.Trim() -ForegroundColor Yellow }
         Write-Host "PR left open: $($pr.url)"
-        Write-Host "When done, run: .\scripts\run-phases.ps1 -From $($Number + 1) -To $To -ApproveFirst"
+        if ($Number -lt 7) {
+            Write-Host "When done, run: .\scripts\run-phases.ps1 -From $($Number + 1) -To $([Math]::Max($Number + 1, $To)) -ApproveFirst"
+        } else {
+            Write-Host 'When done and after your written go in the PR: merge it with gh pr merge.'
+        }
         exit 0
     }
 
@@ -281,7 +288,7 @@ Set-Location $RepoRoot
 foreach ($tool in @('git', 'gh', 'claude')) {
     if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) { Stop-Run "$tool is not installed or not in PATH." }
 }
-& gh auth status 2>&1 | Out-Null
+& { $ErrorActionPreference = 'Continue'; & gh auth status 2>&1 | Out-Null }
 if ($LASTEXITCODE -ne 0) { Stop-Run 'gh is not logged in. Run: gh auth login' }
 
 if ($From -gt $To) { Stop-Run '-From must be less than or equal to -To.' }
