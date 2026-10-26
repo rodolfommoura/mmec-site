@@ -68,6 +68,11 @@ const year = new Date().getFullYear();
     grid-column: 1 / -1;
   }
 
+  /* Query container: the logo caps its width at `100cqi` (Logo.astro). */
+  .site-footer-brand {
+    container-type: inline-size;
+  }
+
   .site-footer-tagline {
     margin-block-start: var(--space-4);
   }
@@ -105,6 +110,12 @@ const year = new Date().getFullYear();
 
     .site-footer-column {
       grid-column: span 3;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .site-footer-brand {
+      --logo-horizontal-width: var(--logo-horizontal-width-large);
     }
   }
 </style>

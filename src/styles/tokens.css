@@ -122,6 +122,8 @@
 
   /* Logo sizes (docs/brand.md): minimum widths on screen, artboard included. */
   --logo-horizontal-width: 300px;
+  /* Header and footer from --breakpoint-lg: the wordmark's second line reaches about 9 px. */
+  --logo-horizontal-width-large: 480px;
   --logo-stacked-width: 200px;
   --logo-symbol-width: 64px;
 
