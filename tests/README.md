@@ -7,5 +7,7 @@ Playwright tests run against the built site (`npm run build` first, `npm run tes
 - `header.spec.ts`: mobile menu with and without JavaScript, Escape closes it, logo stays at 300 px, skip link.
 - `specimen.spec.ts`: `/_design` is keyboard-complete (every control reachable by Tab with a visible focus ring) and `noindex`. Skipped when the build has no specimen.
 - `console.spec.ts`: no console errors on any built page.
+- `home.spec.ts`: home page anchors, metadata, overflow and third-party requests.
+- `publications.spec.ts`: each publication shows the real size and page count of its PDF, the legacy PDFs are served byte for byte, the legal notice and type and year label are present, print hides the buttons and shows the PDF address; legal pages show their update date; the 404 page answers `404` and links home, to the publications and to the contact address.
 
 `npm run check` builds with the specimen (`npm run build:specimen`) before the tests, so the specimen is validated, link-checked and tested with axe.

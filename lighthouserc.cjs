@@ -8,7 +8,9 @@ module.exports = {
     collect: {
       startServerCommand: `npx astro preview --port ${port}`,
       startServerReadyPattern: "localhost",
-      url: [`http://localhost:${port}/`],
+      url: ["/", "/publicacoes", "/publicacoes/cartilha-eleicoes-2026", "/privacidade"].map(
+        (path) => `http://localhost:${port}${path}`,
+      ),
       numberOfRuns: 3,
       chromePath: chromium.executablePath(),
       settings: {
