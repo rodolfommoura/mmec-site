@@ -12,7 +12,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 |---|---|---|---|
 | Q-01 | Short name "MMC" vs "MMEC" | Phase 2 | Never "MMC". Full name in copy, "MMEC" only as a short form. |
 | Q-02 | "Desde 2004" and "22+ anos" | Phase 3 | "Desde 2004" confirmed; no counter, no "22+". |
-| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Keep the current email until the owner confirms the new one; Maps link to the listing if Phase 3 confirms it shows the current name, otherwise to the coordinates. |
+| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Resolved: keep the current email until the owner confirms the new one; the Maps link opens the renamed listing (pin `-15.8463737, -47.8944906`). |
 | Q-04 | Decorative claims "360°", "DF", "01" | Phase 3 | Drop. |
 | Q-05 | Phone numbers, WhatsApp and postcode | Phase 3 | Publish `(61) 3703-5558` and `(61) 3879-5003` (labelled and linked as WhatsApp); CEP `71.615-560`. |
 | Q-06 | "Especializada" and OAB art. 3, III | Phase 3 | Never "especializada" or "especialização" (no certified title); say "atuação em direito da radiodifusão". |
@@ -65,6 +65,8 @@ Answer: "Desde 2004" is confirmed as the founding reference. No counter, no "22+
 - **Default:** keep `contato@mouraeribeiro.adv.br` in the single contact config file until a new mailbox is confirmed (`CLAUDE.md` rule 9). The maps link points to the coordinates (`-15.8521537,-47.8945894`), not to the listing, until the listing carries the current name. No DNS or email change in this project.
 
 Answer: The owner has already renamed the Google Business Profile. A mailbox on `@mmec.adv.br` will exist later, not now: keep `contato@mouraeribeiro.adv.br` in the contact config until the owner confirms the new address. In Phase 3, check that the Maps listing shows the current firm name. If it does, the map link may point to the listing; otherwise it points to the coordinates.
+
+Resolved (Phase 3 gate): the owner supplied the listing URL, which carries "Machado Moura e Cardoso Advogados Associados". The "Abrir no Google Maps" link now opens that listing (no iframe, `rel="noopener noreferrer"`). Its pin is `-15.8463737, -47.8944906`; the legacy coordinates `-15.8521537, -47.8945894` sit about 640 m away and are no longer used. The email part stands as answered above: `contato@mouraeribeiro.adv.br` stays until the owner confirms a mailbox on `@mmec.adv.br`.
 
 ### Q-16. Preview Worker name
 
@@ -180,7 +182,7 @@ Answer: Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003`, the second 
 
 - Evidence: H-96, an iframe from `maps.google.com` loaded on every home page view.
 - Problems: a third-party request before consent (LGPD, `CLAUDE.md` rule 6), a CSP exception (`frame-src`), extra weight, and it shows the old listing name nearby.
-- **Default:** no iframe. The address is shown as text with a plain "Abrir no Google Maps" link to the coordinates (see Q-03). A static map image is possible later only if made from a source with a compatible licence.
+- **Default:** no iframe. The address is shown as text with a plain "Abrir no Google Maps" link (see Q-03; it now opens the renamed listing). A static map image is possible later only if made from a source with a compatible licence.
 
 Answer: Accepted as proposed.
 

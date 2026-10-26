@@ -197,7 +197,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-95 | `index.html:454` | `Lago Sul · Brasília/DF` | address | keep | |
 | H-96 | `index.html:457` | `Mapa do escritório em Brasília` (embedded Google Maps iframe) | map | drop | No iframe; the address is shown as text with a plain map link (Q-10). |
 | H-97 | `index.html:466` | `Enviar mensagem` | button | keep | `mailto:` link. |
-| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | rewrite | The owner has renamed the listing. Phase 3 checks it shows the current firm name: if so, link to the listing; otherwise to the coordinates `-15.8521537,-47.8945894` (Q-03). |
+| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | rewrite | The owner renamed the listing and supplied its URL, which carries the current firm name: the link opens that listing, pin `-15.8463737, -47.8944906`. The legacy coordinates `-15.8521537, -47.8945894` are about 640 m south of the pin and are no longer used (Q-03). |
 
 ## Publication: Eleições 2026 (`cartilha-eleicoes-2026.html`)
 

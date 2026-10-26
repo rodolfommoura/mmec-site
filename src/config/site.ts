@@ -44,8 +44,10 @@ export const contact = {
     district: "Lago Sul · Brasília/DF",
     postcode: "CEP 71.615-560",
   },
-  // H-98 and Q-03: coordinates until Phase 3 confirms the Maps listing shows the current name.
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=-15.8521537,-47.8945894",
+  // H-98 and Q-03: the Google Business Profile listing, renamed to the current firm name.
+  // Its pin is -15.8463737, -47.8944906; the legacy coordinates were -15.8521537, -47.8945894.
+  mapUrl:
+    "https://www.google.com/maps/place/Machado+Moura+e+Cardoso+Advogados+Associados/@-15.8463737,-47.8944906,17z/data=!3m1!4b1!4m6!3m5!1s0x935a250f208e197d:0x56f1f2a3b1baf3a1!8m2!3d-15.8463737!4d-47.8944906!16s%2Fg%2F11twv24yqz",
 } as const;
 
 export interface NavItem {

@@ -65,3 +65,14 @@ test("declares canonical URL and Open Graph image", async ({ page, request }) =>
   expect(response.ok()).toBe(true);
   expect(response.headers()["content-type"]).toContain("image/png");
 });
+
+test("links to the renamed Google Maps listing without embedding it", async ({ page }) => {
+  await page.goto("/");
+  const mapLink = page.locator("#contato").getByRole("link", { name: "Abrir no Google Maps" });
+  await expect(mapLink).toHaveAttribute(
+    "href",
+    /^https:\/\/www\.google\.com\/maps\/place\/Machado\+Moura\+e\+Cardoso\+Advogados\+Associados\/@-15\.8463737,-47\.8944906,/,
+  );
+  await expect(mapLink).toHaveAttribute("rel", "noopener noreferrer");
+  await expect(page.locator("iframe")).toHaveCount(0);
+});
