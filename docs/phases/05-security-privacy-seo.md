@@ -31,3 +31,5 @@ Present the analytics options to me and wait for my decision before implementing
 ## Human gate
 
 Choose A, B or C for analytics. Provide the security contact address. Approve the privacy policy changes that follow from the decision.
+
+Runner note: this gate moved. Analytics is already decided (Q-09 in `docs/open-questions.md`); owner actions are listed as `NEEDS_OWNER` in the pull request.
