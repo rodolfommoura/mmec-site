@@ -39,7 +39,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 - Question: confirm that "MMEC" is the only short form, and say whether it may appear in visible copy at all, or only in the logo and technical names.
 - **Default:** visible copy uses the full name "Machado Moura e Cardoso Advogados Associados" or "o escritório". "MMEC" appears only in the logo files and in technical names. "MMC" never appears.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-02. Founding year and "22+ anos de atuação"
 
@@ -49,7 +49,7 @@ Answer:
   2. Does the site need a years figure at all?
 - **Default:** show "Desde 2004" only, as a plain fact, no counter. If a years figure is ever wanted, it is computed at build time from 2004 and phrased as "há N anos", never "N+".
 
-Answer:
+Answer: "Desde 2004" is confirmed as the founding reference. No counter, no "22+".
 
 ### Q-03. Old email domain and Google Maps listing
 
@@ -59,14 +59,14 @@ Answer:
   2. Will the Google Business Profile be renamed to the current firm name? (This is done by the owner in Google, outside this project.)
 - **Default:** keep `contato@mouraeribeiro.adv.br` in the single contact config file until a new mailbox is confirmed (`CLAUDE.md` rule 9). The maps link points to the coordinates (`-15.8521537,-47.8945894`), not to the listing, until the listing carries the current name. No DNS or email change in this project.
 
-Answer:
+Answer: The owner has already renamed the Google Business Profile. A mailbox on `@mmec.adv.br` will exist later, not now: keep `contato@mouraeribeiro.adv.br` in the contact config until the owner confirms the new address. In Phase 3, check that the Maps listing shows the current firm name. If it does, the map link may point to the listing; otherwise it points to the coordinates.
 
 ### Q-16. Preview Worker name
 
 - Evidence: `CLAUDE.md` names the preview Worker `mmec-site`; the legacy README's transition section names it `mmec-next` (TF-05). The legacy repository may not be edited.
 - **Default:** `mmec-site`, as in `CLAUDE.md` and `docs/naming.md` (Worker name equals repository name). The legacy README mismatch is noted here and not fixed.
 
-Answer:
+Answer: Accepted as proposed.
 
 ## Claims and wording (OAB advertising rules)
 
@@ -94,7 +94,7 @@ Verified on 2026-10-26 on the OAB website.
 - Evidence: H-30 "360° visão jurídica e regulatória", H-31 "DF presença estratégica em Brasília", H-32 "01 foco setorial: radiodifusão". They are styled as statistic tiles next to the one animated counter (H-29) but measure nothing.
 - **Default:** drop all three. The facts behind them (Brasília, focus on broadcasting) are already stated in prose.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-06. "Especializada" / "especialização"
 
@@ -103,7 +103,7 @@ Answer:
 - Question: does any partner hold a certified specialist title, or should the site describe the practice as dedication rather than specialisation?
 - **Default:** avoid "especializada" and "especialização" in site copy. Use "atuação em direito da radiodifusão", "dedicado ao setor de radiodifusão". The PDFs are not edited.
 
-Answer:
+Answer: No partner holds a certified specialist title. Do not use "especializada" or "especialização" in site copy; use "atuação em direito da radiodifusão".
 
 ### Q-07. "Positioning" principles
 
@@ -112,7 +112,7 @@ Answer:
 - Question: does the owner want any of these kept? "Atendimento direto" (H-67) is the only factual part.
 - **Default:** drop the whole section.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-08. Disclaimer that points readers to the firm
 
@@ -120,7 +120,7 @@ Answer:
 - Rule: art. 2, VIII and art. 4, caput (content marketing without solicitation).
 - **Default:** use the neutral wording of E-27 on all publication pages. The PDFs are not edited.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-13. Broader list of fields
 
@@ -128,7 +128,7 @@ Answer:
 - Question: should the site name these fields, and under which practice area?
 - **Default:** do not list them. The six practice areas of the legacy site stay as they are.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-17. OAB registration number of the firm
 
@@ -137,7 +137,7 @@ Answer:
 - Question: what is the registration number of Machado Moura e Cardoso Advogados Associados at OAB/DF, exactly as it should appear?
 - **Default:** the footer gets a line for it, filled only with the owner's number. No placeholder text ships. The Phase 7 content sign-off, and therefore the Phase 8 cutover, waits for this answer.
 
-Answer:
+Answer: The owner provided the OAB registration number `0100104RS`. Render it in the footer exactly as given. Before the Phase 7 sign-off, ask the owner to confirm the full format, for example whether it takes an "OAB/DF" prefix. Note for that check: the "RS" suffix may refer to a seccional other than OAB/DF, so the owner should confirm which seccional the number belongs to.
 
 ### Q-18. Contact data printed inside the PDFs
 
@@ -145,14 +145,14 @@ Answer:
 - Rule: CED art. 40, V bars contact data in articles published on the internet (email is allowed). Whether the firm's own booklets count as "artigos" in the sense of art. 40, V is a legal judgement.
 - **Default:** no action in this project. The PDFs are the firm's documents and are served unchanged. Flagged for the owner's own review.
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-20. Pending update of Provimento 205/2021
 
 - Evidence: in October 2025 the OAB presented proposals to update Provimento 205/2021 ([s.oab.org.br](https://s.oab.org.br/arquivos/2025/10/b0a81d83-3467-41bf-8eed-083a117267cb.pdf)). The text checked on 2026-10-26 showed no new wording of arts. 1 to 6.
 - **Default:** Phase 7 re-checks the OAB page and updates this list before the content sign-off.
 
-Answer:
+Answer: Accepted as proposed.
 
 ## Contact
 
@@ -169,7 +169,7 @@ Answer:
   2. Is `CEP 71.615-560` correct for SHIS QI 05, Bloco F, Sala 332?
 - **Default:** show only `(61) 3703-5558`, as the legacy site does. No WhatsApp link. No postcode until confirmed. The privacy policy does not mention WhatsApp.
 
-Answer:
+Answer: Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003`, the second labelled as WhatsApp. Only that number gets a WhatsApp link. Postcode `71.615-560` is confirmed for SHIS QI 05, Bloco F, Sala 332. The privacy policy may therefore mention WhatsApp as a contact channel.
 
 ### Q-10. Embedded Google Map
 
@@ -177,7 +177,7 @@ Answer:
 - Problems: a third-party request before consent (LGPD, `CLAUDE.md` rule 6), a CSP exception (`frame-src`), extra weight, and it shows the old listing name nearby.
 - **Default:** no iframe. The address is shown as text with a plain "Abrir no Google Maps" link to the coordinates (see Q-03). A static map image is possible later only if made from a source with a compatible licence.
 
-Answer:
+Answer: Accepted as proposed.
 
 ## Privacy and terms
 
@@ -194,7 +194,7 @@ Answer:
   2. Who is the encarregado (LGPD art. 41), or should the policy point to the contact email?
 - **Default:** Phase 5 proposes a cookieless analytics option or none (decision record `0003-analytics`). GA4 and Clarity are not carried over. The policy is rewritten in Phase 4 from verified facts only, naming the firm as controller and the contact email for requests; unverified claims and WhatsApp are dropped.
 
-Answer:
+Answer: The owner wants a tool to analyse site data and delegated the choice. Chosen: Cloudflare Web Analytics (cookieless, no banner) plus Google Search Console (search queries, no visitor tracking). GA4 and Clarity are not carried over. Phase 5 must verify what the Cloudflare dashboard shows for PDF requests, write decision record `0003-analytics`, and keep the owner's gate. Before the cutover, the owner exports the GA4 and Search Console history. The privacy policy names the firm as controller and gives the contact email for requests.
 
 ### Q-11. Reuse licence: terms vs PDFs
 
@@ -202,7 +202,7 @@ Answer:
 - Question: which rule applies to the publications?
 - **Default:** the terms follow the PDFs: reading and downloading are allowed, and reproduction is allowed only in full. The terms also note that P3 reproduces an official act, which is not the firm's property (T-11).
 
-Answer:
+Answer: Accepted as proposed.
 
 ## Publications
 
@@ -212,14 +212,14 @@ Answer:
 - Question: can the firm provide a new export of the clipping with the current letterhead?
 - **Default:** serve the existing PDF unchanged at the same URL. If a new export arrives, it replaces the file at the same path, and the cover is regenerated from it.
 
-Answer:
+Answer: The owner delegated the decision: keep the calendar PDF in the preview. Ask for a new export with the current letterhead before Phase 7. If it does not arrive, serve the existing file unchanged at the same URL (existing links must not break) and record it as a known issue.
 
 ### Q-14. Section name "Inteligência setorial"
 
 - Evidence: G-07, H-69. The section only lists the firm's three publications.
 - **Default:** rename the section and the index page to "Publicações" (URL `/publicacoes`, as in `docs/naming.md`). Keep the anchor `#inteligencia` on the home section so old links still land there (see [`url-map.md`](url-map.md)).
 
-Answer:
+Answer: Accepted as proposed.
 
 ### Q-19. Publications whose period is over
 
@@ -227,7 +227,7 @@ Answer:
 - Question: keep all three online? Are new editions expected (for example a 2027 calendar) that should replace them?
 - **Default:** keep all three, each labelled with its year and type, worded in the past or neutral tense, with no "current" language. The index lists them newest first by edition year, then in legacy order.
 
-Answer:
+Answer: Keep all three publications online, each labelled with its year and type. New editions are expected (for example a 2027 calendar), so adding an edition must be a content-only change.
 
 ## Site
 
@@ -236,4 +236,4 @@ Answer:
 - Evidence: G-21, footer of the legacy home page. The credit refers to the legacy site.
 - **Default:** drop it from the new footer. The owner may ask for a credit line; its wording comes from the owner.
 
-Answer:
+Answer: Drop "Desenvolvido por Henrique Moura." from the new footer.
