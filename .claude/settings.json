@@ -39,8 +39,7 @@
       "Bash(rm -rf *)",
       "Read(./.env*)",
       "Read(./**/*.pem)",
-      "Edit(../mmec-site-legacy/**)",
-      "Write(../mmec-site-legacy/**)"
+      "Edit(../mmec-site-legacy/**)"
     ]
   }
 }
