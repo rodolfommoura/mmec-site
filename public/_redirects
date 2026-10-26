@@ -1,0 +1,25 @@
+# Legacy URLs (docs/url-map.md). Each rule is a single hop to the final URL.
+# Rules run before html_handling, so `.html` paths answer one 301, not a 307 followed by a 301.
+# scripts/check-redirects.mjs tests every row of docs/url-map.md against this file.
+
+/index.html                                 /                                                 301
+/index                                      /                                                 301
+/cartilha-eleicoes-2024.html                /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2024                     /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2024/                    /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2026.html                /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2026                     /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2026/                    /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-propaganda-partidaria-2026.html   /publicacoes/cartilha-propaganda-partidaria-2026  301
+/cartilha-propaganda-partidaria-2026        /publicacoes/cartilha-propaganda-partidaria-2026  301
+/cartilha-propaganda-partidaria-2026/       /publicacoes/cartilha-propaganda-partidaria-2026  301
+/calendario-voz-do-brasil-2026.html         /publicacoes/calendario-voz-do-brasil-2026        301
+/calendario-voz-do-brasil-2026              /publicacoes/calendario-voz-do-brasil-2026        301
+/calendario-voz-do-brasil-2026/             /publicacoes/calendario-voz-do-brasil-2026        301
+/privacidade.html                           /privacidade                                      301
+/termos.html                                /termos                                           301
+
+# The not-found page itself answers 404, not 200: rewriting to a path with no asset makes
+# not_found_handling serve 404.html with status 404.
+/404                                        /404-no-asset                                     200
+/404.html                                   /404-no-asset                                     200
