@@ -33,7 +33,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-21 | Heading case: mixed vs upper | Phase 3 gate | Mixed case (owner decision for Phase 2); upper case shown on `/_design` for comparison; one token switches it. |
 | Q-22 | Simplified favicon (variant F) | Phase 3 gate | Keep as provisional; owner confirms or replaces it. |
 | Q-23 | Logo minimum width: artboard or artwork | Phase 3 gate | Resolved: 300 px applies to the visible artwork; header and footer use 400 px of artwork from 64rem. |
-| Q-24 | Mobile header layout | Phase 3 gate | Logo at 300 px on its own row, "Menu" button below it; no symbol-plus-text variant. |
+| Q-24 | Mobile header layout | Phase 3 gate | Same row only if both fit; at 360 px they do not, so the "Menu" button stays on a second row. Symbol-plus-text still not used. |
 | Q-25 | "Abrir no WhatsApp" link label | Phase 3 | Use it next to the WhatsApp number, linking to `wa.me`. |
 
 ## Naming and identity
@@ -275,6 +275,10 @@ Resolved (Phase 3 gate): at a 300 px artboard the two wordmark lines render at a
 
 - Evidence: at 320 to 400 px the 300 px logo leaves no room for a menu button on the same row. `docs/brand.md`: "use symbol plus text set in HTML only if the owner approves".
 - **Default:** logo on the first row, "Menu" button on a second row. No symbol-plus-text variant.
+
+Answer: On mobile (360 px), put the logo and the "Menu" button on the same row if they fit.
+
+Checked at the Phase 3 gate (after Q-23): they do not fit. At a 360 px viewport the header content column is 331 px wide. The logo needs 336 px (300 px of artwork plus the clear space) and the "Menu" button 71 px, plus a gap. Even the bare artwork and the button (371 px) exceed the viewport. The layout stays as in the default. Both would share a row only with the symbol-plus-text variant, which `docs/brand.md` allows only with the owner's approval.
 
 ### Q-25. "Abrir no WhatsApp" link label
 
