@@ -3,8 +3,9 @@
 export const site = {
   // G-01
   name: "Machado Moura e Cardoso Advogados Associados",
+  // H-02, owner wording for Phase 3; "regulação" and "acompanhamento institucional" are in the legacy text.
   description:
-    "Machado Moura e Cardoso Advogados Associados. Atuação em direito da radiodifusão, regulação e acompanhamento institucional em Brasília.",
+    "Escritório de advocacia em Brasília com atuação em direito da radiodifusão, incluindo regulação e acompanhamento institucional.",
   // G-03, G-16
   descriptor: "Direito da radiodifusão",
   // G-14

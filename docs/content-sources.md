@@ -56,7 +56,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | H-01 | `index.html:8` | `Machado Moura e Cardoso Advogados Associados` | `<title>` | keep | |
-| H-02 | `index.html:6` | `Machado Moura e Cardoso Advogados Associados. Advocacia especializada em radiodifusão, regulação e acompanhamento institucional em Brasília.` | meta description | rewrite | "especializada" may conflict with Provimento 205/2021, art. 3, III (Q-06). Suggested: "atuação em direito da radiodifusão". Used since Phase 1 (`src/config/site.ts`): `Machado Moura e Cardoso Advogados Associados. Atuação em direito da radiodifusão, regulação e acompanhamento institucional em Brasília.` |
+| H-02 | `index.html:6` | `Machado Moura e Cardoso Advogados Associados. Advocacia especializada em radiodifusão, regulação e acompanhamento institucional em Brasília.` | meta description | rewrite | "especializada" may conflict with Provimento 205/2021, art. 3, III (Q-06). Suggested: "atuação em direito da radiodifusão". Phase 3 (owner wording, `src/config/site.ts`): `Escritório de advocacia em Brasília com atuação em direito da radiodifusão, incluindo regulação e acompanhamento institucional.` "regulação" and "acompanhamento institucional" are both in the legacy text; "especializada" is replaced as in Q-06. |
 
 ### Hero
 
