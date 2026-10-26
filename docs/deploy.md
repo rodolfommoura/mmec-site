@@ -61,6 +61,15 @@ npm run preview    # serve dist/ on http://localhost:4321
 
 `npx wrangler dev` serves `dist/` with the Workers asset rules (redirects, headers, 404) if a local check of the platform behaviour is needed. Never run `wrangler deploy` by hand; deployments go through Workers Builds.
 
+## Known dev-only audit findings
+
+`npm audit` reports vulnerabilities only in development tooling; `npm audit --omit=dev` reports none, and nothing from them reaches `dist/` or the Worker.
+
+- `@lhci/cli` 0.15.1 (last published 2025-06-25) pulls in old `tmp`, `extract-zip`, `proxy-agent`, `uuid`, `inquirer` and `zod`. It only audits `localhost`.
+- `wrangler` pulls in `undici` through `miniflare`, used only by `wrangler dev`.
+- Do not run `npm audit fix --force`: it downgrades both packages to very old majors.
+- Phase 5 (supply chain) re-checks these and replaces `@lhci/cli` if it is still unmaintained.
+
 ## CI
 
 `.github/workflows/ci.yml`, job `ci` (the required status check on `main`):

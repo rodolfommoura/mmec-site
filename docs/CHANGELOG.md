@@ -16,6 +16,8 @@ All notable changes to this project are documented here. Format based on [Keep a
 
 ### Changed
 
+- TypeScript stays on 6.x (Dependabot ignores majors) until typescript-eslint and `@astrojs/check` support 7.
+
 - Reviewer subagent runs on a different model (Sonnet) from the builder.
 - Removed a redundant `Write` deny rule for the legacy repository from `.claude/settings.json` (the `Edit` rule covers it).
 
