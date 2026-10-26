@@ -372,6 +372,23 @@ Text extracted with `pdftotext` for inventory only. The PDFs are served unchange
 | PDF-04 | P1 p. 29; P2 p. 8 | `Esta obra intelectual é protegida pela Lei nº 9.610/1998. Autorizada apenas a reprodução integral.` | keep | The terms follow this rule (Q-11). |
 | PDF-05 | P3 | `CEP 71.615-560` | keep | Confirmed postcode of SHIS QI 05, Bloco F, Sala 332 (Q-05). |
 
+## Rewrites on the new home page (Phase 3)
+
+Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-areas.ts`, with the rows it comes from. Rewrites add no facts. Rows marked `keep` are used verbatim and are not repeated here.
+
+| Source | New text | What changed |
+|---|---|---|
+| H-05, G-03, H-23, H-16 | `Atuação em direito da radiodifusão, em Brasília, desde 2004.` | Slogan replaced by a plain statement of field, place and founding year. No counter (Q-02), no "especializada" (Q-06). |
+| H-21 | `Sediado em Brasília, dedicado ao setor de radiodifusão` (`h2`) | Persuasive heading replaced by two facts from H-23 and H-22, in the wording suggested in Q-06. |
+| H-22, PDF-01 | `Machado Moura e Cardoso Advogados Associados atua em direito da radiodifusão, com experiência jurídica, legislativa e regulatória no setor.` | "de forma especializada" replaced by "em direito da radiodifusão" (Q-06); "integrando" simplified to "com". |
+| H-24 | `A atuação é orientada por segurança jurídica e prevenção de riscos.` | "continuidade operacional" dropped: it reads as a promised result (Provimento 205/2021, art. 6, parágrafo único). |
+| H-33 | `Atuação` (eyebrow) | Wrong short name "MMC" removed (Q-01). |
+| H-34, H-36 | `Áreas de atuação` (`h2`, also the list's accessible name) | Slogan-like heading replaced by the legacy tablist label. |
+| H-60 | `Acompanhamento das publicações oficiais que afetam o setor.` | Slogan replaced by a plain summary of H-61 and H-62, in the place of the other areas' one-line summaries. |
+| H-69, G-07 | `Publicações` (eyebrow) | Renamed (Q-14). The section keeps the anchor `#inteligencia`. |
+| H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |
+| H-90 | `Converse com o escritório` (`h2`) | Final full stop dropped (heading style). |
+
 ## Facts provided by the owner
 
 | ID | Source | Text | Type | Status | Note |
