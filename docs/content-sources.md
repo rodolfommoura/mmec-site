@@ -393,6 +393,66 @@ Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-are
 | H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |
 | H-90, G-08 | `Contato` (`h2`) | Owner request at the Phase 3 gate: the section heading is the navigation label (G-08). The "Contato" eyebrow is dropped so the word is not shown twice. |
 
+## Rewrites on the publication, legal and not-found pages (Phase 4)
+
+Copy of the publication pages lives in `src/content/publications/*.md`; legal pages in `src/pages/privacidade.astro` and `src/pages/termos.astro`; the not-found page in `src/pages/404.astro`. Rows marked `keep` are used verbatim (punctuation normalised) and are not repeated here. Rewrites add no facts.
+
+### Publications
+
+| Source | New text | What changed |
+|---|---|---|
+| H-72, H-78, E-04, PP-03, VB-03 | Card eyebrow `Cartilha jurídica · 2026` / `Clipping regulatório · 2026` | Owner decision Q-19: every publication is labelled with its type and year. The area labels "Direito eleitoral" and "Regulação" are no longer shown. |
+| E-05, PP-04, H-73, H-76 | `h1` without the final full stop on the two booklets | Same title as the card (punctuation only). VB-04 keeps its wording. |
+| E-15 to E-17, P1 p. 2 | `Seis seções específicas.` / `Prazo do direito de resposta na programação normal: 48 horas.` / `Suspensão possível da programação por infrações específicas: 24 horas.` | Metrics as text, in the PDF wording. |
+| PP-10 | `O material organiza exibição, distribuição horária, ...` | "A nova edição" dropped. |
+| PP-11 to PP-13, P2 pp. 2 and 5 | `Exibição no primeiro semestre de 2026.` / `Inserções nos intervalos da programação normal, entre 19h30 e 22h30.` / `Até 10 inserções de 30 segundos por dia.` | Metrics as text; "intervalos" and "até" follow the PDF. |
+| PP-22, PP-23 | `... Situações específicas devem ser submetidas à análise jurídica específica, considerando as circunstâncias concretas e eventuais alterações normativas.` | "do escritório" replaced by the neutral wording of E-27 (Q-08). |
+| VB-11 to VB-13, P3 arts. 5 and 8 | `Ano de referência: 2026.` / `Inserção informativa diária sobre o horário alternativo às 19h do fuso horário local, exceto aos sábados, domingos e feriados.` / `Vigência até a divulgação do calendário do ano de 2027.` | Metrics as text, with the qualifiers of the Portaria. |
+| P3 p. 1 header | Edition `Diário Oficial da União de 10 de abril de 2026` | Date printed on the clipping ("CLIPPING DO DIÁRIO OFICIAL DA UNIÃO 10.04.2026"). P1 and P2 print no date, so they show the year only (Q-27). |
+| P1, P2, P3 files | `PDF · 29 páginas · 423 KB` and equivalents | Read from the files at build time (size) and checked against the PDF page tree in tests (pages). |
+| G-07, H-70 rewrite | Index: `h1` `Publicações`, lead `Material informativo para emissoras.`; description `Publicações de Machado Moura e Cardoso Advogados Associados: material informativo para emissoras de rádio e televisão.` | Reuses the Phase 3 heading; "rádio e televisão" from the publication titles. |
+| E-07, E-08, PP-06, VB-06 | `Abrir PDF completo` / `Baixar cartilha` / `Baixar documento` | Kept. |
+
+### Privacy policy
+
+Describes the site as it works after Phase 5 (Q-09). Pending the review by the firm's lawyer (Q-26).
+
+| Source | New text (summary) | What changed |
+|---|---|---|
+| PR-03 | `Última atualização: 26 de outubro de 2026` | Date the new text was written. |
+| PR-07, PR-08, Q-09, Q-10 | No cookies, no forms, no sign-up; technical access data received by the host (Cloudflare) to deliver pages; aggregated statistics | GA4 and Clarity claims removed; hosting stated as a fact of the setup (`wrangler.jsonc`). |
+| PR-09, Q-05 | Contact by e-mail, telephone or WhatsApp | Telephone added: both numbers are published (Q-05). |
+| PR-10, PR-11, PR-12, PR-13, EXT-01 | `2. Como medimos o uso do site`: Cloudflare Web Analytics (no cookies or browser storage, no individual identification, IP discarded, possible processing outside Brazil) and Google Search Console (data obtained by Google on its own search pages, no code on the site) | Tools from the owner's answer to Q-09; behaviour from the Cloudflare documentation (EXT-01). Phase 5 verifies it again before enabling the beacon. |
+| PR-15, PR-16 | Processors named: Cloudflare and the e-mail, telephone and WhatsApp services the visitor chooses | Unverifiable "rigorosos termos de confidencialidade" dropped. |
+| PR-18, LAW-01 | All nine rights of LGPD art. 18 and the right to petition the ANPD (art. 18, § 1) | Partial list completed from the law text. |
+| PR-19 to PR-22, Q-09 | `O controlador dos dados pessoais tratados por meio deste site é Machado Moura e Cardoso Advogados Associados.`; e-mail and full address from `src/config/site.ts` | Controller named (Q-09); postcode added (PDF-05). |
+
+### Terms of use
+
+| Source | New text | What changed |
+|---|---|---|
+| T-03 | `Última atualização: 26 de outubro de 2026` | Date the new text was written. |
+| T-07 | `... incluindo cartilhas e clippings regulatórios, ...` | Only what the site offers (no articles). |
+| T-11, Q-11 | Adds: `Atos oficiais reproduzidos nos materiais, como a Portaria do Ministério das Comunicações reproduzida no clipping do calendário A Voz do Brasil, não são de propriedade do escritório.` | Qualifies "todos" (P3 reproduces an official act). |
+| T-12, T-13, PDF-04, Q-11 | `É permitida a leitura e o download dos materiais. A reprodução das cartilhas é autorizada apenas de forma integral.` | Follows the PDFs. |
+| T-15 | `Este site contém links para serviços de terceiros, como Google Maps e WhatsApp.` | Examples replaced by the external links the site really has. |
+| T-06, T-10, T-14, T-17 | Headings in sentence case | Typography only. |
+
+### Not-found page
+
+| Source | New text | What changed |
+|---|---|---|
+| NF-04, NF-05 | `404 · Página não encontrada` (eyebrow) | Display code and eyebrow joined in one line. |
+| NF-07, NF-08 | One paragraph | Kept. |
+| NF-03, G-07, G-08, G-15 | Links `Voltar à página inicial`, `Publicações`; `Contato` with the e-mail address | Phase 4 task: links back to Home and Publications, and the contact address. |
+
+## External sources
+
+| ID | Source | Fact used |
+|---|---|---|
+| LAW-01 | Lei nº 13.709/2018 (LGPD), [planalto.gov.br](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm), read on 2026-10-26 | Art. 5, VI (controlador); art. 18, I to IX and § 1 (data subject rights). |
+| EXT-01 | Cloudflare documentation: [RUM beacon](https://developers.cloudflare.com/speed/observatory/rum-beacon/) and [Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/), read on 2026-10-26 | Web Analytics uses no cookies or browser storage, does not fingerprint visitors, discards the IP address at the edge, and may process data outside the visitor's country. |
+
 ## Facts provided by the owner
 
 | ID | Source | Text | Type | Status | Note |

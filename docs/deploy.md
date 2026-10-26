@@ -57,7 +57,7 @@ Needs the owner's Cloudflare login and a GitHub app approval, so it is not autom
    - the Worker `mmec` still lists `mmec-site-legacy` as its repository and its last build is unchanged.
 8. Optional: in the GitHub repository, the Workers Builds check appears on pull requests. It is informational; the required check is `ci` (see below).
 
-To confirm in Phase 4 on the preview: `_redirects` rules run before `html_handling`, so `/privacidade.html` gives a single `301` (see `docs/url-map.md`).
+`_redirects` rules run before `html_handling`, so `/privacidade.html` gives a single `301` (see `docs/url-map.md`). Confirmed in Phase 4 with Wrangler's local runtime (`npm run test:links`); check once on the preview URL with `curl -sI https://<preview-url>/privacidade.html`, which must print `301` and `location: /privacidade`.
 
 ## Local commands
 
