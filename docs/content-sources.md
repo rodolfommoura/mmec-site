@@ -189,7 +189,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | H-89 | `index.html:431` | `Contato` | eyebrow | keep | |
-| H-90 | `index.html:432` | `Converse com o escritório.` | `h2` | keep | Neutral. |
+| H-90 | `index.html:432` | `Converse com o escritório.` | `h2` | rewrite | Replaced by `Contato` at the owner's request (Phase 3 gate). |
 | H-91 | `index.html:434` | `Atendimento jurídico e institucional a empresas e entidades do setor de radiodifusão.` | paragraph | keep | |
 | H-92 | `index.html:439` | `E-mail` | label | keep | |
 | H-93 | `index.html:443` | `Telefone` / `(61) 3703-5558` / `tel:+556137035558` | phone | keep | Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003` (source: P1, P2). The second is labelled as WhatsApp and is the only one with a WhatsApp link (Q-05). |
@@ -387,7 +387,7 @@ Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-are
 | H-60 | `Acompanhamento das publicações oficiais que afetam o setor.` | Slogan replaced by a plain summary of H-61 and H-62, in the place of the other areas' one-line summaries. |
 | H-69, G-07 | `Publicações` (eyebrow) | Renamed (Q-14). The section keeps the anchor `#inteligencia`. |
 | H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |
-| H-90 | `Converse com o escritório` (`h2`) | Final full stop dropped (heading style). |
+| H-90, G-08 | `Contato` (`h2`) | Owner request at the Phase 3 gate: the section heading is the navigation label (G-08). The "Contato" eyebrow is dropped so the word is not shown twice. |
 
 ## Facts provided by the owner
 
