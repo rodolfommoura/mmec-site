@@ -52,3 +52,17 @@ Rules of thumb:
 ## Honest limits of the "AI reviews the AI" setup
 
 The reviewer agent catches many mechanical problems (contrast, headings, invented text patterns, git hygiene). It shares blind spots with the builder. Three things always need a human: legal wording of the copy, visual taste, and the final domain switch.
+
+## Running phases 2 to 7 with the phase runner
+
+Instead of pasting each prompt by hand, the owner can run `scripts/run-phases.ps1` from the repository root in PowerShell. It needs `git`, `gh` (run `gh auth login` first) and `claude` in `PATH`, and a clean working tree.
+
+```powershell
+.\scripts\run-phases.ps1 -From 2 -To 7
+```
+
+- `-From` and `-To` choose the first and last phase (2 to 7). Phases 0, 1 and 8 are never run by the script.
+- For each phase it updates `main`, runs Claude Code headless with the phase prompt plus unattended-run rules, finds the pull request, checks that the reviewer verdict is APPROVE, waits for CI and squash-merges it.
+- **Three human gates:** after phases 3, 4 and 7 the script leaves the pull request open and stops. Review it as described in the phase file's Human gate section. To approve and continue, run the command it prints, for example `.\scripts\run-phases.ps1 -From 4 -To 7 -ApproveFirst`; `-ApproveFirst` merges the pull request of the previous phase before starting. Phase 7 is merged by hand after your written go; Phase 8 is always started by hand in an interactive session.
+- It also stops when Claude Code reports `BLOCKED:`, when a step needs the owner (`NEEDS_OWNER:` lines, such as tokens or verification codes), when a check fails or when the verdict is missing.
+- Each run writes a log to `../mmec-phase-logs/phase-NN-<timestamp>.log`, a folder next to the repository, outside Git.
