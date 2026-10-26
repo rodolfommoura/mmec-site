@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const port = 4321;
+// Not 4321: a running `astro dev` must never be tested instead of the built site.
+const port = 4324;
 
 export default defineConfig({
   testDir: "tests",
@@ -13,6 +14,6 @@ export default defineConfig({
   webServer: {
     command: `npx astro preview --port ${port}`,
     port,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 });
