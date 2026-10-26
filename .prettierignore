@@ -1,0 +1,11 @@
+dist/
+.astro/
+.wrangler/
+.lighthouseci/
+playwright-report/
+test-results/
+package-lock.json
+public/brand/
+public/favicon.svg
+# Markdown docs are hand-formatted: Prettier would pad the long inventory tables.
+*.md
