@@ -26,7 +26,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-14 | Rename "Inteligência setorial" to "Publicações" | Phase 3 | Rename. |
 | Q-15 | "Desenvolvido por Henrique Moura." credit | Phase 2 | Drop from the new footer. |
 | Q-16 | Preview Worker name | Phase 1 | `mmec-site`, as in `CLAUDE.md`. |
-| Q-17 | OAB registration number of the firm | Phase 7 (launch) | Required; launch waits for it. |
+| Q-17 | OAB registration number of the firm | Phase 7 sign-off (gates Phase 8) | Required; launch waits for it. |
 | Q-18 | Contact data printed inside the PDFs | none | Leave PDFs unchanged. |
 | Q-19 | Publications whose period is over | Phase 4 | Keep as dated archive items. |
 | Q-20 | Pending update of Provimento 205/2021 | Phase 7 | Re-check the OAB site before launch. |
@@ -35,7 +35,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 
 ### Q-01. "MMC" vs "MMEC"
 
-- Evidence: the legacy site shows "MMC" five times as visible text or CSS-generated text (H-03, H-26, H-33, H-86, G-25). `docs/brand.md` says the short form is MMEC and "MMC" was a mistake. The domain is `mmec.adv.br`.
+- Evidence: the legacy site shows "MMC" seven times as visible text or CSS-generated text (`index.html:88`, `:171`, `:201`, `:422`; `site.css:111`, `:283`, `:303`; inventory rows H-03, H-26, H-33, H-86, G-25). `docs/brand.md` says the short form is MMEC and "MMC" was a mistake. The domain is `mmec.adv.br`.
 - Question: confirm that "MMEC" is the only short form, and say whether it may appear in visible copy at all, or only in the logo and technical names.
 - **Default:** visible copy uses the full name "Machado Moura e Cardoso Advogados Associados" or "o escritório". "MMEC" appears only in the logo files and in technical names. "MMC" never appears.
 
@@ -82,8 +82,8 @@ Verified on 2026-10-26 on the OAB website.
   - Art. 3, III: no advertising of specialities without a certified title or recognised notable specialisation (Q-06).
   - Art. 3, IV: no persuasive, self-aggrandising or comparative phrases (Q-04, Q-07, H-21, H-65, H-87).
   - Art. 4, caput: legal content marketing (the publications) is allowed without commercialisation or solicitation. Anexo Único, "Criação de conteúdo, palestras, artigos": content must be technical and informative, without disclosing concrete results.
-  - Art. 6, caput: no promise of results and no concrete cases used to offer services (H-65, H-68).
-- **Código de Ética e Disciplina da OAB** (Resolução 02/2015), [s.oab.org.br](https://www.oab.org.br/arquivos/resolucao-n-022015-ced-2030601765.pdf):
+  - Art. 6: the caput bars, in active advertising, information on the office's size or structure, promises of results and concrete cases used to offer services. The parágrafo único extends the ban on promises of results and concrete cases to "qualquer publicidade", so it covers the website (H-65, H-68).
+- **Código de Ética e Disciplina da OAB** (Resolução 02/2015), [oab.org.br](https://www.oab.org.br/arquivos/resolucao-n-022015-ced-2030601765.pdf):
   - Art. 39: advertising is informative, discreet and sober, and may not amount to solicitation or commercialisation.
   - Art. 40, V: no contact data (address, phone) in articles published in the press or on the internet; email is allowed (Q-18).
   - Art. 42, IV: no client lists. The rebuild adds no client names or logos.
@@ -91,7 +91,7 @@ Verified on 2026-10-26 on the OAB website.
 
 ### Q-04. Decorative claims "360°", "DF", "01"
 
-- Evidence: H-30 "360° visão jurídica e regulatória", H-31 "DF presença estratégica em Brasília", H-32 "01 foco setorial: radiodifusão". They are styled as statistics but measure nothing. They are also animated-counter tiles, which the brand bans.
+- Evidence: H-30 "360° visão jurídica e regulatória", H-31 "DF presença estratégica em Brasília", H-32 "01 foco setorial: radiodifusão". They are styled as statistic tiles next to the one animated counter (H-29) but measure nothing.
 - **Default:** drop all three. The facts behind them (Brasília, focus on broadcasting) are already stated in prose.
 
 Answer:
@@ -108,7 +108,7 @@ Answer:
 ### Q-07. "Positioning" principles
 
 - Evidence: H-65 "Antecipar movimentos. Reduzir riscos. Sustentar decisões.", H-66 "Profundidade técnica", H-67 "Proximidade", H-68 "Responsividade ... resposta ágil".
-- Rule: art. 3, IV (self-aggrandising phrases) and art. 6 (promise of results).
+- Rule: art. 3, IV (self-aggrandising phrases) and art. 6, parágrafo único (promise of results, in any advertising).
 - Question: does the owner want any of these kept? "Atendimento direto" (H-67) is the only factual part.
 - **Default:** drop the whole section.
 
@@ -116,9 +116,9 @@ Answer:
 
 ### Q-08. Disclaimer that points readers to the firm
 
-- Evidence: PP-23 "Situações específicas devem ser submetidas à análise jurídica do escritório". The election page (E-27) says "à análise jurídica específica". The PDF P2 (p. 2) says "devem ser dirimidas pelo escritório", which reads as addressed to existing clients (P2 p. 2: "orientação básica para os clientes do escritório").
+- Evidence: PP-23 "Situações específicas devem ser submetidas à análise jurídica do escritório". The election page (E-27) says "à análise jurídica específica", but P1 p. 2 itself says "submetidos à análise jurídica específica do escritório". The PDF P2 (p. 2) says "devem ser dirimidas pelo escritório", which reads as addressed to existing clients (P2 p. 2: "orientação básica para os clientes do escritório").
 - Rule: art. 2, VIII and art. 4, caput (content marketing without solicitation).
-- **Default:** use the neutral wording of E-27 on all publication pages.
+- **Default:** use the neutral wording of E-27 on all publication pages. The PDFs are not edited.
 
 Answer:
 
@@ -135,13 +135,13 @@ Answer:
 - Evidence: no page of the legacy site shows the firm's OAB registration (sociedade de advogados) number.
 - Rule: CED art. 44, caput requires the firm's name and OAB registration number(s) in its professional advertising. A firm website falls under art. 46.
 - Question: what is the registration number of Machado Moura e Cardoso Advogados Associados at OAB/DF, exactly as it should appear?
-- **Default:** the footer gets a line for it, filled only with the owner's number. No placeholder text ships. The launch (Phase 7 sign-off) waits for this answer.
+- **Default:** the footer gets a line for it, filled only with the owner's number. No placeholder text ships. The Phase 7 content sign-off, and therefore the Phase 8 cutover, waits for this answer.
 
 Answer:
 
 ### Q-18. Contact data printed inside the PDFs
 
-- Evidence: every page of P1 and P2, and the P3 letterhead, print the address and phone numbers.
+- Evidence: every page of P1 and P2 except the final copyright page, and the P3 letterhead, print the address and phone numbers.
 - Rule: CED art. 40, V bars contact data in articles published on the internet (email is allowed). Whether the firm's own booklets count as "artigos" in the sense of art. 40, V is a legal judgement.
 - **Default:** no action in this project. The PDFs are the firm's documents and are served unchanged. Flagged for the owner's own review.
 
@@ -160,8 +160,8 @@ Answer:
 
 - Evidence:
   - Site: `(61) 3703-5558` (H-93).
-  - P1, every page: "Telefone / WhatsApp (61) 3879-5003".
-  - P2, every page: "(61) 3703-5558 / 3879-5003".
+  - P1, every page except the last: "Telefone / WhatsApp (61) 3879-5003".
+  - P2, every page except the last: "(61) 3703-5558 / 3879-5003".
   - P3: "(61) 3703.5558" next to an old address, and "Telefone / Whatsapp: (61) 3879.5003" next to the current address, with "CEP 71.615-560".
   - The privacy policy mentions contact "via e-mail ou WhatsApp" (PR-09), but the site offers no WhatsApp channel.
 - Questions:
@@ -223,7 +223,7 @@ Answer:
 
 ### Q-19. Publications whose period is over
 
-- Evidence: P1 covers the 2026 elections (polling days 4 and 25 October 2026, both past by 2026-10-26). P2 covers the first half of 2026. P3 is valid until the 2027 calendar is published.
+- Evidence: P1 covers the 2026 elections; its key-dates page (p. 4) ends with the second-round free airtime of 9 to 23 October, and both polling days (4 and 25 October 2026) are past by 2026-10-26. P2 covers the first half of 2026. P3 is valid until the 2027 calendar is published.
 - Question: keep all three online? Are new editions expected (for example a 2027 calendar) that should replace them?
 - **Default:** keep all three, each labelled with its year and type, worded in the past or neutral tense, with no "current" language. The index lists them newest first by edition year, then in legacy order.
 

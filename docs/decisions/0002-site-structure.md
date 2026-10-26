@@ -6,7 +6,7 @@
 
 ## Context
 
-The rebuild may only use content that exists today (`CLAUDE.md`, "Do not invent"). The Phase 0 inventory ([`content-sources.md`](../content-sources.md)) found that content: one home page with six sections worth keeping in some form, three publication pages with PDFs, a privacy policy, terms of use and a 404 page. The phase file proposes Home, a publications index plus the three publications, Privacy, Terms and 404, with `/equipe` reserved for Phase 9.
+The rebuild may only use content that exists today (`CLAUDE.md`, "Do not invent"). The Phase 0 inventory ([`content-sources.md`](../content-sources.md)) found that content: one home page with five sections worth keeping in some form, three publication pages with PDFs, a privacy policy, terms of use and a 404 page. The phase file proposes Home, a publications index plus the three publications, Privacy, Terms and 404, with `/equipe` reserved for Phase 9.
 
 ## Options considered
 

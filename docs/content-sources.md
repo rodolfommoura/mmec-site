@@ -47,6 +47,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | G-25 | `assets/css/site.css:111`, `:283`, `:303` | `MMC`, `MMC · BRASÍLIA` | CSS pseudo-element text | drop | Wrong short name (Q-01). Also decorative watermark text. |
 | G-26 | `assets/js/site.js:62` | `Página reservada para a versão final do site.` | toast | drop | Placeholder message; no element triggers it. |
 | G-27 | `index.html:7` | `theme-color` `#0d110f` | metadata | drop | Replaced by a brand token. |
+| G-28 | `index.html:43`; all pages except the legal pages | `Navegação principal` | nav accessible name | keep | Add it to the legal pages too. |
 
 ## Home (`index.html`)
 
@@ -64,7 +65,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-03 | `index.html:88` | `MMC` | monogram | drop | Wrong short name (Q-01). |
 | H-04 | `index.html:89` | `Advocacia setorial · Brasília/DF` | eyebrow | keep | |
 | H-05 | `index.html:91` | `Direito que compreende a radiodifusão.` | `h1` | rewrite | Slogan-like. A plain statement of what the firm does is more sober (OAB art. 3, § 1). |
-| H-06 | `index.html:93` | `Assessoria e consultoria jurídica dedicada a emissoras, entidades e empresas do setor, com atuação regulatória, institucional, legislativa e preventiva.` | lead | keep | Factual. Matches the "Sobre o escritório" page of the PDFs. |
+| H-06 | `index.html:93` | `Assessoria e consultoria jurídica dedicada a emissoras, entidades e empresas do setor, com atuação regulatória, institucional, legislativa e preventiva.` | lead | keep | Factual. Consistent with, but broader than, the "Sobre o escritório" page of the PDFs (P1 p. 28, P2 p. 7). |
 | H-07 | `index.html:99` | `Fale com o escritório` | button | keep | Neutral call to the contact section. |
 | H-08 | `index.html:102` | `Conheça nossa atuação` | button | keep | |
 | H-09 | `index.html:106` | `Principais atributos` | aside label | drop | Section dropped (H-10 to H-15). |
@@ -211,7 +212,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | E-07 | `:70` | `Abrir PDF completo` | button | keep | |
 | E-08 | `:73` | `Baixar cartilha` | button | keep | |
 | E-09 | `:77` | `Capa da cartilha Eleições 2026` | image alt | keep | |
-| E-10 | `:85` | `Resumo executivo` | eyebrow | keep | Same label in the PDF. |
+| E-10 | `:85`; `cartilha-propaganda-partidaria-2026.html:86`; `calendario-voz-do-brasil-2026.html:88` | `Resumo executivo` | eyebrow | keep | Same label in the PDFs. |
 | E-11 | `:86` | `Orientação prática para prevenção de risco jurídico e operacional.` | `h2` | keep | Paraphrases P1 p. 2. |
 | E-12 | `:89` | `O material organiza as principais obrigações eleitorais das emissoras em seis frentes operacionais.` | lead | keep | |
 | E-13 | `:90` | `Cada seção apresenta o que observar, quando agir, quais evidências manter e quais riscos evitar.` | paragraph | keep | Matches P1 p. 2 ("Estrutura de uso"). |
@@ -219,7 +220,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | E-15 | `:92` | `6` / `seções operacionais` | metric | rewrite | Facts match P1 p. 2. Present as text, not as big-number tiles. |
 | E-16 | `:93` | `48h` / `prazo do direito de resposta` | metric | rewrite | P1 p. 2 is more precise: "Prazo do direito de resposta na programação normal". Use the PDF wording. |
 | E-17 | `:94` | `24h` / `suspensão possível da programação` | metric | rewrite | P1 p. 2: "suspensão possível da programação por infrações específicas". Use the PDF wording. |
-| E-18 | `:102` | `Conteúdo da cartilha` | eyebrow | keep | |
+| E-18 | `:102`; `cartilha-propaganda-partidaria-2026.html:103` | `Conteúdo da cartilha` | eyebrow | keep | |
 | E-19 | `:103` | `Seis áreas críticas para a operação das emissoras.` | `h2` | keep | |
 | E-20 | `:105` | `01` `Calendário eleitoral` / `Prazos críticos, marcos operacionais e controles internos.` | topic | keep | |
 | E-21 | `:106` | `02` `Pesquisas` / `Registro, divulgação, checagem documental e riscos.` | topic | keep | |
@@ -245,7 +246,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | PP-09 | `:90` | `O material reúne as principais orientações aplicáveis à propaganda partidária no rádio e na televisão durante o primeiro semestre de 2026.` | lead | keep | Matches P2 p. 2. |
 | PP-10 | `:91` | `A nova edição organiza exibição, distribuição horária, dias de veiculação, reserva do espaço, entrega de mídia e hipóteses de manutenção da programação normal.` | paragraph | rewrite | "A nova edição" is relative to the replaced edition; drop that phrase. |
 | PP-11 | `:93` | `1º sem.` / `período de exibição em 2026` | metric | rewrite | As text, not a tile. |
-| PP-12 | `:94` | `19h30–22h30` / `faixa da programação normal` | metric | rewrite | Inaccurate paraphrase: P2 pp. 2 and 5 say the insertions run in the **intervals** of normal programming between 19h30 and 22h30. Use the PDF wording. |
+| PP-12 | `:94` | `19h30–22h30` / `faixa da programação normal` | metric | rewrite | Inaccurate paraphrase: P2 p. 2 says the insertions run in the **intervals** of normal programming between 19h30 and 22h30. Use the PDF wording. |
 | PP-13 | `:95` | `10` / `inserções de 30 segundos por dia` | metric | rewrite | P2 p. 5: "máximo de inserções por dia". Say "até 10". |
 | PP-14 | `:104` | `Seis pontos centrais para a operação.` | `h2` | keep | |
 | PP-15 | `:106` | `01` `Exibição` / `Período, faixa de horário, duração e limite diário das inserções.` | topic | keep | |
@@ -311,8 +312,8 @@ The policy must be rewritten after the analytics decision in Phase 5 (`0003-anal
 | PR-19 | `:77` | `Para exercer seus direitos, entre em contato através do e-mail oficial listado abaixo.` | paragraph | keep | |
 | PR-20 | `:79` | `5. Contato` | `h2` | keep | |
 | PR-21 | `:80` | `Se você tiver qualquer dúvida sobre esta Política de Privacidade, entre em contato conosco:` | paragraph | keep | |
-| PR-22 | `:81` | `E-mail: contato@mouraeribeiro.adv.br` / `Endereço: SHIS QI 05, Bloco F, Sala 332 - Lago Sul, Brasília/DF` | contact | keep | Email from the config file (G-15). |
-| PR-23 | `:12` to `:28` | Microsoft Clarity `xbqs6gzxzi` and Google Analytics `G-F8TPY82JGN` loaded without consent | scripts | drop | Not copy, recorded for the analytics decision. No controller (DPO) is named in the policy (Q-09). |
+| PR-22 | `:81`, `:82` | `E-mail: contato@mouraeribeiro.adv.br` / `Endereço: SHIS QI 05, Bloco F, Sala 332 - Lago Sul, Brasília/DF` | contact | keep | Email from the config file (G-15). |
+| PR-23 | `:12` to `:28` | Microsoft Clarity `xbqs6gzxzi` and Google Analytics `G-F8TPY82JGN` loaded without consent | scripts | drop | Not copy, recorded for the analytics decision. The policy names neither the controller nor an encarregado (Q-09). |
 
 ## Terms of use (`termos.html`)
 
@@ -357,8 +358,8 @@ Text extracted with `pdftotext` for inventory only. The PDFs are served unchange
 
 | ID | File | Title (from the document) | Pages | Description | Facts reusable as a source |
 |---|---|---|---|---|---|
-| P1 | `assets/docs/cartilha-eleicoes-2026.pdf` (423 KB) | Eleições 2026: Implicações no rádio e na televisão | 29 (landscape, PowerPoint export) | Operational guide for radio and TV stations on the 2026 election: calendar, polls, normal programming, debates, free airtime, right of reply, case-law risk map and an internal action plan. | p. 2 summary and metrics; p. 3 section map; p. 28 "Sobre o escritório" (description and six service lines); p. 29 copyright notice. Contact footer on every page: address, `Telefone / WhatsApp (61) 3879-5003`, old email. |
-| P2 | `assets/docs/cartilha-propaganda-partidaria-2026.pdf` (155 KB) | Cartilha Propaganda Partidária 2026 no rádio e na televisão | 8 (landscape, PowerPoint export) | Basic guidance for stations on party political broadcasts in the first half of 2026: time bands, distribution, days, reservation, media delivery and normal programming. | p. 2 summary and metrics; p. 5 time-band grid; p. 6 operational chain; p. 7 "Sobre o escritório" (same six service lines as P1); p. 8 copyright notice. Contact footer: address, `(61) 3703-5558 / 3879-5003`, old email. |
+| P1 | `assets/docs/cartilha-eleicoes-2026.pdf` (423 KB) | Eleições 2026: Implicações no rádio e na televisão | 29 (landscape, PowerPoint export) | Operational guide for radio and TV stations on the 2026 election: calendar, polls, normal programming, debates, free airtime, right of reply, case-law risk map and an internal action plan. | p. 2 summary and metrics; p. 3 section map; p. 28 "Sobre o escritório" (description and six service lines); p. 29 copyright notice. Contact footer on every page except p. 29: address, `Telefone / WhatsApp (61) 3879-5003`, old email. |
+| P2 | `assets/docs/cartilha-propaganda-partidaria-2026.pdf` (155 KB) | Cartilha Propaganda Partidária 2026 no rádio e na televisão | 8 (landscape, PowerPoint export) | Basic guidance for stations on party political broadcasts in the first half of 2026: time bands, distribution, days, reservation, media delivery and normal programming. | p. 2 summary and metrics; p. 5 time-band grid; p. 6 operational chain; p. 7 "Sobre o escritório" (same six service lines as P1); p. 8 copyright notice. Contact footer on every page except p. 8: address, `(61) 3703-5558 / 3879-5003`, old email. |
 | P3 | `assets/docs/calendario-voz-do-brasil-2026.pdf` (209 KB) | Clipping do Diário Oficial da União, 10.04.2026: Portaria MCOM nº 22.129, de 23 de março de 2026 | 4 (portrait) | Reproduction of the ministerial order approving the 2026 calendar for waiving or rescheduling the mandatory "A Voz do Brasil" broadcast, with general rules and an annex of events. | Arts. 1 to 8 and the annex. The letterhead mixes an **old address** (`SHIS QI 21 Conjunto 07 Casa 17, Lago Sul, CEP 71.655-270`, `(61) 3703.5558`), the current address with `CEP 71.615-560` and `Telefone / Whatsapp (61) 3879.5003`, and a "MOURA E ..." text fragment, likely the former firm name (Q-12). |
 
 ### Facts from the PDFs not on the legacy site

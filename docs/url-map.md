@@ -40,7 +40,8 @@ Both the `.html` and the extensionless forms are therefore public and are covere
 | `/termos` | kept | `/termos` | 200 | |
 | `/termos.html` | redirected | `/termos` | 301 | Today `307`. |
 | `/404`, `/404.html` | kept as the not-found page | none | 404 | Served for any unknown path. Direct requests answer `404`, not `200`. |
-| any path with a trailing slash | redirected | same path without the slash | 301 | Platform behaviour; Phase 1 confirms the `html_handling` setting. |
+| `/cartilha-eleicoes-2026/`, `/cartilha-eleicoes-2024/`, `/cartilha-propaganda-partidaria-2026/`, `/calendario-voz-do-brasil-2026/` | redirected | the matching `/publicacoes/...` URL | 301 | Explicit rules, so a trailing slash does not cost a second hop. |
+| any other path with a trailing slash | redirected | same path without the slash | 301 or 307 | Platform behaviour; Phase 1 confirms the `html_handling` setting. |
 
 ## Home page anchors
 
@@ -104,12 +105,16 @@ PDF links are the most likely to be shared outside the site (email, messaging, o
 /index                                      /                                                 301
 /cartilha-eleicoes-2024.html                /publicacoes/cartilha-eleicoes-2026               301
 /cartilha-eleicoes-2024                     /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2024/                    /publicacoes/cartilha-eleicoes-2026               301
 /cartilha-eleicoes-2026.html                /publicacoes/cartilha-eleicoes-2026               301
 /cartilha-eleicoes-2026                     /publicacoes/cartilha-eleicoes-2026               301
+/cartilha-eleicoes-2026/                    /publicacoes/cartilha-eleicoes-2026               301
 /cartilha-propaganda-partidaria-2026.html   /publicacoes/cartilha-propaganda-partidaria-2026  301
 /cartilha-propaganda-partidaria-2026        /publicacoes/cartilha-propaganda-partidaria-2026  301
+/cartilha-propaganda-partidaria-2026/       /publicacoes/cartilha-propaganda-partidaria-2026  301
 /calendario-voz-do-brasil-2026.html         /publicacoes/calendario-voz-do-brasil-2026        301
 /calendario-voz-do-brasil-2026              /publicacoes/calendario-voz-do-brasil-2026        301
+/calendario-voz-do-brasil-2026/             /publicacoes/calendario-voz-do-brasil-2026        301
 /privacidade.html                           /privacidade                                      301
 /termos.html                                /termos                                           301
 ```
