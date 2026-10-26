@@ -6,7 +6,7 @@ This repository is a ground-up rebuild. The previous site lives in `rodolfommour
 
 ## Status
 
-Pre-development. The work is organised in phases (see [`docs/process.md`](docs/process.md) and [`docs/phases/`](docs/phases/)). Current phase is recorded in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
+Phase 1 (foundation): an empty placeholder on the preview Worker. The work is organised in phases (see [`docs/process.md`](docs/process.md) and [`docs/phases/`](docs/phases/)). Current phase is recorded in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
 ## Principles
 
@@ -15,18 +15,35 @@ Pre-development. The work is organised in phases (see [`docs/process.md`](docs/p
 - Brand rules from the firm's brand manual: [`docs/brand.md`](docs/brand.md).
 - Static site, minimal JavaScript, security headers, WCAG 2.2 AA, LGPD-aware.
 
+## Install and run
+
+Requires Node from [`.nvmrc`](.nvmrc) (24 LTS).
+
+```sh
+npm ci
+npx playwright install chromium   # once, for the accessibility and Lighthouse checks
+npm run dev                       # http://localhost:4321
+npm run check                     # lint, typecheck, build, HTML validation, links, axe
+npm run test:lighthouse           # Lighthouse CI budgets
+```
+
+Deployment goes through Cloudflare Workers Builds; see [`docs/deploy.md`](docs/deploy.md).
+
 ## Repository layout
 
 ```text
 .claude/        agent settings and the reviewer subagent
-.github/        CODEOWNERS, PR template, Dependabot
-docs/           brand, phases, decisions, content sources, open questions
+.github/        CODEOWNERS, PR template, Dependabot, CI workflow
+docs/           brand, phases, decisions, content sources, open questions, deploy
+public/         static files copied as is (brand files, favicon, _headers)
+scripts/        Node scripts behind the npm scripts
+src/            Astro pages, layouts and site config
+tests/          Playwright and axe accessibility tests
 CLAUDE.md       project rules for the coding agent
 CONTRIBUTING.md how to propose changes
 SECURITY.md     how to report a vulnerability
+wrangler.jsonc  Cloudflare Worker `mmec-site` (preview)
 ```
-
-Application code (Astro project, `src/`, `public/`, `wrangler.jsonc`) is added in Phase 1.
 
 ## Contributing
 
