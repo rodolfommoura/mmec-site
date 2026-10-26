@@ -24,4 +24,4 @@ What was chosen, in one paragraph.
 What becomes easier, harder, or must be revisited.
 ```
 
-Planned records: `0001-stack`, `0002-site-structure`, `0003-analytics` (see the phase files).
+Records: `0001-stack`, `0002-site-structure`, `0004-self-hosted-fonts`. Planned: `0003-analytics` (Phase 5).

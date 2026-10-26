@@ -4,6 +4,11 @@ Node scripts used by the npm scripts in `package.json`.
 
 - `check-links.mjs`: `npm run test:links`. Starts `astro preview` on the built `dist/` and crawls every internal link with linkinator.
 - `pages.mjs`: lists the URL paths of the built pages, shared by the accessibility tests.
+- `build-specimen.mjs`: `npm run build:specimen`. Builds with the internal design specimen at `/_design` (`DESIGN_SPECIMEN=true`).
+- `check-production-build.mjs`: run by `npm run check` after `npm run build`; fails if the specimen leaked into a production build.
+- `check-design-literals.mjs`: `npm run lint:design`, part of `npm run lint`. Fails when CSS outside `src/styles/tokens.css` hard-codes a colour, font, length or duration, or a breakpoint that is not a `--breakpoint-*` token.
+- `strip-brand-metadata.mjs`: run by hand after copying files from the brand folder. Removes C2PA content-credential metadata from `public/brand/` and `public/favicon.svg` and compacts SVG path data without changing coordinates.
+- `verify-brand-artwork.mjs`: run by hand after the previous script, `node scripts/verify-brand-artwork.mjs [git-ref]`. Compares every brand file with a Git ref (default `main`): SVG path numbers, Chromium renders and PNG pixels must be identical.
 
 ## Phase runner (`run-phases.ps1`)
 

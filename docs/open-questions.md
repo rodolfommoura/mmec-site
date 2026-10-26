@@ -30,6 +30,11 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-18 | Contact data printed inside the PDFs | none | Leave PDFs unchanged. |
 | Q-19 | Publications whose period is over | Phase 4 | Keep all three, labelled with year and type; a new edition is a content-only change. |
 | Q-20 | Pending update of Provimento 205/2021 | Phase 7 | Re-check the OAB site before launch. |
+| Q-21 | Heading case: mixed vs upper | Phase 3 gate | Mixed case (owner decision for Phase 2); upper case shown on `/_design` for comparison; one token switches it. |
+| Q-22 | Simplified favicon (variant F) | Phase 3 gate | Keep as provisional; owner confirms or replaces it. |
+| Q-23 | Logo minimum width: artboard or artwork | Phase 3 gate | 300 px applies to the file's artboard (artwork about 252 px wide). |
+| Q-24 | Mobile header layout | Phase 3 gate | Logo at 300 px on its own row, "Menu" button below it; no symbol-plus-text variant. |
+| Q-25 | "Abrir no WhatsApp" link label | Phase 3 | Use it next to the WhatsApp number, linking to `wa.me`. |
 
 ## Naming and identity
 
@@ -237,3 +242,35 @@ Answer: Keep all three publications online, each labelled with its year and type
 - **Default:** drop it from the new footer. The owner may ask for a credit line; its wording comes from the owner.
 
 Answer: Drop "Desenvolvido por Henrique Moura." from the new footer.
+
+## Design (Phase 2)
+
+Opened by the Phase 2 unattended run on 2026-10-26. Each default is applied in the Phase 2 pull request and reviewed at the Phase 3 human gate. Preview: `/_design` on the pull request's Workers Builds preview URL.
+
+### Q-21. Heading case
+
+- Evidence: the brand manual sets titles in upper case; `docs/brand.md` proposes mixed case for long headings. The owner decided for Phase 2: mixed case by default, built as a single switch, with upper case shown for comparison.
+- Implementation: `--heading-case` and `--heading-letter-spacing` in `src/styles/tokens.css`. Upper case: set `--heading-case: uppercase` and `--heading-letter-spacing: var(--letter-spacing-display-caps)`. The specimen shows both side by side (section "Caixa dos títulos").
+- **Default:** mixed case.
+
+### Q-22. Simplified favicon
+
+- Evidence: `docs/brand.md` records the simplified symbol "variant F" from `Marca/standardized/favicon` as approved on 2026-10-26. The owner asked to keep it provisional in Phase 2.
+- Implementation: `public/favicon.ico` and `public/favicon.svg` unchanged in shape (C2PA metadata removed). Shown on `/_design` at 16, 32 and 48 px.
+- **Default:** keep variant F, marked provisional, until the owner confirms it at the Phase 3 gate.
+
+### Q-23. Logo minimum width: artboard or artwork
+
+- Evidence: `docs/brand.md` sets the horizontal logo minimum at 300 px. The SVG artboard (3600 × 1200) has built-in margins of about 290 units left and right, so at 300 px the visible artwork is about 252 px wide and the second line of the wordmark ("ADVOGADOS ASSOCIADOS") is small. The margins are at least the required clear space (a quarter of the symbol height, 180 units).
+- Question: does the 300 px minimum refer to the file's artboard or to the visible artwork? Should the header use a larger logo on desktop?
+- **Default:** the minimum applies to the artboard; the header and footer show the horizontal logo at exactly 300 px at every width.
+
+### Q-24. Mobile header layout
+
+- Evidence: at 320 to 400 px the 300 px logo leaves no room for a menu button on the same row. `docs/brand.md`: "use symbol plus text set in HTML only if the owner approves".
+- **Default:** logo on the first row, "Menu" button on a second row. No symbol-plus-text variant.
+
+### Q-25. "Abrir no WhatsApp" link label
+
+- Evidence: Q-05 publishes `(61) 3879-5003` as a WhatsApp number with a WhatsApp link. No source has a label for that link.
+- **Default:** the contact block shows the number (a `tel:` link) followed by "Abrir no WhatsApp" (a link to `https://wa.me/556138795003`). The owner may change the label.
