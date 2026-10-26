@@ -32,7 +32,7 @@ This is a rebuild from scratch. The previous site lives in `rodolfommoura/mmec-s
 
 ## Working method
 
-- Work on **one phase at a time**, in order, following `docs/phases/NN-*.md`. Do not start the next phase until the human has approved the current one.
+- Work on **one phase at a time**, in order, following `docs/phases/NN-*.md`. Do not start the next phase until the current one is approved (human approval or the runner rule under Git conventions).
 - Each phase: create a branch, implement in small commits, run all checks, run the **reviewer** subagent (`.claude/agents/reviewer.md`), fix every blocking finding, open a pull request, and stop.
 - Never push to `main`. Never merge your own PR. Never deploy to production.
 - When unsure about content, brand or legal wording: stop and add the question to `docs/open-questions.md` instead of guessing.
@@ -43,7 +43,8 @@ This is a rebuild from scratch. The previous site lives in `rodolfommoura/mmec-s
 - Trunk-based: `main` is protected and always deployable. Short-lived branches: `feat/…`, `fix/…`, `chore/…`, `docs/…`.
 - Conventional Commits (`feat(home): add hero section`), imperative mood, subject ≤ 72 chars, body explains why.
 - One logical change per commit. No "wip" commits on a PR. Squash-merge PRs with a clean title.
-- Required before merge: CI green, reviewer verdict recorded in the PR description, human approval.
+- Required before merge: CI green and reviewer verdict recorded in the PR description.
+- Human approval is required after phases 3, 4, 7 and 8. Phases 2, 5 and 6 are merged by `scripts/run-phases.ps1` when CI is green and the reviewer verdict is APPROVE or APPROVE WITH NOTES; the owner reviews their results at the next human gate.
 - Commit the lockfile. Use `npm ci` in CI. Line endings are LF (`.gitattributes`).
 - Repository content (texts, brand, documents) belongs to the firm: no open-source licence, `LICENSE` states all rights reserved.
 

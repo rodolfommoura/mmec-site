@@ -28,3 +28,5 @@ Stop when the pull request is open.
 ## Human gate
 
 Open the preview `/_design/` on desktop and phone. Decide: heading case (upper vs mixed), whether the simplified favicon is acceptable, and whether the overall feel is sober enough. Comment on the PR with exactly what to change.
+
+Runner note: this gate moved. The owner decisions on heading case and favicon are reviewed with the Phase 3 pull request.

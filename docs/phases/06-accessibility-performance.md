@@ -26,3 +26,5 @@ Audit first, write findings to docs/audit-06.md, then fix. Stop when the pull re
 ## Human gate
 
 Open the site on your own phone and computer. Report anything that feels slow, hard to read or hard to use.
+
+Runner note: this gate moved. The manual check on the owner's phone and computer moves to Phase 7.
