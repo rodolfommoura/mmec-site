@@ -1,0 +1,4 @@
+# Preview only: keep the site out of search indexes until the cutover (Phase 8).
+# Security headers and the Content-Security-Policy are added in Phase 5.
+/*
+  X-Robots-Tag: noindex, nofollow

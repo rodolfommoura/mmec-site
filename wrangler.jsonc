@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Preview Worker. The production Worker "mmec" is not touched until Phase 8.
+  "name": "mmec-site",
+  "compatibility_date": "2026-10-26",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+}
