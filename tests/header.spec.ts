@@ -26,14 +26,18 @@ test.describe("mobile menu", () => {
     await expect(toggle).toBeFocused();
     await expect(firstLink).toBeHidden();
   });
-
-  test("keeps the logo at its 300 px minimum", async ({ page }) => {
-    await page.goto("/");
-    const logo = page.locator(".site-header img").first();
-    const box = await logo.boundingBox();
-    expect(box?.width).toBe(300);
-  });
 });
+
+// Q-23: the 300 px minimum applies to the visible artwork, which spans 3020 of the 3600 units.
+for (const width of [360, 375, 390]) {
+  test(`keeps the logo artwork at its 300 px minimum at ${width} px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 740 });
+    await page.goto("/");
+    const box = await page.locator(".site-header img").first().boundingBox();
+    // Layout units round to 1/64 px, so allow half a pixel.
+    expect(((box?.width ?? 0) * 3020) / 3600).toBeGreaterThan(299.5);
+  });
+}
 
 test.describe("mobile menu without JavaScript", () => {
   test.use({ viewport: phone, javaScriptEnabled: false });

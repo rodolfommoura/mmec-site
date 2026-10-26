@@ -214,7 +214,9 @@ const breadcrumbItems = [
           </p>
           <p class="case-heading case-heading-2">Converse com o escritório.</p>
           <p class="case-heading case-heading-3">Outorgas e renovações</p>
-          <p class="case-heading case-heading-4">Gestão jurídica de etapas críticas da operação.</p>
+          <p class="case-heading case-heading-4">
+            Gestão jurídica dos processos de outorga e renovação.
+          </p>
         </figure>
       ))}
     </div>
@@ -223,17 +225,17 @@ const breadcrumbItems = [
   <Section id="logotipos" eyebrow="04" title="Logotipos">
     <p class="specimen-note">
       Arquivos da pasta da marca, sem alteração do desenho. As pranchetas já incluem a área de
-      proteção (um quarto da altura do símbolo). Larguras mínimas: horizontal 300 px, vertical 200
-      px, símbolo 64 px.
+      proteção (um quarto da altura do símbolo). Larguras mínimas: horizontal 300 px medidos no
+      desenho visível (Q-23), vertical 200 px, símbolo 64 px.
     </p>
     <div class="logo-grid">
-      <figure class="logo-tile">
+      <figure class="logo-tile logo-tile-wide">
         <Logo />
-        <figcaption>Horizontal, ink, 300 px</figcaption>
+        <figcaption>Horizontal, ink, 300 px de desenho</figcaption>
       </figure>
-      <figure class="logo-tile band-green">
+      <figure class="logo-tile logo-tile-wide band-green">
         <Logo tone="cream" />
-        <figcaption>Horizontal, cream sobre verde, 300 px</figcaption>
+        <figcaption>Horizontal, cream sobre verde, 300 px de desenho</figcaption>
       </figure>
       <figure class="logo-tile">
         <Logo variant="stacked" />
@@ -768,6 +770,12 @@ const breadcrumbItems = [
     padding: var(--space-4);
     border: var(--rule);
     overflow-x: auto;
+  }
+
+  /* The horizontal logo needs more than one column; the tile is its query container. */
+  .logo-tile-wide {
+    grid-column: 1 / -1;
+    container-type: inline-size;
   }
 
   .logo-tile figcaption {

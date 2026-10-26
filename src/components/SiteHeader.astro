@@ -16,7 +16,7 @@ const { currentPath } = Astro.props;
 const menuId = "menu-principal";
 ---
 
-<header class="site-header" data-site-header>
+<header class="site-header" id="topo" data-site-header>
   <div class="container site-header-inner">
     <a class="home-link" href="/">
       <Logo alt={site.name} loading="eager" />
@@ -67,7 +67,9 @@ const menuId = "menu-principal";
     border-bottom: var(--rule);
   }
 
+  /* Query container: the logo caps its width at `100cqi` (Logo.astro). */
   .site-header-inner {
+    container-type: inline-size;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -154,6 +156,10 @@ const menuId = "menu-principal";
   }
 
   @media (width >= 64rem) {
+    .site-header-inner {
+      --logo-horizontal-width: var(--logo-horizontal-width-large);
+    }
+
     .menu-toggle {
       display: none;
     }

@@ -12,7 +12,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 |---|---|---|---|
 | Q-01 | Short name "MMC" vs "MMEC" | Phase 2 | Never "MMC". Full name in copy, "MMEC" only as a short form. |
 | Q-02 | "Desde 2004" and "22+ anos" | Phase 3 | "Desde 2004" confirmed; no counter, no "22+". |
-| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Keep the current email until the owner confirms the new one; Maps link to the listing if Phase 3 confirms it shows the current name, otherwise to the coordinates. |
+| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Resolved: keep the current email until the owner confirms the new one; the Maps link opens the renamed listing (pin `-15.8463737, -47.8944906`). |
 | Q-04 | Decorative claims "360°", "DF", "01" | Phase 3 | Drop. |
 | Q-05 | Phone numbers, WhatsApp and postcode | Phase 3 | Publish `(61) 3703-5558` and `(61) 3879-5003` (labelled and linked as WhatsApp); CEP `71.615-560`. |
 | Q-06 | "Especializada" and OAB art. 3, III | Phase 3 | Never "especializada" or "especialização" (no certified title); say "atuação em direito da radiodifusão". |
@@ -32,8 +32,8 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-20 | Pending update of Provimento 205/2021 | Phase 7 | Re-check the OAB site before launch. |
 | Q-21 | Heading case: mixed vs upper | Phase 3 gate | Mixed case (owner decision for Phase 2); upper case shown on `/_design` for comparison; one token switches it. |
 | Q-22 | Simplified favicon (variant F) | Phase 3 gate | Keep as provisional; owner confirms or replaces it. |
-| Q-23 | Logo minimum width: artboard or artwork | Phase 3 gate | 300 px applies to the file's artboard (artwork about 252 px wide). |
-| Q-24 | Mobile header layout | Phase 3 gate | Logo at 300 px on its own row, "Menu" button below it; no symbol-plus-text variant. |
+| Q-23 | Logo minimum width: artboard or artwork | Phase 3 gate | Resolved: 300 px applies to the visible artwork; header and footer use 400 px of artwork from 64rem. |
+| Q-24 | Mobile header layout | Phase 3 gate | Same row only if both fit; at 360 px they do not, so the "Menu" button stays on a second row. Symbol-plus-text still not used. |
 | Q-25 | "Abrir no WhatsApp" link label | Phase 3 | Use it next to the WhatsApp number, linking to `wa.me`. |
 
 ## Naming and identity
@@ -65,6 +65,8 @@ Answer: "Desde 2004" is confirmed as the founding reference. No counter, no "22+
 - **Default:** keep `contato@mouraeribeiro.adv.br` in the single contact config file until a new mailbox is confirmed (`CLAUDE.md` rule 9). The maps link points to the coordinates (`-15.8521537,-47.8945894`), not to the listing, until the listing carries the current name. No DNS or email change in this project.
 
 Answer: The owner has already renamed the Google Business Profile. A mailbox on `@mmec.adv.br` will exist later, not now: keep `contato@mouraeribeiro.adv.br` in the contact config until the owner confirms the new address. In Phase 3, check that the Maps listing shows the current firm name. If it does, the map link may point to the listing; otherwise it points to the coordinates.
+
+Resolved (Phase 3 gate): the owner supplied the listing URL, which carries "Machado Moura e Cardoso Advogados Associados". The "Abrir no Google Maps" link now opens that listing (no iframe, `rel="noopener noreferrer"`). Its pin is `-15.8463737, -47.8944906`; the legacy coordinates `-15.8521537, -47.8945894` sit about 640 m away and are no longer used. The email part stands as answered above: `contato@mouraeribeiro.adv.br` stays until the owner confirms a mailbox on `@mmec.adv.br`.
 
 ### Q-16. Preview Worker name
 
@@ -180,7 +182,7 @@ Answer: Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003`, the second 
 
 - Evidence: H-96, an iframe from `maps.google.com` loaded on every home page view.
 - Problems: a third-party request before consent (LGPD, `CLAUDE.md` rule 6), a CSP exception (`frame-src`), extra weight, and it shows the old listing name nearby.
-- **Default:** no iframe. The address is shown as text with a plain "Abrir no Google Maps" link to the coordinates (see Q-03). A static map image is possible later only if made from a source with a compatible licence.
+- **Default:** no iframe. The address is shown as text with a plain "Abrir no Google Maps" link (see Q-03; it now opens the renamed listing). A static map image is possible later only if made from a source with a compatible licence.
 
 Answer: Accepted as proposed.
 
@@ -265,10 +267,18 @@ Opened by the Phase 2 unattended run on 2026-10-26. Each default is applied in t
 - Question: does the 300 px minimum refer to the file's artboard or to the visible artwork? Should the header use a larger logo on desktop?
 - **Default:** the minimum applies to the artboard; the header and footer show the horizontal logo at exactly 300 px at every width.
 
+Answer: Apply the 300 px minimum to the visible artwork if the firm name is not legible in the header.
+
+Resolved (Phase 3 gate): at a 300 px artboard the two wordmark lines render at about 7 and 6 px, which is not legible at device pixel ratio 1, so the minimum now applies to the artwork (artboard about 358 px). Only the transparent artboard margin beyond the required clear space is trimmed from the layout box. Header and footer use about 400 px of artwork from 64rem. Below a 360 px viewport (for example 320 px) the content column is narrower than 300 px, so the logo shrinks to fit rather than causing horizontal scrolling (WCAG 1.4.10); the owner may revisit this with the symbol-plus-text option in Q-24.
+
 ### Q-24. Mobile header layout
 
 - Evidence: at 320 to 400 px the 300 px logo leaves no room for a menu button on the same row. `docs/brand.md`: "use symbol plus text set in HTML only if the owner approves".
 - **Default:** logo on the first row, "Menu" button on a second row. No symbol-plus-text variant.
+
+Answer: On mobile (360 px), put the logo and the "Menu" button on the same row if they fit.
+
+Checked at the Phase 3 gate (after Q-23): they do not fit. At a 360 px viewport the header content column is 331 px wide. The logo needs 336 px (300 px of artwork plus the clear space) and the "Menu" button 71 px, plus a gap. Even the bare artwork and the button (371 px) exceed the viewport. The layout stays as in the default. Both would share a row only with the symbol-plus-text variant, which `docs/brand.md` allows only with the owner's approval.
 
 ### Q-25. "Abrir no WhatsApp" link label
 

@@ -1,17 +1,236 @@
 ---
-// Placeholder until Phase 3 builds the home page.
-import BaseLayout from "../layouts/BaseLayout.astro";
+// Home page (docs/phases/03-home.md). Every sentence traces to docs/content-sources.md; the
+// row IDs are noted next to each piece of copy. Section ids keep the legacy anchors.
+import Button from "../components/Button.astro";
+import ContactBlock from "../components/ContactBlock.astro";
+import PublicationCard from "../components/PublicationCard.astro";
+import Section from "../components/Section.astro";
+import { practiceAreas } from "../config/practice-areas";
+import { publications } from "../config/publications";
 import { site } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const areaNumber = (index: number) => String(index + 1).padStart(2, "0");
 ---
 
-<BaseLayout title={site.name} description={site.description} currentPath="/">
-  <div class="container placeholder">
-    <h1>{site.name}</h1>
-  </div>
+<BaseLayout title={site.name} description={site.description} currentPath="/" canonicalPath="/">
+  <section class="opening" id="inicio" aria-labelledby="inicio-titulo">
+    <!-- The symbol, once, large and cropped, as a quiet watermark (docs/brand.md). -->
+    <img
+      class="opening-watermark"
+      src="/brand/svg/mmec-symbol-ink.svg"
+      width="2000"
+      height="2000"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+    <div class="container opening-inner">
+      <!-- G-01 -->
+      <h1 class="opening-title" id="inicio-titulo">
+        {site.name}
+      </h1>
+      <!-- H-05 rewritten with G-03, H-23 and H-16 (Q-02, Q-06) -->
+      <p class="opening-statement">Atuação em direito da radiodifusão, em Brasília, desde 2004.</p>
+      <!-- H-06 -->
+      <p class="lead opening-lead">
+        Assessoria e consultoria jurídica dedicada a emissoras, entidades e empresas do setor, com
+        atuação regulatória, institucional, legislativa e preventiva.
+      </p>
+      <div class="opening-actions">
+        <!-- H-07, H-08 -->
+        <Button href="#contato">Fale com o escritório</Button>
+        <Button variant="secondary" href="#atuacao">
+          Conheça nossa atuação
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- H-20, H-21 rewritten -->
+  <Section
+    id="escritorio"
+    eyebrow="O escritório"
+    title="Sediado em Brasília, dedicado ao setor de radiodifusão"
+    band="green"
+  >
+    <div class="office-text">
+      <!-- H-22 rewritten (Q-06), PDF-01 -->
+      <p class="lead">
+        Machado Moura e Cardoso Advogados Associados atua em direito da radiodifusão, com
+        experiência jurídica, legislativa e regulatória no setor.
+      </p>
+      <!-- H-23 -->
+      <p>
+        Sediado em Brasília, o escritório acompanha de perto o ambiente normativo, regulatório e
+        institucional que afeta emissoras, entidades e empresas do setor.
+      </p>
+      <!-- H-24 rewritten: "continuidade operacional" dropped (read as a promised result) -->
+      <p>A atuação é orientada por segurança jurídica e prevenção de riscos.</p>
+    </div>
+  </Section>
+
+  <!-- H-33 rewritten, H-34 rewritten with H-36 -->
+  <Section id="atuacao" eyebrow="Atuação" title="Áreas de atuação">
+    <ol class="areas plain-list" aria-labelledby="atuacao-titulo">
+      {practiceAreas.map((area, index) => (
+        <li class="area" id={`area-${index + 1}`}>
+          <p class="area-number eyebrow" aria-hidden="true">
+            {areaNumber(index)}
+          </p>
+          <h3 class="area-title">{area.title}</h3>
+          <p class="area-summary">{area.summary}</p>
+          <p class="area-description">{area.description}</p>
+          <ul class="area-topics">
+            {area.topics.map((topic) => (
+              <li>{topic}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <!-- H-69 rewritten (Q-14), H-70 rewritten; cards H-72 to H-84 -->
+  <Section id="inteligencia" eyebrow="Publicações" title="Material informativo para emissoras">
+    <div class="publications">
+      {publications.map((publication) => (
+        <PublicationCard publication={publication} level={3} />
+      ))}
+    </div>
+  </Section>
+
+  <!-- H-89, H-90, H-91; contact data from src/config/site.ts (H-93 to H-98) -->
+  <Section id="contato" title="Contato">
+    <p class="contact-intro">
+      Atendimento jurídico e institucional a empresas e entidades do setor de radiodifusão.
+    </p>
+    <ContactBlock />
+  </Section>
 </BaseLayout>
 
 <style>
-  .placeholder {
+  .opening {
+    position: relative;
+    overflow: hidden;
     padding-block: var(--space-section);
+    border-bottom: var(--rule);
+  }
+
+  .opening-watermark {
+    display: none;
+  }
+
+  .opening-inner {
+    position: relative;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .opening-title {
+    max-width: var(--measure-narrow);
+    font-size: var(--text-display);
+  }
+
+  .opening-statement {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--color-heading-accent);
+  }
+
+  .opening-lead {
+    max-width: var(--measure);
+  }
+
+  .opening-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block-start: var(--space-2);
+  }
+
+  .office-text {
+    display: grid;
+    gap: var(--space-5);
+    max-width: var(--measure);
+  }
+
+  .areas {
+    display: grid;
+    gap: var(--space-12) var(--grid-gutter);
+  }
+
+  .area {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    margin: 0;
+    padding-block-start: var(--space-4);
+    border-top: var(--rule-accent);
+    scroll-margin-top: var(--space-4);
+  }
+
+  .area-summary {
+    font-style: italic;
+  }
+
+  .area-description {
+    color: var(--color-text-muted);
+  }
+
+  .area-topics {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    line-height: var(--line-height-ui);
+  }
+
+  .area-topics li + li {
+    margin-block-start: var(--space-1);
+  }
+
+  .publications {
+    display: grid;
+    gap: var(--space-12) var(--grid-gutter);
+  }
+
+  .contact-intro {
+    max-width: var(--measure);
+    margin-block-end: var(--space-8);
+  }
+
+  @media (width >= 48rem) {
+    .opening-watermark {
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline-end: calc(var(--watermark-size) / -4);
+      display: block;
+      width: var(--watermark-size);
+      max-width: none;
+      opacity: var(--watermark-opacity);
+      transform: translateY(-50%);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .areas,
+    .publications {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64rem) {
+    .areas,
+    .publications {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media print {
+    .opening-watermark {
+      display: none;
+    }
   }
 </style>

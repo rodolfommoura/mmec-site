@@ -56,7 +56,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | H-01 | `index.html:8` | `Machado Moura e Cardoso Advogados Associados` | `<title>` | keep | |
-| H-02 | `index.html:6` | `Machado Moura e Cardoso Advogados Associados. Advocacia especializada em radiodifusão, regulação e acompanhamento institucional em Brasília.` | meta description | rewrite | "especializada" may conflict with Provimento 205/2021, art. 3, III (Q-06). Suggested: "atuação em direito da radiodifusão". Used since Phase 1 (`src/config/site.ts`): `Machado Moura e Cardoso Advogados Associados. Atuação em direito da radiodifusão, regulação e acompanhamento institucional em Brasília.` |
+| H-02 | `index.html:6` | `Machado Moura e Cardoso Advogados Associados. Advocacia especializada em radiodifusão, regulação e acompanhamento institucional em Brasília.` | meta description | rewrite | "especializada" may conflict with Provimento 205/2021, art. 3, III (Q-06). Suggested: "atuação em direito da radiodifusão". Phase 3 (owner wording, `src/config/site.ts`): `Escritório de advocacia em Brasília com atuação em direito da radiodifusão, incluindo regulação e acompanhamento institucional.` "regulação" and "acompanhamento institucional" are both in the legacy text; "especializada" is replaced as in Q-06. |
 
 ### Hero
 
@@ -120,22 +120,22 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-38 | `index.html:233`, `:248`, `:263`, `:278`, `:293`, `:308` | `A`, `R`, `O`, `P`, `E`, `M` | panel letters | drop | Decoration. |
 | H-39 | `index.html:234` | `Assessoria jurídica permanente` | area label | keep | Matches P1 p. 28 and P2 p. 7. |
 | H-40 | `index.html:235` | `Suporte contínuo para decisões jurídicas e regulatórias.` | area heading | keep | |
-| H-41 | `index.html:237` | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação estratégica e resposta a questões operacionais do setor.` | area text | keep | |
+| H-41 | `index.html:237` | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação estratégica e resposta a questões operacionais do setor.` | area text | rewrite | See the rewrite log. |
 | H-42 | `index.html:241` to `:243` | `Consultoria jurídica recorrente` / `Revisão de riscos regulatórios` / `Apoio a decisões administrativas` | list | keep | |
 | H-43 | `index.html:249` | `Regulação e legislação` | area label | keep | |
 | H-44 | `index.html:250` | `Leitura técnica das normas que estruturam o setor.` | area heading | keep | |
 | H-45 | `index.html:252` | `Interpretação de alterações normativas, atos administrativos e projetos legislativos, com avaliação de impactos e definição de medidas de adequação.` | area text | keep | |
 | H-46 | `index.html:256` to `:258` | `Análise de normas e atos` / `Avaliação de impacto regulatório` / `Orientação de conformidade` | list | keep | |
 | H-47 | `index.html:264` | `Outorgas e renovações` | area label | keep | Matches "Assessoria em prazos e renovação de outorga" (P1 p. 28). |
-| H-48 | `index.html:265` | `Gestão jurídica de etapas críticas da operação.` | area heading | keep | |
+| H-48 | `index.html:265` | `Gestão jurídica de etapas críticas da operação.` | area heading | rewrite | See the rewrite log. |
 | H-49 | `index.html:267` | `Assessoria em processos relacionados a outorgas, renovações, transferências e regularidade documental, com atenção a prazos e exigências formais.` | area text | keep | |
-| H-50 | `index.html:271` to `:273` | `Renovação de outorgas` / `Regularidade documental` / `Gestão de prazos críticos` | list | keep | |
+| H-50 | `index.html:271` to `:273` | `Renovação de outorgas` / `Regularidade documental` / `Gestão de prazos críticos` | list | rewrite | Third item reworded; see the rewrite log. |
 | H-51 | `index.html:279` | `Órgãos públicos` | area label | keep | |
 | H-52 | `index.html:280` | `Acompanhamento técnico de processos administrativos.` | area heading | keep | |
 | H-53 | `index.html:282` | `Gestão jurídica de procedimentos, protocolos, diligências e acompanhamento institucional perante órgãos públicos sediados em Brasília.` | area text | keep | |
 | H-54 | `index.html:286` to `:288` | `Processos administrativos` / `Protocolos e diligências` / `Acompanhamento institucional` | list | keep | |
 | H-55 | `index.html:294` | `Pareceres e estudos` | area label | keep | |
-| H-56 | `index.html:295` | `Fundamentação jurídica para decisões complexas.` | area heading | keep | |
+| H-56 | `index.html:295` | `Fundamentação jurídica para decisões complexas.` | area heading | rewrite | See the rewrite log. |
 | H-57 | `index.html:297` | `Elaboração de pareceres, estudos técnicos e informativos destinados a subsidiar decisões internas, operações e posicionamentos institucionais.` | area text | keep | |
 | H-58 | `index.html:301` to `:303` | `Pareceres jurídicos` / `Estudos setoriais` / `Informativos técnicos` | list | keep | |
 | H-59 | `index.html:309` | `Monitoramento normativo` | area label | keep | |
@@ -189,7 +189,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | H-89 | `index.html:431` | `Contato` | eyebrow | keep | |
-| H-90 | `index.html:432` | `Converse com o escritório.` | `h2` | keep | Neutral. |
+| H-90 | `index.html:432` | `Converse com o escritório.` | `h2` | rewrite | Replaced by `Contato` at the owner's request (Phase 3 gate). |
 | H-91 | `index.html:434` | `Atendimento jurídico e institucional a empresas e entidades do setor de radiodifusão.` | paragraph | keep | |
 | H-92 | `index.html:439` | `E-mail` | label | keep | |
 | H-93 | `index.html:443` | `Telefone` / `(61) 3703-5558` / `tel:+556137035558` | phone | keep | Publish both numbers: `(61) 3703-5558` and `(61) 3879-5003` (source: P1, P2). The second is labelled as WhatsApp and is the only one with a WhatsApp link (Q-05). |
@@ -197,7 +197,7 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-95 | `index.html:454` | `Lago Sul · Brasília/DF` | address | keep | |
 | H-96 | `index.html:457` | `Mapa do escritório em Brasília` (embedded Google Maps iframe) | map | drop | No iframe; the address is shown as text with a plain map link (Q-10). |
 | H-97 | `index.html:466` | `Enviar mensagem` | button | keep | `mailto:` link. |
-| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | rewrite | The owner has renamed the listing. Phase 3 checks it shows the current firm name: if so, link to the listing; otherwise to the coordinates `-15.8521537,-47.8945894` (Q-03). |
+| H-98 | `index.html:470` | `Abrir no Google Maps` (link to the "MOURA E RIBEIRO ADVOGADOS ASSOCIADOS" listing) | link | rewrite | The owner renamed the listing and supplied its URL, which carries the current firm name: the link opens that listing, pin `-15.8463737, -47.8944906`. The legacy coordinates `-15.8521537, -47.8945894` are about 640 m south of the pin and are no longer used (Q-03). |
 
 ## Publication: Eleições 2026 (`cartilha-eleicoes-2026.html`)
 
@@ -371,6 +371,27 @@ Text extracted with `pdftotext` for inventory only. The PDFs are served unchange
 | PDF-03 | P1 p. 28 | `Acompanhamento de procedimentos perante órgãos públicos em Brasília` / `Monitoramento de atos no Diário Oficial da União` / `Estudos técnicos, pareceres e informativos jurídicos setoriais` / `Assessoria em prazos e renovação de outorga` / `Assessoria jurídica permanente em radiodifusão` | keep | Confirms the six practice areas (H-39 to H-62). |
 | PDF-04 | P1 p. 29; P2 p. 8 | `Esta obra intelectual é protegida pela Lei nº 9.610/1998. Autorizada apenas a reprodução integral.` | keep | The terms follow this rule (Q-11). |
 | PDF-05 | P3 | `CEP 71.615-560` | keep | Confirmed postcode of SHIS QI 05, Bloco F, Sala 332 (Q-05). |
+
+## Rewrites on the new home page (Phase 3)
+
+Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-areas.ts`, with the rows it comes from. Rewrites add no facts. Rows marked `keep` are used verbatim and are not repeated here.
+
+| Source | New text | What changed |
+|---|---|---|
+| H-05, G-03, H-23, H-16 | `Atuação em direito da radiodifusão, em Brasília, desde 2004.` | Slogan replaced by a plain statement of field, place and founding year. No counter (Q-02), no "especializada" (Q-06). |
+| H-21 | `Sediado em Brasília, dedicado ao setor de radiodifusão` (`h2`) | Persuasive heading replaced by two facts from H-23 and H-22, in the wording suggested in Q-06. |
+| H-22, PDF-01 | `Machado Moura e Cardoso Advogados Associados atua em direito da radiodifusão, com experiência jurídica, legislativa e regulatória no setor.` | "de forma especializada" replaced by "em direito da radiodifusão" (Q-06); "integrando" simplified to "com". |
+| H-24 | `A atuação é orientada por segurança jurídica e prevenção de riscos.` | "continuidade operacional" dropped: it reads as a promised result (Provimento 205/2021, art. 6, parágrafo único). |
+| H-33 | `Atuação` (eyebrow) | Wrong short name "MMC" removed (Q-01). |
+| H-34, H-36 | `Áreas de atuação` (`h2`, also the list's accessible name) | Slogan-like heading replaced by the legacy tablist label. |
+| H-41 | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação jurídica e resposta a questões operacionais do setor.` | Owner request at the Phase 3 gate: "orientação estratégica" replaced by the neutral "orientação jurídica" (Provimento 205/2021, art. 3, IV). |
+| H-48 | `Gestão jurídica dos processos de outorga e renovação.` | Owner request at the Phase 3 gate: "etapas críticas da operação" replaced by what the area covers, taken from its title and from H-49. |
+| H-50 | `Renovação de outorgas` / `Regularidade documental` / `Controle de prazos` | Owner request at the Phase 3 gate: "Gestão de prazos críticos" replaced by "Controle de prazos" (H-49 already mentions "atenção a prazos"). |
+| H-56 | `Fundamentação jurídica para decisões internas.` | Owner request at the Phase 3 gate: "decisões complexas" replaced by "decisões internas", the wording of H-57 ("subsidiar decisões internas"). |
+| H-60 | `Acompanhamento das publicações oficiais que afetam o setor.` | Slogan replaced by a plain summary of H-61 and H-62, in the place of the other areas' one-line summaries. |
+| H-69, G-07 | `Publicações` (eyebrow) | Renamed (Q-14). The section keeps the anchor `#inteligencia`. |
+| H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |
+| H-90, G-08 | `Contato` (`h2`) | Owner request at the Phase 3 gate: the section heading is the navigation label (G-08). The "Contato" eyebrow is dropped so the word is not shown twice. |
 
 ## Facts provided by the owner
 

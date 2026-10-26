@@ -3,8 +3,9 @@
 export const site = {
   // G-01
   name: "Machado Moura e Cardoso Advogados Associados",
+  // H-02, owner wording for Phase 3; "regulação" and "acompanhamento institucional" are in the legacy text.
   description:
-    "Machado Moura e Cardoso Advogados Associados. Atuação em direito da radiodifusão, regulação e acompanhamento institucional em Brasília.",
+    "Escritório de advocacia em Brasília com atuação em direito da radiodifusão, incluindo regulação e acompanhamento institucional.",
   // G-03, G-16
   descriptor: "Direito da radiodifusão",
   // G-14
@@ -13,6 +14,15 @@ export const site = {
   oabRegistration: "OAB/DF 0100104RS",
   // Until Phase 8 every page is served with noindex (docs/phases/01-foundation.md).
   indexable: false,
+} as const;
+
+// Default Open Graph image, built by src/pages/og/mmec-og-default.png.ts.
+export const ogImage = {
+  path: "/og/mmec-og-default.png",
+  width: 1200,
+  height: 630,
+  // G-01
+  alt: "Machado Moura e Cardoso Advogados Associados",
 } as const;
 
 // Target of the skip link; every page's <main> carries this id.
@@ -34,8 +44,10 @@ export const contact = {
     district: "Lago Sul · Brasília/DF",
     postcode: "CEP 71.615-560",
   },
-  // H-98 and Q-03: coordinates until Phase 3 confirms the Maps listing shows the current name.
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=-15.8521537,-47.8945894",
+  // H-98 and Q-03: the Google Business Profile listing, renamed to the current firm name.
+  // Its pin is -15.8463737, -47.8944906; the legacy coordinates were -15.8521537, -47.8945894.
+  mapUrl:
+    "https://www.google.com/maps/place/Machado+Moura+e+Cardoso+Advogados+Associados/@-15.8463737,-47.8944906,17z/data=!3m1!4b1!4m6!3m5!1s0x935a250f208e197d:0x56f1f2a3b1baf3a1!8m2!3d-15.8463737!4d-47.8944906!16s%2Fg%2F11twv24yqz",
 } as const;
 
 export interface NavItem {

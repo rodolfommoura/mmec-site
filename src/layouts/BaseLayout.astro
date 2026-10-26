@@ -3,7 +3,7 @@ import { Font } from "astro:assets";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SkipLink from "../components/SkipLink.astro";
-import { mainContentId, site } from "../config/site";
+import { mainContentId, ogImage, site } from "../config/site";
 import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/print.css";
@@ -15,10 +15,14 @@ interface Props {
   currentPath?: string;
   /** Keeps a page out of search indexes even after launch (the design specimen). */
   noindex?: boolean;
+  /** Public path of the page; adds the canonical URL and Open Graph tags. Omit on the 404. */
+  canonicalPath?: string;
 }
 
-const { title, description, currentPath, noindex = false } = Astro.props;
+const { title, description, currentPath, noindex = false, canonicalPath } = Astro.props;
 const robots = noindex || !site.indexable ? "noindex, nofollow" : undefined;
+const canonicalUrl = canonicalPath ? new URL(canonicalPath, Astro.site).href : undefined;
+const ogImageUrl = new URL(ogImage.path, Astro.site).href;
 ---
 
 <!doctype html>
@@ -29,6 +33,23 @@ const robots = noindex || !site.indexable ? "noindex, nofollow" : undefined;
     <title>{title}</title>
     <meta name="description" content={description} />
     {robots && <meta name="robots" content={robots} />}
+    {canonicalUrl && (
+      <>
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:site_name" content={site.name} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content={String(ogImage.width)} />
+        <meta property="og:image:height" content={String(ogImage.height)} />
+        <meta property="og:image:alt" content={ogImage.alt} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/brand/png/mmec-symbol-avatar-512-on-cream.png" />

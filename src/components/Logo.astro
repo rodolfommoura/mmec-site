@@ -1,9 +1,12 @@
 ---
 /**
  * Brand logo from public/brand (docs/brand.md). The artboards already include the clear space
- * (a quarter of the symbol height) on every side, so no extra margin is added here. Widths
- * below the brand minimum are rejected at build time. On dark bands use `tone="cream"`; the
- * ink file is swapped in for print.
+ * (a quarter of the symbol height) on every side, so no extra margin is added here. On dark
+ * bands use `tone="cream"`; the ink file is swapped in for print.
+ *
+ * The horizontal artboard carries more transparent margin than the clear space requires, which
+ * made the wordmark render at about 6 px. Its layout box is therefore trimmed to the artwork
+ * plus the clear space, and its size comes from tokens.css (see the style block).
  */
 import { site } from "../config/site";
 
@@ -13,63 +16,85 @@ type Tone = "ink" | "cream";
 interface Props {
   variant?: Variant;
   tone?: Tone;
-  /** Rendered width in CSS pixels; defaults to the brand minimum. */
-  width?: number;
   /** Empty when the logo sits next to visible text with the same name. */
   alt?: string;
   loading?: "eager" | "lazy";
 }
 
-// Artboard sizes of the files in public/brand/svg, and minimum on-screen widths (brand.md).
-const files: Record<Variant, { artboard: [number, number]; minWidth: number; name: string }> = {
-  horizontal: { artboard: [3600, 1200], minWidth: 300, name: "mmec-logo-horizontal" },
-  stacked: { artboard: [2000, 2000], minWidth: 200, name: "mmec-logo-stacked" },
-  symbol: { artboard: [2000, 2000], minWidth: 64, name: "mmec-symbol" },
+// Artboard sizes of the files in public/brand/svg and the default rendered artboard width
+// (brand.md minimums; the horizontal one is 300 px of visible artwork, Q-23). The width and
+// height attributes only reserve space; CSS sets the final size.
+const files: Record<Variant, { artboard: [number, number]; width: number; name: string }> = {
+  horizontal: { artboard: [3600, 1200], width: 358, name: "mmec-logo-horizontal" },
+  stacked: { artboard: [2000, 2000], width: 200, name: "mmec-logo-stacked" },
+  symbol: { artboard: [2000, 2000], width: 64, name: "mmec-symbol" },
 };
 
-const {
-  variant = "horizontal",
-  tone = "ink",
-  width = files[variant].minWidth,
-  alt = site.name,
-  loading = "lazy",
-} = Astro.props;
+const { variant = "horizontal", tone = "ink", alt = site.name, loading = "lazy" } = Astro.props;
 
 const file = files[variant];
-if (width < file.minWidth) {
-  throw new Error(
-    `Logo "${variant}" must be at least ${file.minWidth}px wide (docs/brand.md), got ${width}px.`,
-  );
-}
+const width = file.width;
 const height = Math.round((width * file.artboard[1]) / file.artboard[0]);
 const src = (fileTone: Tone) => `/brand/svg/${file.name}-${fileTone}.svg`;
 ---
 
-<img
-  class:list={["logo", { "logo-screen-only": tone === "cream" }]}
-  src={src(tone)}
-  {width}
-  {height}
-  {alt}
-  {loading}
-  decoding="async"
-/>
-{tone === "cream" && (
+<span class="logo-frame">
   <img
-    class="logo logo-print-only"
-    src={src("ink")}
+    class:list={["logo", `logo-${variant}`, { "logo-screen-only": tone === "cream" }]}
+    src={src(tone)}
     {width}
     {height}
-    alt=""
-    loading="lazy"
+    {alt}
+    {loading}
     decoding="async"
   />
-)}
+  {tone === "cream" && (
+    <img
+      class:list={["logo", `logo-${variant}`, "logo-print-only"]}
+      src={src("ink")}
+      {width}
+      {height}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  )}
+</span>
 
 <style>
+  /*
+   * The frame clips what the negative margins below push out of the layout box: transparent
+   * artboard margin beyond the clear space, never artwork. Without it that margin would still
+   * count as scrollable overflow.
+   */
+  .logo-frame {
+    display: block;
+    flex: none;
+    overflow: clip;
+  }
+
   /* The brand minimum wins over the global `max-width: 100%` for images. */
   .logo {
-    flex: none;
     max-width: none;
+  }
+
+  /*
+   * Horizontal artboard: 3600 x 1200 units, artwork from x 298 to 3318 and y 248 to 968, clear
+   * space 180 units (a quarter of the 720-unit symbol). The negative margins remove only the
+   * transparent margin beyond the clear space (118, 102, 68 and 52 units), so the layout box is
+   * 3380 x 1080 units. The cap lets that box reach into one page gutter, which is empty, so
+   * the 300 px artwork minimum holds from a 360 px viewport; below that the logo shrinks
+   * rather than make the page scroll sideways (WCAG 1.4.10).
+   */
+  .logo-horizontal {
+    --logo-box: min(
+      var(--logo-horizontal-width),
+      calc((100cqi + var(--container-padding)) * 3600 / 3380)
+    );
+
+    width: var(--logo-box);
+    height: auto;
+    margin-block: calc(var(--logo-box) * -68 / 3600) calc(var(--logo-box) * -52 / 3600);
+    margin-inline: calc(var(--logo-box) * -118 / 3600) calc(var(--logo-box) * -102 / 3600);
   }
 </style>
