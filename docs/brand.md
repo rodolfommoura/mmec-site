@@ -52,7 +52,7 @@ Rules:
 - Minimum on screen: horizontal logo 300 px wide, stacked 200 px, symbol 64 px. The mobile header must respect the 300 px minimum or use symbol plus text set in HTML only if the owner approves.
 - Use the `cream` variant on green or ink. Never place the logo over photos.
 - The SVGs were traced from PNG masters (the original vector is still pending). Optimise them but do not redraw.
-- Known gap: the symbol has thin strokes and fails below 64 px. The 32 px favicon therefore needs a simplified, thicker symbol. Produce a provisional version, mark it clearly as provisional, and ask the owner to approve it. Never ship it silently.
+- Known gap: the symbol has thin strokes and fails below 64 px. The 32 px favicon therefore needs a simplified, thicker symbol. Resolved: the brand folder `Marca/standardized/favicon` holds the simplified symbol "variant F", approved 2026-10-26 (its `README.md`), for use below 64 px. `favicon.ico` and `favicon.svg` are copied to `public/`.
 
 ## Visual vocabulary (allowed)
 
