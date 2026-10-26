@@ -1,0 +1,73 @@
+/* Print: the firm prints pages, so print ink on plain paper and drop the interface. */
+
+@media print {
+  :root {
+    --color-background: transparent;
+    --color-text: var(--color-ink);
+    --color-heading-accent: var(--color-ink);
+    --color-link: var(--color-ink);
+  }
+
+  .band-green,
+  .band-ink {
+    --color-background: transparent;
+    --color-text: var(--color-ink);
+    --color-text-muted: var(--color-stone);
+    --color-heading-accent: var(--color-ink);
+    --color-link: var(--color-ink);
+  }
+
+  body {
+    font-size: var(--print-text-body);
+  }
+
+  .skip-link,
+  .site-nav,
+  .menu-toggle,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Cream logos on dark bands would vanish on paper: print the ink file instead. */
+  .logo-screen-only {
+    display: none !important;
+  }
+
+  .logo-print-only {
+    display: block !important;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  /* Show where external and contact links go, since paper cannot be clicked. */
+  a[href^="http"]::after,
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+    overflow-wrap: anywhere;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  img,
+  table,
+  figure,
+  .publication-card,
+  .contact-block {
+    break-inside: avoid;
+  }
+}

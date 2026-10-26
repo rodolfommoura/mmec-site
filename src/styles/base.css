@@ -1,0 +1,323 @@
+/* Base layer: reset, typography, links, lists, tables, forms, focus and selection. */
+
+/* Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--space-4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  font-kerning: normal;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  text-transform: var(--heading-case);
+  letter-spacing: var(--heading-letter-spacing);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: var(--text-heading-1);
+}
+
+h2 {
+  font-size: var(--text-heading-2);
+  color: var(--color-heading-accent);
+}
+
+h3 {
+  font-size: var(--text-heading-3);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Cormorant needs SemiBold below about 24 px (docs/brand.md). */
+h4 {
+  font-size: var(--text-heading-4);
+  font-weight: var(--font-weight-semibold);
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+strong,
+b {
+  font-weight: var(--font-weight-semibold);
+}
+
+small {
+  font-size: var(--text-ui-small);
+}
+
+hr {
+  border: 0;
+  border-top: var(--rule);
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+}
+
+/* Links */
+
+a {
+  color: var(--color-link);
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--hairline);
+  text-underline-offset: var(--underline-offset);
+  transition: color var(--duration-colour) var(--easing);
+}
+
+a:hover,
+a[data-state="hover"] {
+  color: var(--color-link-hover);
+  text-decoration-thickness: var(--border-strong);
+}
+
+/* Focus and selection */
+
+:focus-visible,
+[data-state="focus"] {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background: var(--color-selection-background);
+  color: var(--color-selection-text);
+}
+
+/* Lists */
+
+ul,
+ol {
+  padding-inline-start: var(--space-6);
+}
+
+li + li {
+  margin-block-start: var(--space-2);
+}
+
+.plain-list {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+li::marker {
+  color: var(--color-rule-accent);
+}
+
+dt {
+  font-family: var(--font-ui);
+  font-size: var(--text-ui-small);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Tables: Public Sans, hairlines, no zebra fills. */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: var(--line-height-ui);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+caption {
+  padding-block-end: var(--space-3);
+  text-align: start;
+  color: var(--color-text-muted);
+}
+
+th,
+td {
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  border-bottom: var(--rule);
+  text-align: start;
+  vertical-align: top;
+}
+
+thead th {
+  border-bottom: var(--rule-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Forms: visible labels, 44 px targets, error state not shown by colour alone. */
+
+label,
+legend {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: var(--font-weight-semibold);
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+}
+
+input:not([type="checkbox"], [type="radio"]),
+textarea,
+select {
+  display: block;
+  width: 100%;
+  min-height: var(--control-min-size);
+  padding: var(--space-2) var(--space-3);
+  border: var(--hairline) solid var(--color-stone);
+  border-radius: var(--radius);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: var(--focus-ring-color);
+}
+
+[aria-invalid="true"] {
+  border-color: var(--color-ink);
+  border-width: var(--border-strong);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  inline-size: var(--space-5);
+  block-size: var(--space-5);
+  accent-color: var(--color-green);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field-hint {
+  font-family: var(--font-ui);
+  font-size: var(--text-ui-small);
+  color: var(--color-text-muted);
+}
+
+/* The message starts with "Erro:" in the markup, so the state is not shown by colour alone. */
+.field-error {
+  padding-inline-start: var(--space-3);
+  border-inline-start: var(--border-strong) solid var(--color-rule-accent);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Utilities */
+
+.logo-print-only {
+  display: none;
+}
+
+.visually-hidden:not(:focus, :active) {
+  position: absolute;
+  width: var(--hairline);
+  height: var(--hairline);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-ui-small);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: var(--line-height-body);
+}
+
+.band-green,
+.band-ink {
+  background: var(--color-background);
+  color: var(--color-text);
+}
