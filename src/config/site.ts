@@ -16,6 +16,15 @@ export const site = {
   indexable: false,
 } as const;
 
+// Default Open Graph image, built by src/pages/og/mmec-og-default.png.ts.
+export const ogImage = {
+  path: "/og/mmec-og-default.png",
+  width: 1200,
+  height: 630,
+  // G-01
+  alt: "Machado Moura e Cardoso Advogados Associados",
+} as const;
+
 // Target of the skip link; every page's <main> carries this id.
 export const mainContentId = "conteudo-principal";
 
