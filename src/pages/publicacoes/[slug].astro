@@ -1,0 +1,301 @@
+---
+// Publication page (docs/phases/04-publications-legal.md). All copy comes from the entry's
+// Markdown file in src/content/publications/; the sources are noted in each file.
+import type { GetStaticPaths } from "astro";
+import { Picture } from "astro:assets";
+import { render } from "astro:content";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+import {
+  formatBytes,
+  formatPages,
+  getPublications,
+  pdfBytes,
+  pdfHref,
+  publicationHref,
+  publicationsPath,
+  type Publication,
+} from "../../config/publications";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export const getStaticPaths = (async () => {
+  const publications = await getPublications();
+  return publications.map((publication) => ({
+    params: { slug: publication.id },
+    props: { publication },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  publication: Publication;
+}
+
+const { publication } = Astro.props;
+const { data } = publication;
+const { Content } = await render(publication);
+const path = publicationHref(publication);
+const pdf = pdfHref(publication);
+const bytes = pdfBytes(publication);
+const topicNumber = (index: number) => String(index + 1).padStart(2, "0");
+---
+
+<BaseLayout
+  title={data.pageTitle}
+  description={data.description}
+  currentPath={publicationsPath}
+  canonicalPath={path}
+>
+  <article class="publication" aria-labelledby="publicacao-titulo">
+    <header class="publication-header">
+      <div class="container">
+        <!-- G-09, G-07 rewritten (Q-14) -->
+        <Breadcrumb
+          items={[
+            { label: "Início", href: "/" },
+            { label: "Publicações", href: publicationsPath },
+            { label: data.title, href: path },
+          ]}
+        />
+        <div class="publication-header-grid">
+          <div class="publication-intro">
+            <p class="eyebrow">{data.eyebrow}</p>
+            <h1 id="publicacao-titulo">{data.heading ?? data.title}</h1>
+            <p class="lead">{data.lead}</p>
+            <dl class="publication-details">
+              <div>
+                <dt>Tipo</dt>
+                <dd>{data.type}</dd>
+              </div>
+              <div>
+                <dt>Edição</dt>
+                <dd>{data.editionDate ?? data.year}</dd>
+              </div>
+              <div>
+                <dt>Arquivo</dt>
+                <dd data-pdf-bytes={bytes} data-pdf-pages={data.pages}>
+                  PDF · {formatPages(data.pages)} · {formatBytes(bytes)}
+                </dd>
+              </div>
+            </dl>
+            <div class="publication-actions no-print">
+              <Button href={pdf}>Abrir PDF completo</Button>
+              <Button variant="secondary" href={pdf} download={data.pdf}>
+                {data.downloadLabel}
+              </Button>
+            </div>
+            <p class="print-only">PDF: {new URL(pdf, Astro.site).href}</p>
+          </div>
+          {data.cover && (
+            <Picture
+              class="publication-page-cover"
+              src={data.cover}
+              alt={data.coverAlt ?? ""}
+              formats={["avif", "webp"]}
+              widths={[480, 960, 1440]}
+              sizes="(width >= 64rem) 34rem, 100vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- E-10 -->
+    <Section id="resumo" eyebrow="Resumo executivo" title={data.summaryTitle}>
+      <div class="publication-summary">
+        <Content />
+      </div>
+      {data.keyFacts.length > 0 && (
+        <ul class="publication-facts">
+          {data.keyFacts.map((fact) => (
+            <li>{fact}</li>
+          ))}
+        </ul>
+      )}
+    </Section>
+
+    <Section id="conteudo" eyebrow={data.topicsEyebrow} title={data.topicsTitle}>
+      <ol class="publication-topics plain-list">
+        {data.topics.map((topic, index) => (
+          <li class="publication-topic">
+            <p class="eyebrow" aria-hidden="true">
+              {topicNumber(index)}
+            </p>
+            <h3 class="publication-topic-title">{topic.title}</h3>
+            <p class="publication-topic-text">{topic.text}</p>
+          </li>
+        ))}
+      </ol>
+    </Section>
+
+    <!-- E-26, PP-21, VB-20 -->
+    <aside class="container publication-notice-wrapper" aria-labelledby="aviso-juridico">
+      <div class="publication-notice">
+        <h2 class="publication-notice-title" id="aviso-juridico">
+          Aviso jurídico
+        </h2>
+        {data.notice.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </aside>
+  </article>
+</BaseLayout>
+
+<style>
+  .publication-header {
+    padding-block: var(--space-8) var(--space-section);
+    border-bottom: var(--rule);
+  }
+
+  .publication-header-grid {
+    display: grid;
+    gap: var(--space-10) var(--grid-gutter);
+    margin-block-start: var(--space-8);
+  }
+
+  .publication-intro {
+    display: grid;
+    align-content: start;
+    gap: var(--space-5);
+    max-width: var(--measure);
+  }
+
+  .publication-details {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-5);
+    border-block: var(--rule);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    line-height: var(--line-height-ui);
+  }
+
+  .publication-details dd {
+    margin-block-start: var(--space-1);
+  }
+
+  .publication-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .publication-header :global(.publication-page-cover) {
+    width: 100%;
+    border: var(--rule);
+  }
+
+  .publication-summary {
+    display: grid;
+    gap: var(--space-5);
+    max-width: var(--measure);
+  }
+
+  .publication-summary :global(p:first-child) {
+    font-size: var(--text-lead);
+  }
+
+  .publication-facts {
+    max-width: var(--measure);
+    margin-block-start: var(--space-8);
+    padding-block-start: var(--space-6);
+    border-top: var(--rule-accent);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    line-height: var(--line-height-ui);
+  }
+
+  .publication-topics {
+    display: grid;
+    gap: var(--space-10) var(--grid-gutter);
+  }
+
+  .publication-topic {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    margin: 0;
+    padding-block-start: var(--space-4);
+    border-top: var(--rule-accent);
+  }
+
+  .publication-topic-title {
+    font-size: var(--text-heading-4);
+  }
+
+  .publication-topic-text {
+    color: var(--color-text-muted);
+  }
+
+  .publication-notice-wrapper {
+    padding-block-end: var(--space-section);
+  }
+
+  .publication-notice {
+    display: grid;
+    gap: var(--space-3);
+    max-width: var(--measure);
+    padding: var(--space-6);
+    border: var(--rule);
+    border-inline-start: var(--border-strong) solid var(--color-rule-accent);
+  }
+
+  .publication-notice-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  @media (width >= 48rem) {
+    .publication-details {
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+      column-gap: var(--space-10);
+    }
+
+    .publication-topics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64rem) {
+    .publication-header-grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: start;
+    }
+
+    .publication-topics {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media print {
+    .publication-header {
+      padding-block: 0 var(--space-6);
+    }
+
+    .publication-header-grid {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      margin-block-start: 0;
+    }
+
+    .publication-topics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .publication-topic,
+    .publication-notice {
+      break-inside: avoid;
+    }
+
+    .publication-notice-wrapper {
+      padding-block-end: 0;
+    }
+  }
+</style>

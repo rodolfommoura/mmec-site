@@ -282,7 +282,8 @@ input[type="radio"] {
 
 /* Utilities */
 
-.logo-print-only {
+.logo-print-only,
+.print-only {
   display: none;
 }
 
