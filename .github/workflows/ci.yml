@@ -35,6 +35,8 @@ jobs:
 
       - name: Install Chromium for Playwright and Lighthouse
         run: npx playwright install --with-deps chromium
+        # A stalled browser or apt download should fail the step, not eat the job timeout.
+        timeout-minutes: 10
 
       # Lint, typecheck, build, HTML validation, link check and axe.
       - name: Run checks
