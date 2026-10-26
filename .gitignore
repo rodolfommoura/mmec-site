@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build output and caches
+dist/
+.astro/
+.wrangler/
+.cache/
+coverage/
+lighthouse-report/
+playwright-report/
+test-results/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.dev.vars
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Claude Code local files (shared settings.json stays tracked)
+.claude/settings.local.json
+CLAUDE.local.md
