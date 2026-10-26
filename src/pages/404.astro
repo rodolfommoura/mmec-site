@@ -6,18 +6,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   title="Página não encontrada | Machado Moura e Cardoso"
   description="Página não encontrada no site Machado Moura e Cardoso Advogados Associados."
 >
-  <main id="conteudo-principal">
+  <div class="container not-found">
     <h1>O endereço acessado não está disponível.</h1>
     <p>
       <a href="/">Voltar à página inicial</a>
     </p>
-  </main>
+  </div>
 </BaseLayout>
 
 <style>
-  main {
-    max-width: 60rem;
-    margin: 0 auto;
-    padding: 4rem 1rem;
+  .not-found {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-section);
   }
 </style>

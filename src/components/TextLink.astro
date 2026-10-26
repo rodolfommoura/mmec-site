@@ -1,0 +1,18 @@
+---
+/**
+ * Inline text link. External links get `rel="noopener noreferrer"` and open in the same tab.
+ * PDF links state the format in their text, so the reader knows before following them.
+ */
+interface Props {
+  href: string;
+  /** Forces a visual state, for the design specimen only. */
+  state?: "hover" | "focus";
+}
+
+const { href, state } = Astro.props;
+const isExternal = /^https?:\/\//.test(href);
+---
+
+<a {href} rel={isExternal ? "noopener noreferrer" : undefined} data-state={state}>
+  <slot />
+</a>

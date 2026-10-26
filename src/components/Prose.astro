@@ -1,0 +1,37 @@
+---
+// Long-form text set like a printed publication: one measure, vertical rhythm, hairline rules.
+---
+
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    max-width: var(--measure);
+  }
+
+  .prose > :global(* + *) {
+    margin-block-start: var(--space-5);
+  }
+
+  .prose > :global(* + h2),
+  .prose > :global(* + h3) {
+    margin-block-start: var(--space-12);
+  }
+
+  .prose > :global(h2 + *),
+  .prose > :global(h3 + *) {
+    margin-block-start: var(--space-4);
+  }
+
+  .prose :global(blockquote) {
+    padding-inline-start: var(--space-6);
+    border-inline-start: var(--rule-accent);
+    font-style: italic;
+  }
+
+  .prose :global(hr) {
+    margin-block: var(--space-10);
+  }
+</style>

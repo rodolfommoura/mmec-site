@@ -1,0 +1,110 @@
+---
+// Footer on a green band (G-12, G-14 to G-20, OWN-01). No developer credit (Q-15).
+import Logo from "./Logo.astro";
+import { legalNavigation, mainNavigation, site } from "../config/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer band-green">
+  <div class="container site-footer-grid">
+    <div class="site-footer-brand">
+      <Logo tone="cream" />
+      <p class="site-footer-tagline">
+        {site.descriptor}.<br />
+        {site.location}.
+      </p>
+    </div>
+    <nav class="site-footer-column" aria-labelledby="rodape-navegacao">
+      <h2 class="site-footer-title eyebrow" id="rodape-navegacao">
+        Navegação
+      </h2>
+      <ul class="plain-list">
+        {mainNavigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <nav class="site-footer-column" aria-labelledby="rodape-informacoes">
+      <h2 class="site-footer-title eyebrow" id="rodape-informacoes">
+        Informações
+      </h2>
+      <ul class="plain-list">
+        {legalNavigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="site-footer-legal">
+      <p>
+        © {year} {site.name}.
+      </p>
+      <p>{site.oabRegistration}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-12) var(--space-8);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    line-height: var(--line-height-ui);
+  }
+
+  .site-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    gap: var(--space-10) var(--grid-gutter);
+  }
+
+  .site-footer-brand,
+  .site-footer-column,
+  .site-footer-legal {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer-tagline {
+    margin-block-start: var(--space-4);
+  }
+
+  .site-footer-title {
+    margin-block-end: var(--space-3);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+    line-height: var(--line-height-ui);
+  }
+
+  .site-footer-column li {
+    margin: 0;
+  }
+
+  .site-footer-column a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+  }
+
+  .site-footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-8);
+    padding-block-start: var(--space-6);
+    border-top: var(--rule-accent);
+  }
+
+  @media (width >= 48rem) {
+    .site-footer-brand {
+      grid-column: 1 / span 6;
+    }
+
+    .site-footer-column {
+      grid-column: span 3;
+    }
+  }
+</style>

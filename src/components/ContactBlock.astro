@@ -1,0 +1,101 @@
+---
+/**
+ * Contact data (H-89 to H-98, Q-03, Q-05, Q-10). Address as text with a plain map link;
+ * no embedded map. All values come from src/config/site.ts.
+ */
+import Button from "./Button.astro";
+import TextLink from "./TextLink.astro";
+import { contact } from "../config/site";
+
+// Phone numbers must not wrap: non-breaking space and non-breaking hyphen.
+const unbreakable = (text: string) => text.replaceAll(" ", "\u00a0").replaceAll("-", "\u2011");
+---
+
+<div class="contact-block">
+  <dl class="contact-list">
+    <div>
+      <dt>E-mail</dt>
+      <dd>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </dd>
+    </div>
+    <div>
+      <dt>Telefone</dt>
+      <dd>
+        <a href={contact.phone.href}>{unbreakable(contact.phone.label)}</a>
+      </dd>
+    </div>
+    <div>
+      <dt>Telefone / WhatsApp</dt>
+      <dd>
+        <a href={contact.whatsapp.tel}>{unbreakable(contact.whatsapp.label)}</a>
+        <span class="contact-separator" aria-hidden="true">
+          ·
+        </span>
+        <TextLink href={contact.whatsapp.href}>Abrir no WhatsApp</TextLink>
+      </dd>
+    </div>
+    <div>
+      <dt>Endereço</dt>
+      <dd>
+        <address>
+          {contact.address.street}
+          <br />
+          {contact.address.district}
+          <br />
+          {contact.address.postcode}
+        </address>
+      </dd>
+    </div>
+  </dl>
+  <div class="contact-actions">
+    <Button href={`mailto:${contact.email}`}>Enviar mensagem</Button>
+    <Button variant="secondary" href={contact.mapUrl} rel="noopener noreferrer">
+      Abrir no Google Maps
+    </Button>
+  </div>
+</div>
+
+<style>
+  .contact-block {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .contact-list {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .contact-list dd {
+    margin-block-start: var(--space-1);
+    overflow-wrap: anywhere;
+  }
+
+  .contact-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+  }
+
+  .contact-separator {
+    margin-inline: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  @media (width >= 48rem) {
+    .contact-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

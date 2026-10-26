@@ -1,12 +1,24 @@
 ---
-import { site } from "../config/site";
+import { Font } from "astro:assets";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SkipLink from "../components/SkipLink.astro";
+import { mainContentId, site } from "../config/site";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/print.css";
 
 interface Props {
   title: string;
   description: string;
+  /** Path of the current page, for aria-current in the navigation. */
+  currentPath?: string;
+  /** Keeps a page out of search indexes even after launch (the design specimen). */
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, currentPath, noindex = false } = Astro.props;
+const robots = noindex || !site.indexable ? "noindex, nofollow" : undefined;
 ---
 
 <!doctype html>
@@ -16,27 +28,27 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {!site.indexable && <meta name="robots" content="noindex, nofollow" />}
+    {robots && <meta name="robots" content={robots} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/png/mmec-symbol-avatar-512-on-cream.png" />
+    <!-- Two preloads at most (docs/brand.md): body text and display titles, upright only. -->
+    <Font cssVariable="--font-newsreader-face" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-cormorant-garamond-face" preload />
+    <Font cssVariable="--font-public-sans-face" />
   </head>
   <body>
-    <slot />
+    <SkipLink />
+    <SiteHeader currentPath={currentPath} />
+    <main id={mainContentId} tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
   </body>
 </html>
 
-<style is:global>
-  /* Provisional values until the design tokens land in Phase 2 (docs/brand.md). */
-  :root {
-    --color-ink: #1c1c1c;
-    --color-cream: #f5f2ea;
-    --font-serif-fallback: Georgia, serif;
-  }
-
-  body {
-    margin: 0;
-    background: var(--color-cream);
-    color: var(--color-ink);
-    font-family: var(--font-serif-fallback);
+<style>
+  main:focus {
+    outline: none;
   }
 </style>

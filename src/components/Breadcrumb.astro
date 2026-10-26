@@ -1,0 +1,61 @@
+---
+// Breadcrumb for publication pages. The last item is the current page.
+import type { NavItem } from "../config/site";
+
+interface Props {
+  items: readonly NavItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumb" aria-label="Trilha de navegação">
+  <ol class="plain-list">
+    {items.map((item, index) => (
+      <li>
+        {index === items.length - 1 ? (
+          <a href={item.href} aria-current="page">
+            {item.label}
+          </a>
+        ) : (
+          <a href={item.href}>{item.label}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: var(--font-ui);
+    font-size: var(--text-ui-small);
+  }
+
+  .breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  /* Separator drawn as a hairline, so screen readers do not announce a glyph. */
+  .breadcrumb li + li::before {
+    content: "";
+    inline-size: var(--space-4);
+    margin-inline: var(--space-2);
+    border-top: var(--rule-accent);
+  }
+
+  .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+  }
+
+  .breadcrumb a[aria-current="page"] {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+</style>
