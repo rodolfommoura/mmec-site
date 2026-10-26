@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import { designSpecimen } from "./src/integrations/design-specimen.mjs";
 
 // Latin subset, as published by Fontsource for the `latin` files.
 const latinRange = /** @type {[string, ...string[]]} */ ([
@@ -36,6 +37,7 @@ export default defineConfig({
   build: {
     format: "file",
   },
+  integrations: [designSpecimen()],
   // The last fallback is a generic family, so Astro generates metric-adjusted fallback faces
   // (Times New Roman for serif, Arial for sans-serif) to avoid layout shift while fonts load.
   fonts: [
