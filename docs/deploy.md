@@ -18,6 +18,7 @@ State on 2026-10-26: the Cloudflare account has only the Worker `mmec`. `mmec-si
 - `assets.html_handling: "auto-trailing-slash"`: same as the legacy Worker. With Astro's `build.format: "file"`, `/privacidade` serves `privacidade.html`, and `/privacidade.html` or `/privacidade/` redirect to `/privacidade`.
 - `assets.not_found_handling: "404-page"`: unknown paths answer `404` with `dist/404.html`.
 - `workers_dev: true` and `preview_urls: true`: the preview is reachable on `*.workers.dev`; no custom domain or route is configured.
+- `previews: {}`: an empty Worker Previews block. Workers Builds runs `wrangler preview` on non-production branches, and that command fails when the block is missing.
 
 `public/_headers` sends `X-Robots-Tag: noindex, nofollow` on every response, and every page carries `<meta name="robots" content="noindex, nofollow">` (`src/config/site.ts`, `indexable: false`). Both stay until Phase 8.
 
@@ -32,7 +33,7 @@ Needs the owner's Cloudflare login and a GitHub app approval, so it is not autom
    - Project (Worker) name: `mmec-site`
    - Build command: `npm run build`
    - Deploy command: `npx wrangler deploy`
-   - Non-production branch deploy command: `npx wrangler versions upload`
+   - Non-production branch deploy command: `npx wrangler preview`
    - Root directory: `/` (leave empty)
    - Production branch: `main`
    - Builds for non-production branches: **enabled** (each PR gets a preview URL)
@@ -72,12 +73,12 @@ npm run preview    # serve dist/ on http://localhost:4321
 
 ## CI
 
-`.github/workflows/ci.yml`, job `ci` (the required status check on `main`):
+`.github/workflows/ci.yml`, job `ci` (the required status check on `main`, job timeout: 20 minutes):
 
 1. `npm ci`
-2. `npx playwright install --with-deps chromium`
+2. `npx playwright install chromium` (step timeout: 10 minutes), with `~/.cache/ms-playwright` cached by `actions/cache`, keyed on the runner OS and the `package-lock.json` hash. `--with-deps` is not used: its apt step downloads font packages from a slow mirror and exceeded 10 minutes.
 3. `npm run check`
 4. `npm run test:lighthouse` (budgets: performance ≥ 0.95, accessibility, best practices and SEO = 1; the `is-crawlable` audit is skipped while the preview is `noindex`, re-enable it in Phase 8)
 5. Upload the Lighthouse report as the artifact `lighthouse-report` (and the Playwright report on failure).
 
-Only GitHub-owned actions are used (`actions/checkout`, `actions/setup-node`, `actions/upload-artifact`), pinned by commit SHA. The token is read-only (`contents: read`).
+Only GitHub-owned actions are used (`actions/checkout`, `actions/setup-node`, `actions/cache`, `actions/upload-artifact`), pinned by commit SHA. The token is read-only (`contents: read`).
