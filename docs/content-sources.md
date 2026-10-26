@@ -120,22 +120,22 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | H-38 | `index.html:233`, `:248`, `:263`, `:278`, `:293`, `:308` | `A`, `R`, `O`, `P`, `E`, `M` | panel letters | drop | Decoration. |
 | H-39 | `index.html:234` | `Assessoria jurídica permanente` | area label | keep | Matches P1 p. 28 and P2 p. 7. |
 | H-40 | `index.html:235` | `Suporte contínuo para decisões jurídicas e regulatórias.` | area heading | keep | |
-| H-41 | `index.html:237` | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação estratégica e resposta a questões operacionais do setor.` | area text | keep | |
+| H-41 | `index.html:237` | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação estratégica e resposta a questões operacionais do setor.` | area text | rewrite | See the rewrite log. |
 | H-42 | `index.html:241` to `:243` | `Consultoria jurídica recorrente` / `Revisão de riscos regulatórios` / `Apoio a decisões administrativas` | list | keep | |
 | H-43 | `index.html:249` | `Regulação e legislação` | area label | keep | |
 | H-44 | `index.html:250` | `Leitura técnica das normas que estruturam o setor.` | area heading | keep | |
 | H-45 | `index.html:252` | `Interpretação de alterações normativas, atos administrativos e projetos legislativos, com avaliação de impactos e definição de medidas de adequação.` | area text | keep | |
 | H-46 | `index.html:256` to `:258` | `Análise de normas e atos` / `Avaliação de impacto regulatório` / `Orientação de conformidade` | list | keep | |
 | H-47 | `index.html:264` | `Outorgas e renovações` | area label | keep | Matches "Assessoria em prazos e renovação de outorga" (P1 p. 28). |
-| H-48 | `index.html:265` | `Gestão jurídica de etapas críticas da operação.` | area heading | keep | |
+| H-48 | `index.html:265` | `Gestão jurídica de etapas críticas da operação.` | area heading | rewrite | See the rewrite log. |
 | H-49 | `index.html:267` | `Assessoria em processos relacionados a outorgas, renovações, transferências e regularidade documental, com atenção a prazos e exigências formais.` | area text | keep | |
-| H-50 | `index.html:271` to `:273` | `Renovação de outorgas` / `Regularidade documental` / `Gestão de prazos críticos` | list | keep | |
+| H-50 | `index.html:271` to `:273` | `Renovação de outorgas` / `Regularidade documental` / `Gestão de prazos críticos` | list | rewrite | Third item reworded; see the rewrite log. |
 | H-51 | `index.html:279` | `Órgãos públicos` | area label | keep | |
 | H-52 | `index.html:280` | `Acompanhamento técnico de processos administrativos.` | area heading | keep | |
 | H-53 | `index.html:282` | `Gestão jurídica de procedimentos, protocolos, diligências e acompanhamento institucional perante órgãos públicos sediados em Brasília.` | area text | keep | |
 | H-54 | `index.html:286` to `:288` | `Processos administrativos` / `Protocolos e diligências` / `Acompanhamento institucional` | list | keep | |
 | H-55 | `index.html:294` | `Pareceres e estudos` | area label | keep | |
-| H-56 | `index.html:295` | `Fundamentação jurídica para decisões complexas.` | area heading | keep | |
+| H-56 | `index.html:295` | `Fundamentação jurídica para decisões complexas.` | area heading | rewrite | See the rewrite log. |
 | H-57 | `index.html:297` | `Elaboração de pareceres, estudos técnicos e informativos destinados a subsidiar decisões internas, operações e posicionamentos institucionais.` | area text | keep | |
 | H-58 | `index.html:301` to `:303` | `Pareceres jurídicos` / `Estudos setoriais` / `Informativos técnicos` | list | keep | |
 | H-59 | `index.html:309` | `Monitoramento normativo` | area label | keep | |
@@ -384,6 +384,10 @@ Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-are
 | H-24 | `A atuação é orientada por segurança jurídica e prevenção de riscos.` | "continuidade operacional" dropped: it reads as a promised result (Provimento 205/2021, art. 6, parágrafo único). |
 | H-33 | `Atuação` (eyebrow) | Wrong short name "MMC" removed (Q-01). |
 | H-34, H-36 | `Áreas de atuação` (`h2`, also the list's accessible name) | Slogan-like heading replaced by the legacy tablist label. |
+| H-41 | `Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação jurídica e resposta a questões operacionais do setor.` | Owner request at the Phase 3 gate: "orientação estratégica" replaced by the neutral "orientação jurídica" (Provimento 205/2021, art. 3, IV). |
+| H-48 | `Gestão jurídica dos processos de outorga e renovação.` | Owner request at the Phase 3 gate: "etapas críticas da operação" replaced by what the area covers, taken from its title and from H-49. |
+| H-50 | `Renovação de outorgas` / `Regularidade documental` / `Controle de prazos` | Owner request at the Phase 3 gate: "Gestão de prazos críticos" replaced by "Controle de prazos" (H-49 already mentions "atenção a prazos"). |
+| H-56 | `Fundamentação jurídica para decisões internas.` | Owner request at the Phase 3 gate: "decisões complexas" replaced by "decisões internas", the wording of H-57 ("subsidiar decisões internas"). |
 | H-60 | `Acompanhamento das publicações oficiais que afetam o setor.` | Slogan replaced by a plain summary of H-61 and H-62, in the place of the other areas' one-line summaries. |
 | H-69, G-07 | `Publicações` (eyebrow) | Renamed (Q-14). The section keeps the anchor `#inteligencia`. |
 | H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |

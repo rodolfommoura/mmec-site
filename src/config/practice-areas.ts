@@ -10,11 +10,11 @@ export interface PracticeArea {
 
 export const practiceAreas: readonly PracticeArea[] = [
   {
-    // H-39 to H-42
+    // H-39 to H-42 (H-41 reworded at the Phase 3 gate)
     title: "Assessoria jurídica permanente",
     summary: "Suporte contínuo para decisões jurídicas e regulatórias.",
     description:
-      "Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação estratégica e resposta a questões operacionais do setor.",
+      "Acompanhamento recorrente das demandas do cliente, com análise preventiva, orientação jurídica e resposta a questões operacionais do setor.",
     topics: [
       "Consultoria jurídica recorrente",
       "Revisão de riscos regulatórios",
@@ -34,12 +34,12 @@ export const practiceAreas: readonly PracticeArea[] = [
     ],
   },
   {
-    // H-47 to H-50
+    // H-47 to H-50 (H-48 and H-50 reworded at the Phase 3 gate)
     title: "Outorgas e renovações",
-    summary: "Gestão jurídica de etapas críticas da operação.",
+    summary: "Gestão jurídica dos processos de outorga e renovação.",
     description:
       "Assessoria em processos relacionados a outorgas, renovações, transferências e regularidade documental, com atenção a prazos e exigências formais.",
-    topics: ["Renovação de outorgas", "Regularidade documental", "Gestão de prazos críticos"],
+    topics: ["Renovação de outorgas", "Regularidade documental", "Controle de prazos"],
   },
   {
     // H-51 to H-54
@@ -54,9 +54,9 @@ export const practiceAreas: readonly PracticeArea[] = [
     ],
   },
   {
-    // H-55 to H-58
+    // H-55 to H-58 (H-56 reworded at the Phase 3 gate)
     title: "Pareceres e estudos",
-    summary: "Fundamentação jurídica para decisões complexas.",
+    summary: "Fundamentação jurídica para decisões internas.",
     description:
       "Elaboração de pareceres, estudos técnicos e informativos destinados a subsidiar decisões internas, operações e posicionamentos institucionais.",
     topics: ["Pareceres jurídicos", "Estudos setoriais", "Informativos técnicos"],
