@@ -21,10 +21,11 @@ interface Props {
   loading?: "eager" | "lazy";
 }
 
-// Artboard sizes of the files in public/brand/svg and the default rendered width (brand.md
-// minimums). The width and height attributes only reserve space; CSS sets the final size.
+// Artboard sizes of the files in public/brand/svg and the default rendered artboard width
+// (brand.md minimums; the horizontal one is 300 px of visible artwork, Q-23). The width and
+// height attributes only reserve space; CSS sets the final size.
 const files: Record<Variant, { artboard: [number, number]; width: number; name: string }> = {
-  horizontal: { artboard: [3600, 1200], width: 300, name: "mmec-logo-horizontal" },
+  horizontal: { artboard: [3600, 1200], width: 358, name: "mmec-logo-horizontal" },
   stacked: { artboard: [2000, 2000], width: 200, name: "mmec-logo-stacked" },
   symbol: { artboard: [2000, 2000], width: 64, name: "mmec-symbol" },
 };
@@ -37,31 +38,43 @@ const height = Math.round((width * file.artboard[1]) / file.artboard[0]);
 const src = (fileTone: Tone) => `/brand/svg/${file.name}-${fileTone}.svg`;
 ---
 
-<img
-  class:list={["logo", `logo-${variant}`, { "logo-screen-only": tone === "cream" }]}
-  src={src(tone)}
-  {width}
-  {height}
-  {alt}
-  {loading}
-  decoding="async"
-/>
-{tone === "cream" && (
+<span class="logo-frame">
   <img
-    class:list={["logo", `logo-${variant}`, "logo-print-only"]}
-    src={src("ink")}
+    class:list={["logo", `logo-${variant}`, { "logo-screen-only": tone === "cream" }]}
+    src={src(tone)}
     {width}
     {height}
-    alt=""
-    loading="lazy"
+    {alt}
+    {loading}
     decoding="async"
   />
-)}
+  {tone === "cream" && (
+    <img
+      class:list={["logo", `logo-${variant}`, "logo-print-only"]}
+      src={src("ink")}
+      {width}
+      {height}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  )}
+</span>
 
 <style>
+  /*
+   * The frame clips what the negative margins below push out of the layout box: transparent
+   * artboard margin beyond the clear space, never artwork. Without it that margin would still
+   * count as scrollable overflow.
+   */
+  .logo-frame {
+    display: block;
+    flex: none;
+    overflow: clip;
+  }
+
   /* The brand minimum wins over the global `max-width: 100%` for images. */
   .logo {
-    flex: none;
     max-width: none;
   }
 
@@ -69,11 +82,15 @@ const src = (fileTone: Tone) => `/brand/svg/${file.name}-${fileTone}.svg`;
    * Horizontal artboard: 3600 x 1200 units, artwork from x 298 to 3318 and y 248 to 968, clear
    * space 180 units (a quarter of the 720-unit symbol). The negative margins remove only the
    * transparent margin beyond the clear space (118, 102, 68 and 52 units), so the layout box is
-   * 3380 x 1080 units. `100cqi` caps the box at the width of the enclosing query container, so
-   * the page never scrolls sideways on the narrowest screens.
+   * 3380 x 1080 units. The cap lets that box reach into one page gutter, which is empty, so
+   * the 300 px artwork minimum holds from a 360 px viewport; below that the logo shrinks
+   * rather than make the page scroll sideways (WCAG 1.4.10).
    */
   .logo-horizontal {
-    --logo-box: min(var(--logo-horizontal-width), calc(100cqi * 3600 / 3380));
+    --logo-box: min(
+      var(--logo-horizontal-width),
+      calc((100cqi + var(--container-padding)) * 3600 / 3380)
+    );
 
     width: var(--logo-box);
     height: auto;

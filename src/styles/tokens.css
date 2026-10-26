@@ -120,8 +120,11 @@
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64rem;
 
-  /* Logo sizes (docs/brand.md): minimum widths on screen, artboard included. */
-  --logo-horizontal-width: 300px;
+  /*
+   * Logo sizes (docs/brand.md): minimum widths on screen, as artboard widths. The horizontal
+   * minimum applies to the visible artwork (Q-23): 300 px of artwork is 3600 / 3020 of that.
+   */
+  --logo-horizontal-width: calc(300px * 3600 / 3020);
   /* Header and footer from --breakpoint-lg: the wordmark's second line reaches about 9 px. */
   --logo-horizontal-width-large: 480px;
   --logo-stacked-width: 200px;
