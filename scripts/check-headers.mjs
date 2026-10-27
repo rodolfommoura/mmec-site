@@ -36,8 +36,12 @@ const robotsSamples = [
   { host: "branch-mmec-site.example.workers.dev", robots: /^noindex, nofollow$/ },
 ];
 
-function check(sample, response) {
+function check(sample, response, body) {
   const problems = [];
+  // Production HTML must not carry the preview robots meta tag (src/config/indexing.ts).
+  if (sample.status === 200 && sample.type === "text/html" && /<meta name="robots"/.test(body)) {
+    problems.push("robots meta tag in the HTML");
+  }
   if (response.status !== sample.status) problems.push(`status ${response.status}`);
   for (const [name, pattern] of Object.entries(securityHeaders)) {
     const value = response.headers.get(name);
@@ -66,8 +70,8 @@ let failures = 0;
 try {
   for (const sample of checks) {
     const response = await site.fetch(sample.path, sample.host);
-    await response.arrayBuffer();
-    const problems = check(sample, response);
+    const body = await response.text();
+    const problems = check(sample, response, body);
     failures += problems.length > 0 ? 1 : 0;
     const label = `${sample.host ?? ""}${sample.path}`;
     console.log(

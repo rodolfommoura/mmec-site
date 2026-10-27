@@ -97,11 +97,11 @@ Each step waits for its own "go".
 1. Legacy backup: tag `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` and push the tag (the only change ever made to that repository), then `git bundle create mmec-site-legacy-final.bundle --all`. The owner stores the bundle and the tag's source zip in the firm's Drive.
 2. The owner merges the Phase 8 pull request. Workers Builds deploys `main` to `mmec-site`. Check on `https://mmec-site.rodolfo-e70.workers.dev/`: no robots meta tag, `X-Robots-Tag: noindex, nofollow` present.
 3. The owner exports the Web Analytics history. Then turn off Bot Fight Mode and the Web Analytics automatic setup (API: `PUT /zones/{zone}/bot_management` with `fight_mode: false`; `PUT /accounts/{account}/rum/site_info/{site}` with `auto_install: false`).
-4. Switch: attach `mmec.adv.br` to `mmec-site`. One call, which replaces the service of the existing domain in place:
+4. Switch: attach `mmec.adv.br` to `mmec-site`. One call, which is expected to replace the service of the existing domain in place (read the domain list right after it; if the call is refused, use the dashboard steps under "Rollback" with the Workers swapped):
 
    ```text
    PUT /accounts/{account}/workers/domains
-   { "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec-site" }
+   { "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec-site", "environment": "production" }
    ```
 
 5. Verify (next section).
@@ -110,7 +110,7 @@ Each step waits for its own "go".
 
 ```sh
 npm ci && npm run build          # dist/ of the deployed commit (hashed asset name)
-npm run test:production          # every docs/url-map.md row and the headers, against https://mmec.adv.br
+npm run test:production          # every docs/url-map.md row, the headers and no robots meta tag on the home page
 curl -sI https://mmec.adv.br/    # CSP, HSTS, no X-Robots-Tag
 curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://www.mmec.adv.br/publicacoes
 curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" http://mmec.adv.br/
@@ -124,7 +124,7 @@ The legacy Worker `mmec` stays deployed and unchanged. To go back, attach the do
 
 ```text
 PUT /accounts/{account}/workers/domains
-{ "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec" }
+{ "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec", "environment": "production" }
 ```
 
 The same in the dashboard: **Workers & Pages**, `mmec`, **Settings**, **Domains & Routes**, **Add**, **Custom domain**, `mmec.adv.br` (confirm moving it from `mmec-site`). Bot Fight Mode and the Web Analytics automatic setup do not need to be restored for the legacy site to work. Keep `mmec` and the legacy repository (not archived) for at least 30 days after the cutover.
