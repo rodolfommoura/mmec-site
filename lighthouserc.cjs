@@ -1,5 +1,8 @@
 // Lighthouse CI: budgets from docs/phases/01-foundation.md, run against `astro preview`.
+// Audits every built page except the 404, which answers 404 on purpose (docs/audit-06.md).
+// Mobile preset; lighthouserc.desktop.cjs reuses this file with the desktop preset.
 const { chromium } = require("@playwright/test");
+const { listPagePaths } = require("./scripts/pages.mjs");
 
 const port = 4323;
 
@@ -8,9 +11,7 @@ module.exports = {
     collect: {
       startServerCommand: `npx astro preview --port ${port}`,
       startServerReadyPattern: "localhost",
-      url: ["/", "/publicacoes", "/publicacoes/cartilha-eleicoes-2026", "/privacidade"].map(
-        (path) => `http://localhost:${port}${path}`,
-      ),
+      url: listPagePaths().map((path) => `http://localhost:${port}${path}`),
       numberOfRuns: 3,
       chromePath: chromium.executablePath(),
       settings: {
@@ -30,7 +31,7 @@ module.exports = {
     },
     upload: {
       target: "filesystem",
-      outputDir: "lighthouse-report",
+      outputDir: "lighthouse-report/mobile",
     },
   },
 };
