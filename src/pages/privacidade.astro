@@ -30,18 +30,25 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     <li>
       <strong>Dados técnicos de acesso:</strong> como em qualquer site, o endereço IP e informações
       técnicas da requisição (como o navegador e a página solicitada) são recebidos pelo serviço de
-      hospedagem para que as páginas possam ser entregues. O site é hospedado na Cloudflare.
+      hospedagem para que as páginas possam ser entregues. O site é hospedado na Cloudflare. Esses
+      dados são tratados para entregar as páginas do site.
     </li>
     <li>
       <strong>Dados de navegação agregados:</strong> estatísticas de acesso sem identificação
-      individual dos visitantes, descritas no item 2.
+      individual dos visitantes, descritas no item 2. Esses dados são tratados para medir o uso
+      agregado do site.
     </li>
     <li>
       <strong>Dados fornecidos voluntariamente:</strong> caso você entre em contato conosco por
       e-mail, telefone ou WhatsApp, coletaremos os dados necessários para o atendimento (como nome,
-      e-mail, telefone e o conteúdo da mensagem).
+      e-mail, telefone e o conteúdo da mensagem). Esses dados são tratados para responder à sua
+      solicitação de contato.
     </li>
   </ul>
+  <p>
+    Os dados das mensagens de contato são mantidos pelo tempo necessário ao atendimento da
+    solicitação e ao cumprimento de obrigações legais e profissionais.
+  </p>
 
   <h2>2. Como medimos o uso do site</h2>
   <p>Utilizamos duas ferramentas para entender o uso do site e a sua presença nas buscas:</p>
@@ -55,7 +62,8 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     <li>
       <strong>Google Search Console:</strong> informa quais buscas no Google levaram ao site e como
       as páginas aparecem nos resultados. Esses dados são obtidos pelo Google nas suas próprias
-      páginas de busca; o Search Console não instala código nem cookies neste site.
+      páginas de busca; o Search Console não instala código nem cookies neste site. Os dados podem
+      ser processados pelo Google fora do Brasil.
     </li>
   </ul>
   <p>O site não utiliza ferramentas de publicidade, mapas de calor ou gravação de sessões.</p>
@@ -65,7 +73,8 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     O escritório não vende, aluga ou compartilha seus dados pessoais com terceiros para fins de
     marketing. Os dados são tratados apenas pelos prestadores de serviço necessários ao
     funcionamento do site e ao atendimento: a Cloudflare (hospedagem e medição de acessos) e os
-    serviços de e-mail, telefonia e WhatsApp pelos quais você escolher nos contatar.
+    serviços de e-mail, telefonia e WhatsApp pelos quais você escolher nos contatar. A Cloudflare, o
+    Google e o WhatsApp (Meta) podem tratar dados fora do Brasil.
   </p>
 
   <h2>4. Seus direitos (LGPD)</h2>
@@ -93,8 +102,9 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     <li>a revogação do consentimento.</li>
   </ul>
   <p>
-    Para exercer seus direitos, entre em contato através do e-mail oficial listado abaixo. Você
-    também pode peticionar à Autoridade Nacional de Proteção de Dados (ANPD).
+    O canal para as solicitações dos titulares de dados é o e-mail
+    <a href={`mailto:${contact.email}`}>{contact.email}</a>. Você também pode peticionar à
+    Autoridade Nacional de Proteção de Dados (ANPD).
   </p>
 
   <h2>5. Controlador e contato</h2>

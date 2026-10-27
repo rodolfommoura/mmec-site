@@ -426,6 +426,10 @@ Describes the site as it works after Phase 5 (Q-09). Pending the review by the f
 | PR-12, PR-13 | `O site não utiliza ferramentas de publicidade, mapas de calor ou gravação de sessões.` | Negative statement that follows from dropping GA4 and Clarity (Q-09); true of the build. |
 | PR-15, PR-16 | Processors named: Cloudflare and the e-mail, telephone and WhatsApp services the visitor chooses | Unverifiable "rigorosos termos de confidencialidade" dropped. |
 | PR-18, LAW-01 | All nine rights of LGPD art. 18 and the right to petition the ANPD (art. 18, § 1) | Partial list completed from the law text. |
+| OWN-02 | Purpose per category: `Esses dados são tratados para entregar as páginas do site.` / `Esses dados são tratados para medir o uso agregado do site.` / `Esses dados são tratados para responder à sua solicitação de contato.` | Owner instruction at the Phase 4 gate: one purpose per data category, no legal basis named (the lawyer adds it, Q-26). |
+| OWN-02, Q-28 | `Os dados das mensagens de contato são mantidos pelo tempo necessário ao atendimento da solicitação e ao cumprimento de obrigações legais e profissionais.` | Owner instruction at the Phase 4 gate: retention stated by criterion, with no fixed period. |
+| OWN-02, EXT-01 | Section 2: `Os dados podem ser processados pelo Google fora do Brasil.`; section 3: `A Cloudflare, o Google e o WhatsApp (Meta) podem tratar dados fora do Brasil.` | Owner instruction at the Phase 4 gate: international processing stated for the three providers; basis under LGPD art. 33 left to the lawyer (Q-26). |
+| PR-19, OWN-02 | `O canal para as solicitações dos titulares de dados é o e-mail contato@…` (address from `src/config/site.ts`) | Owner instruction at the Phase 4 gate: the e-mail is named as the channel for data subject requests. |
 | PR-19 to PR-22, Q-09 | `O controlador dos dados pessoais tratados por meio deste site é Machado Moura e Cardoso Advogados Associados.`; e-mail and full address from `src/config/site.ts` | Controller named (Q-09); postcode added (PDF-05). |
 
 ### Terms of use
@@ -459,6 +463,7 @@ Describes the site as it works after Phase 5 (Q-09). Pending the review by the f
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | OWN-01 | Owner answer to Q-17 | `OAB/DF 0100104RS` | OAB registration of the firm | keep | Footer, exactly as written. Number final including the "RS" suffix; seccional OAB/DF confirmed. Phase 7 compares the footer with the registration certificate. |
+| OWN-02 | Owner instructions at the Phase 4 gate (PR #7), 2026-10-26 | Privacy policy: purpose per data category, retention criterion, processing outside Brazil by Cloudflare, Google and WhatsApp (Meta), e-mail as the data subject channel. Terms: publications reflect the rules at each edition date. Publications: period note on the two booklets; "críticas" and "críticos" dropped from the election booklet topics. | owner wording | keep | Sentences logged in "Rewrites on the publication, legal and not-found pages (Phase 4)". |
 
 ## Images and icons
 

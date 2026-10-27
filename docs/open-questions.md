@@ -37,7 +37,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-25 | "Abrir no WhatsApp" link label | Phase 3 | Use it next to the WhatsApp number, linking to `wa.me`. |
 | Q-26 | Lawyer review of the privacy policy and terms | Phase 7 (before launch) | Texts ship on the preview; the firm's lawyer reviews them before the Phase 7 sign-off. |
 | Q-27 | Edition dates of the two booklets | Phase 4 | The PDFs print no date: show the edition year only. |
-| Q-28 | Retention period for contact messages | Phase 7 (lawyer review) | State no period in the privacy policy until the firm defines one. |
+| Q-28 | Retention period for contact messages | Phase 7 (lawyer review) | Criterion stated (time needed for the request and legal and professional obligations); no fixed period. |
 
 ## Naming and identity
 
@@ -300,6 +300,10 @@ Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in t
 
 - Evidence: `docs/phases/04-publications-legal.md`, task 4. The new texts (`/privacidade`, `/termos`) are rewritten from the legacy text and describe the site after Phase 5: no cookies, no forms, Cloudflare Web Analytics and Google Search Console (Q-09). Sources are logged in `content-sources.md` ("Rewrites on the publication, legal and not-found pages").
 - Question: the firm's lawyer must review the final legal text line by line before launch. Points to check in particular: the description of Cloudflare Web Analytics and Search Console, the list of processors, the absence of a named encarregado (the policy points to the contact e-mail, per Q-09), the reuse clause (Q-11), the statement that data may be processed outside Brazil and its basis under LGPD art. 33, and "sem aviso prévio" kept from the legacy terms (T-18).
+- Owner instructions at the Phase 4 gate (2026-10-26, `content-sources.md` OWN-02): the policy now states one purpose per data category, the retention criterion (Q-28), processing outside Brazil by Cloudflare, Google and WhatsApp (Meta), and the e-mail as the channel for data subject requests.
+- Open for the lawyer review:
+  - **Legal basis** for each purpose (LGPD art. 7) and for the international transfer (art. 33). The policy deliberately names none; the lawyer adds them.
+  - **"sem aviso prévio"** in the terms (T-18): keep, qualify or drop.
 - **Default:** the texts ship on the preview with "Última atualização: 26 de outubro de 2026". The Phase 7 content sign-off, and therefore the cutover, waits for the review. If Phase 5 finds that the analytics behave differently, Phase 5 updates the policy and its date.
 
 ### Q-27. Edition dates of the two booklets
@@ -313,3 +317,4 @@ Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in t
 - Evidence: the legacy policy states no retention period. LGPD art. 15 and 16 deal with the end of processing; no source says how long the firm keeps messages.
 - Question: how long does the firm keep contact messages received by e-mail, telephone or WhatsApp?
 - **Default:** the policy states no period. To be decided with the lawyer review (Q-26).
+- Answer (owner, Phase 4 gate, 2026-10-26): state the criterion, not a period: data from contact messages is kept for the time needed to handle the request and to meet legal and professional obligations. A fixed period, if any, comes with the lawyer review (Q-26).
