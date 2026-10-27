@@ -48,7 +48,8 @@ const unbreakable = (text: string) => text.replaceAll(" ", "\u00a0").replaceAll(
       </dd>
     </div>
   </dl>
-  <div class="contact-actions">
+  <!-- The e-mail and address above already print what these buttons open. -->
+  <div class="contact-actions no-print">
     <Button href={`mailto:${contact.email}`}>Enviar mensagem</Button>
     <Button variant="secondary" href={contact.mapUrl} rel="noopener noreferrer">
       Abrir no Google Maps

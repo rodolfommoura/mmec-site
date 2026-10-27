@@ -49,9 +49,11 @@
     text-decoration: none;
   }
 
-  /* Show where external and contact links go, since paper cannot be clicked. */
-  a[href^="http"]::after,
-  a[href^="mailto:"]::after {
+  /*
+   * Show where external links go, since paper cannot be clicked. E-mail links are left out:
+   * their text is always the address itself.
+   */
+  a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-family: var(--font-ui);
     font-size: var(--text-ui-small);

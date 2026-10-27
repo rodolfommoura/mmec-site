@@ -297,6 +297,20 @@ input[type="radio"] {
   display: none;
 }
 
+/*
+ * Forced colours replace the dark band behind a cream logo with the system background, where
+ * the cream file would vanish: show the ink file instead, as in print (Logo.astro).
+ */
+@media (forced-colors: active) {
+  .logo-screen-only {
+    display: none;
+  }
+
+  .logo-print-only {
+    display: block;
+  }
+}
+
 .visually-hidden:not(:focus, :active) {
   position: absolute;
   width: var(--hairline);

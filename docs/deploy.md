@@ -88,7 +88,7 @@ npm run preview    # serve dist/ on http://localhost:4321
 1. `npm ci`
 2. `npx playwright install chromium` (step timeout: 10 minutes), with `~/.cache/ms-playwright` cached by `actions/cache`, keyed on the runner OS and the `package-lock.json` hash. `--with-deps` is not used: its apt step downloads font packages from a slow mirror and exceeded 10 minutes.
 3. `npm run check`
-4. `npm run test:lighthouse` (budgets: performance ≥ 0.95, accessibility, best practices and SEO = 1; the `is-crawlable` audit is skipped while the preview is `noindex`, re-enable it in Phase 8)
+4. `npm run test:lighthouse` (every built page except the 404, mobile then desktop preset; budgets: performance ≥ 0.95, accessibility, best practices and SEO = 1; the `is-crawlable` audit is skipped while the preview is `noindex`, re-enable it in Phase 8)
 5. Upload the Lighthouse report as the artifact `lighthouse-report` (and the Playwright report on failure).
 
 Only GitHub-owned actions are used (`actions/checkout`, `actions/setup-node`, `actions/cache`, `actions/upload-artifact`), pinned by commit SHA. The token is read-only (`contents: read`).

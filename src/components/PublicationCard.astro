@@ -7,9 +7,11 @@ interface Props {
   publication: Publication;
   /** Heading level of the card title inside its section. */
   level?: 2 | 3 | 4;
+  /** Loads the cover eagerly with high fetch priority: set it on a card above the fold only. */
+  priority?: boolean;
 }
 
-const { publication, level = 3 } = Astro.props;
+const { publication, level = 3, priority = false } = Astro.props;
 const Heading = `h${level}` as const;
 const { cover, coverAlt, title, cardSummary, cardLinkLabel } = publication.data;
 ---
@@ -23,6 +25,7 @@ const { cover, coverAlt, title, cardSummary, cardLinkLabel } = publication.data;
       formats={["avif", "webp"]}
       widths={[480, 960]}
       sizes="(width >= 64rem) 22rem, (width >= 48rem) 45vw, 100vw"
+      {priority}
     />
   )}
   <div class="publication-body">

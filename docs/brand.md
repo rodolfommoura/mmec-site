@@ -51,6 +51,7 @@ Rules:
 - Clear space around any logo: a quarter of the symbol height on all sides.
 - Minimum on screen: horizontal logo 300 px wide measured on the visible artwork, not the artboard (Q-23), stacked 200 px, symbol 64 px. Below a 360 px viewport the horizontal logo shrinks to fit instead of causing horizontal scrolling. The mobile header must respect the 300 px minimum or use symbol plus text set in HTML only if the owner approves.
 - Use the `cream` variant on green or ink. Never place the logo over photos.
+- Forced colours (Windows contrast themes) replace every background with the system one. The site then shows the `ink` file everywhere, as in print, and under a dark contrast theme sets it on cream, inside the clear space (`Logo.astro`, Phase 6, F-01). The artwork is not changed. To be confirmed by the owner at the Phase 7 gate.
 - The SVGs were traced from PNG masters (the original vector is still pending). Optimise them but do not redraw.
 - Known gap: the symbol has thin strokes and fails below 64 px. The 32 px favicon therefore needs a simplified, thicker symbol. Resolved: the brand folder `Marca/standardized/favicon` holds the simplified symbol "variant F", approved 2026-10-26 (its `README.md`), for use below 64 px. `favicon.ico` and `favicon.svg` are copied to `public/`.
 

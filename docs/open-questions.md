@@ -346,3 +346,20 @@ Opened by the Phase 5 unattended run on 2026-10-26. The analytics decision itsel
 - Evidence: `@lhci/cli` 0.15.1 is still the latest release (published 2025-06-25) and accounts for most dev-only `npm audit` findings (`docs/security.md`, "Supply chain"). `docs/deploy.md` planned to replace it in Phase 5 if still unmaintained.
 - Question: replace it (for example with `lighthouse` driven by a small script) or keep it?
 - **Default:** keep it; the findings affect only CI tooling that audits `localhost`. Phase 6 (accessibility and performance) owns the Lighthouse setup and decides.
+- Phase 6 (2026-10-27): kept, per the default. Lighthouse CI now audits every page with both presets and still works; the findings stay dev-only (`docs/audit-06.md`, N-07).
+
+## Accessibility and performance (Phase 6)
+
+Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
+
+### Q-32. Screen-reader smoke test
+
+- Evidence: the phase asks for an NVDA smoke test. NVDA is not installed on the build machine and an unattended run installs no software.
+- Question: may NVDA be installed for a check, or will the owner (or someone at the firm) run a short test with NVDA on Windows or VoiceOver on an iPhone?
+- **Default:** not done in Phase 6. axe covers names, roles, landmarks and heading order on every page. A ten-minute smoke test (skip link, headings list, landmarks, menu button state, one publication page, the PDF links) is added to the Phase 7 staging review.
+
+### Q-33. Firefox and Safari
+
+- Evidence: Chromium, Chrome and Edge passed the browser-run suites. Firefox 156 is installed but the run's permission policy refused to drive it; there is no Apple device. Playwright's Firefox and WebKit builds would need a download.
+- Question: may the Playwright Firefox and WebKit builds be installed (`npx playwright install firefox webkit`) so the accessibility suites run in all three engines?
+- **Default:** not installed. The owner opens the preview in Safari on an iPhone and in Firefox during the Phase 7 gate and reports anything that looks wrong.
