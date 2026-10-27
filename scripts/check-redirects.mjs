@@ -1,10 +1,9 @@
 // Checks every legacy URL in docs/url-map.md against the built site, served by Wrangler with
 // the same asset rules as the Worker (_redirects, html_handling, not_found_handling).
+// With a base URL (`node scripts/check-redirects.mjs https://mmec.adv.br`) it checks that live
+// site instead.
 import { readFileSync } from "node:fs";
-
-// No usage telemetry from CI or local test runs; set before Wrangler loads.
-process.env.WRANGLER_SEND_METRICS ??= "false";
-const { unstable_startWorker } = await import("wrangler");
+import { serveSite } from "./serve-site.mjs";
 
 // "Any other path with a trailing slash": platform behaviour, checked on one sample page.
 const trailingSlashSample = { path: "/privacidade/", target: "/privacidade" };
@@ -79,15 +78,19 @@ function expectations(tables) {
   return expected;
 }
 
-function check(expectation, response) {
+function check(expectation, response, base) {
   const problems = [];
   if (!expectation.statuses.includes(response.status)) {
     problems.push(`status ${response.status}, expected ${expectation.statuses.join(" or ")}`);
   }
   const location = response.headers.get("location");
   const target = expectation.target;
-  if (target && location && new URL(location, "http://localhost").pathname !== target) {
-    problems.push(`redirects to ${location}, expected ${target}`);
+  if (target && location) {
+    // A redirect must stay on the same host: one hop, never to another origin.
+    const url = new URL(location, base);
+    if (url.origin !== base.origin || url.pathname !== target) {
+      problems.push(`redirects to ${location}, expected ${target}`);
+    }
   }
   const contentType = response.headers.get("content-type") ?? "";
   if (expectation.contentType && !contentType.startsWith(expectation.contentType)) {
@@ -99,29 +102,21 @@ function check(expectation, response) {
 const tables = readTables(readFileSync("docs/url-map.md", "utf8"));
 const expected = expectations(tables);
 
-const worker = await unstable_startWorker({
-  config: "wrangler.jsonc",
-  dev: { server: { hostname: "127.0.0.1", port: 0 }, inspector: false, logLevel: "warn" },
-});
+const site = await serveSite(process.argv[2]);
 
 let failures = 0;
 try {
-  await worker.ready;
   for (const expectation of expected) {
-    const response = await worker.fetch(`http://localhost${expectation.path}`, {
-      redirect: "manual",
-      // A browser navigation, so not_found_handling serves the 404 page.
-      headers: { "Sec-Fetch-Mode": "navigate", Accept: "text/html" },
-    });
+    const response = await site.fetch(expectation.path);
     await response.arrayBuffer();
-    const problems = check(expectation, response);
+    const problems = check(expectation, response, site.base);
     failures += problems.length > 0 ? 1 : 0;
     const label = problems.length > 0 ? "FAIL" : "ok";
     const detail = problems.length > 0 ? `: ${problems.join("; ")}` : ` ${response.status}`;
     console.log(`${label} ${expectation.path}${detail}`);
   }
 } finally {
-  await worker.dispose();
+  await site.dispose();
 }
 
 console.log(`Checked ${expected.length} URLs, ${failures} failed.`);
