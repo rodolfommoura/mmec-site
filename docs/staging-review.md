@@ -2,7 +2,7 @@
 
 Independent review of the complete site before the cutover, done on 2026-10-27 on branch `docs/staging-review` (`docs/phases/07-staging-review.md`). Scope: the whole project from the initial commit `81dc878`, the built `dist/`, and the preview Worker `https://mmec-site.rodolfo-e70.workers.dev` (deployed from `main` at `f3a3733`).
 
-Related documents: [`parity.md`](parity.md) (content compared with the legacy site), [`launch-checklist.md`](launch-checklist.md) (Phase 8 steps), [`audit-06.md`](audit-06.md) (accessibility and performance, manual checks of the gate in section 8).
+Related documents: [`parity.md`](parity.md) (content compared with the legacy site), [`launch-checklist.md`](launch-checklist.md) (Phase 8 steps), [`audit-06.md`](audit-06.md) (accessibility and performance, manual checks of the gate in section 9).
 
 ## 1. Checks run
 
@@ -81,7 +81,7 @@ Rules as summarised in [`open-questions.md`](open-questions.md), "Rules relied o
 
 ## 5. Manual checks for the owner at the gate
 
-From Phase 6 (Q-32, Q-33). Results go to `docs/audit-06.md`, section 8.
+From Phase 6 (Q-32, Q-33). Results go to `docs/audit-06.md`, section 9.
 
 1. Screen reader (NVDA on Windows, or VoiceOver on an iPhone), about ten minutes on the preview: the skip link is announced first and jumps to the content; the headings list shows one `h1` and a logical order; landmarks (banner, navigation, main, contentinfo) are listed; the "Menu" button announces expanded or collapsed; one publication page reads in order; the "Abrir PDF completo" and "Baixar" links announce what they do.
 2. Safari on an iPhone and Firefox on a computer: open every page of the preview and report anything that looks different from Chrome (layout, fonts, menu, PDF links).

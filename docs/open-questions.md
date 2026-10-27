@@ -41,8 +41,8 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-29 | Cloudflare Web Analytics site token | Resolved | Token of the existing site for `mmec.adv.br` set in `src/config/analytics.ts`; automatic setup turned off at the cutover (`docs/launch-checklist.md`). |
 | Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. |
 | Q-31 | Replacing `@lhci/cli` (unmaintained, dev-only audit findings) | Phase 6 | Keep it until Phase 6 reviews the performance tooling. |
-| Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 8. |
-| Q-33 | Firefox and Safari | Phase 7 gate | Owner opens the preview in both; results in `audit-06.md`, section 8. |
+| Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 9. |
+| Q-33 | Firefox and Safari | Phase 7 gate | Automated: the whole suite runs on Chromium, Firefox and WebKit, locally and in CI (`audit-06.md`, section 8). Manual: owner opens the preview in Safari on an iPhone and in Firefox; results in `audit-06.md`, section 9. |
 | Q-34 | Two legacy `keep` rows not on the new site (H-04, E-03) | Phase 7 gate | Leave out: the facts are in the `h1` and the breadcrumb. |
 
 ## Naming and identity
@@ -369,6 +369,10 @@ Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
 - Question: may the Playwright Firefox and WebKit builds be installed (`npx playwright install firefox webkit`) so the accessibility suites run in all three engines?
 - **Default:** not installed. The owner opens the preview in Safari on an iPhone and in Firefox during the Phase 7 gate and reports anything that looks wrong.
 
+Answer (27 October 2026): installation approved. The whole suite runs on Chromium, Firefox and WebKit, locally and in CI; no site defect found (`docs/audit-06.md`, section 8). A real Safari check on an iPhone or a Mac is still useful, since the WebKit Tab walk cannot run outside macOS.
+
+Status: automated Firefox and WebKit coverage is done. Real Safari (iPhone) stays a manual check by the owner at the Phase 7 gate, with Firefox on the owner's computer; results in `audit-06.md`, section 9.
+
 ## Staging review (Phase 7)
 
 Opened by the Phase 7 unattended run on 2026-10-27. Review: `docs/staging-review.md`; parity: `docs/parity.md`.
@@ -384,5 +388,5 @@ Opened by the Phase 7 unattended run on 2026-10-27. Review: `docs/staging-review
 
 - Q-17: compare the footer registration with the certificate (owner).
 - Q-26 and Q-28: lawyer review of the privacy policy and terms, before the cutover.
-- Q-32 and Q-33: manual checks at the gate, results in `audit-06.md`, section 8.
+- Q-32 and Q-33: manual checks at the gate, results in `audit-06.md`, section 9 (Q-33: real Safari on an iPhone, and Firefox on the owner's computer; the automated Firefox and WebKit run is in section 8).
 - Compliance rows marked "lawyer" in `staging-review.md`, section 3 (C-04, C-06, C-07, C-12, C-16 to C-18, C-21).

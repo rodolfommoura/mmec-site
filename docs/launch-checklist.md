@@ -10,7 +10,7 @@ Order: section 1 before the Phase 8 session starts; sections 2 to 4 in the Phase
 - [ ] **Owner:** lawyer review of `/privacidade` and `/termos` done and its changes merged (Q-26, Q-28). The compliance table in `docs/staging-review.md`, section 3, lists the rows marked "lawyer".
 - [ ] Privacy text date: after the lawyer's changes, set "Última atualização" on `/privacidade` and `/termos` to the date the approved text is published, and the matching entries in `src/config/page-dates.ts` (sitemap `lastmod`). Update the date of any other page whose text changes after the review.
 - [ ] **Owner:** compare "OAB/DF 0100104RS" in the footer with the registration certificate (Q-17).
-- [ ] **Owner:** screen-reader smoke test and Safari (iPhone) and Firefox check on the preview, results in `docs/audit-06.md`, section 8 (Q-32, Q-33).
+- [ ] **Owner:** screen-reader smoke test and Safari (iPhone) and Firefox check on the preview, results in `docs/audit-06.md`, section 9 (Q-32, Q-33).
 - [ ] Contact details still correct: e-mail `contato@mouraeribeiro.adv.br` (single source `src/config/site.ts`; it changes only when the owner confirms a mailbox on `@mmec.adv.br`, Q-03), phones `(61) 3703-5558` and `(61) 3879-5003` (WhatsApp), address `SHIS QI 05, Bloco F, Sala 332, Lago Sul, Brasília/DF, CEP 71.615-560`. The same e-mail is the `Contact` of `/.well-known/security.txt` (expires 2027-10-27).
 - [ ] Re-check Provimento 205/2021 on the OAB site (Q-20; last checked 2026-10-27).
 - [ ] **Owner:** confirm that no e-mail signature or external page hotlinks the removed legacy files `/assets/images/brand/*.png` or `/assets/icons/*.png` (`docs/url-map.md`). If one does, keep that file at its path.

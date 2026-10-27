@@ -10,26 +10,44 @@ for (const path of [...listPagePaths(), "/404"]) {
       if (message.type() === "error") errors.push(message.text());
     });
     page.on("pageerror", (error) => errors.push(error.message));
+    // Not every engine is known to log a violation as a console error; the event is standard.
+    await page.addInitScript(() => {
+      const violations: string[] = [];
+      Object.assign(window, { __cspViolations: violations });
+      document.addEventListener("securitypolicyviolation", (event) =>
+        violations.push(`${event.effectiveDirective} ${event.blockedURI}`),
+      );
+    });
     await serveWithSiteHeaders(page, baseURL ?? "");
     await page.goto(path);
     await page.waitForLoadState("networkidle");
     expect(errors).toEqual([]);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { __cspViolations: string[] }).__cspViolations,
+      ),
+    ).toEqual([]);
   });
 }
 
 test("the policy is enforced in the browser", async ({ page, baseURL }) => {
-  const violations: string[] = [];
-  page.on("console", (message) => {
-    if (message.text().includes("Content Security Policy")) violations.push(message.text());
-  });
   await serveWithSiteHeaders(page, baseURL ?? "");
   await page.goto("/");
-  // An inline script that no hash allows must be refused.
-  await page.evaluate(() => {
-    const script = document.createElement("script");
-    script.textContent = "window.__cspProbe = true;";
-    document.head.append(script);
-  });
+  // Lets every routed file finish, so no route handler is still answering when the page closes.
+  await page.waitForLoadState("networkidle");
+  // An inline script that no hash allows must be refused. The violation event is standard; the
+  // console wording differs between engines.
+  const violatedDirective = await page.evaluate(
+    () =>
+      new Promise<string>((resolve) => {
+        document.addEventListener("securitypolicyviolation", (event) =>
+          resolve(event.effectiveDirective),
+        );
+        const script = document.createElement("script");
+        script.textContent = "window.__cspProbe = true;";
+        document.head.append(script);
+      }),
+  );
+  expect(violatedDirective).toMatch(/^script-src/);
   expect(await page.evaluate(() => "__cspProbe" in window)).toBe(false);
-  expect(violations.length).toBeGreaterThan(0);
 });

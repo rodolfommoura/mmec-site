@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { listPagePaths } from "../scripts/pages.mjs";
+import { pressFocusNext, tabWalkSkipReason, tabWalkUnsupported } from "./support/keyboard";
 
 // The design specimen has its own keyboard test (specimen.spec.ts), which covers its form fields.
 const paths = [...listPagePaths().filter((path) => path !== "/_design"), "/404"];
@@ -20,7 +21,7 @@ interface FocusStop {
 async function walkFocus(page: Page): Promise<FocusStop[]> {
   const stops: FocusStop[] = [];
   for (let i = 0; i < 100; i += 1) {
-    await page.keyboard.press("Tab");
+    await pressFocusNext(page);
     const stop = await page.evaluate(() => {
       const element = document.activeElement;
       if (!(element instanceof HTMLElement) || element === document.body) return null;
@@ -47,7 +48,9 @@ for (const viewport of viewports) {
   for (const path of paths) {
     test(`every focus stop on ${path} at ${viewport.width} px is visible with a focus ring`, async ({
       page,
+      browserName,
     }) => {
+      test.skip(tabWalkUnsupported(browserName), tabWalkSkipReason);
       await page.setViewportSize(viewport);
       await page.goto(path);
       const stops = await walkFocus(page);
@@ -69,10 +72,14 @@ for (const viewport of viewports) {
   }
 }
 
-test("focus ring stays visible in forced colours", async ({ page }) => {
+test("focus ring stays visible in forced colours", async ({ page, browserName }) => {
+  test.skip(tabWalkUnsupported(browserName), tabWalkSkipReason);
   await page.emulateMedia({ forcedColors: "active" });
   await page.goto("/");
-  for (const stop of await walkFocus(page)) {
+  const stops = await walkFocus(page);
+  // An empty walk would pass the loop below without checking anything.
+  expect(stops.length).toBeGreaterThan(0);
+  for (const stop of stops) {
     expect.soft(stop.outlineStyle, stop.name).toBe("solid");
   }
 });

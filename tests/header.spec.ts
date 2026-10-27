@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { pressFocusNext, tabWalkSkipReason, tabWalkUnsupported } from "./support/keyboard";
 
 const phone = { width: 375, height: 740 };
 
@@ -61,9 +62,11 @@ test("desktop navigation has no Menu button", async ({ page }) => {
 
 test("skip link is the first focusable element and moves focus to the main content", async ({
   page,
+  browserName,
 }) => {
+  test.skip(tabWalkUnsupported(browserName), tabWalkSkipReason);
   await page.goto("/");
-  await page.keyboard.press("Tab");
+  await pressFocusNext(page);
   const skipLink = page.getByRole("link", { name: "Ir para o conteúdo" });
   await expect(skipLink).toBeFocused();
   await expect(skipLink).toBeInViewport();

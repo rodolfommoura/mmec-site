@@ -126,13 +126,43 @@ On `/publicacoes` the "LCP image was lazily loaded" audit now passes. The simula
 ## 7. Remaining items
 
 - Screen-reader smoke test with NVDA (Windows) or VoiceOver (iOS, macOS): Q-32.
-- Firefox and Safari check: Q-33. The Phase 7 gate on the owner's phone and computer covers part of it.
+- Firefox and Safari check: Q-33. The engines are now tested automatically (section 8); real Safari on an iPhone or a Mac stays with the owner.
 - Non-blocking items N-01, N-02, N-03, N-06 and N-07 above: kept; no owner decision needed unless the owner wants 44 px targets everywhere (N-02).
 - Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled at the cutover (Phase 8, `docs/security.md`).
 
-## 8. Phase 7 gate: manual checks by the owner
+## 8. Cross-browser run (Q-33)
 
-Carried over from section 7 (Q-32, Q-33). Steps: `docs/staging-review.md`, section 5. Filled in by the owner at the Phase 7 gate; empty rows mean not done yet.
+Run on 27 October 2026, after the owner approved `npx playwright install firefox webkit`. The whole Playwright suite (165 tests per engine) now runs in three engines, locally and in CI (`playwright.config.ts`).
+
+| Engine | Version | Playwright device | Windows 11 (local) | Ubuntu 24.04 (CI) |
+| --- | --- | --- | --- | --- |
+| Chromium | 156.0.8078.4 | Desktop Chrome | pass | pass |
+| Firefox | 157.0 | Desktop Firefox | pass | pass |
+| WebKit | 27.2 | Desktop Safari | pass, Tab walks skipped | pass, Tab walks skipped |
+
+Playwright 1.64.1. Totals: 495 tests, 458 passed and 37 skipped in both places, 0 failed. Per engine: Chromium 165 passed; Firefox 156 passed, 9 skipped (the DevTools Issues test on each page); WebKit 137 passed, 28 skipped (the same 9, plus 19 Tab walks: 16 page walks, forced colours, the skip link and the specimen).
+
+The first run on Firefox and WebKit had 49 failures. None was a site defect; each came from the test harness or from an engine difference:
+
+| ID | Engine | Failure | Cause | Change |
+| --- | --- | --- | --- | --- |
+| X-01 | Firefox | Beacon not loaded on `mmec.adv.br` (2 tests) | Firefox lists the Host header among the request headers; `route.fetch` forwarded it and `astro preview` (Vite) answered 403 to that host | `analytics.spec.ts` drops the Host header before fetching from the local server |
+| X-02 | Firefox | "The policy is enforced" saw no violation | The test matched Chromium's console text ("Content Security Policy"); Firefox writes "Content-Security-Policy" | The test waits for the standard `securitypolicyviolation` event and now also checks that the directive is `script-src`; the per-page console test also fails on any such event, since the console wording is not a contract |
+| X-03 | WebKit | "SSL connect error" on every page (10 tests) | WebKit applies `upgrade-insecure-requests` to `http://localhost`, which Chromium and Firefox exempt; the local server has no TLS. In production the site is https only, so nothing is upgraded | `support/site-headers.ts` answers the upgraded request from the local server; the policy is unchanged |
+| X-04 | Firefox, WebKit | DevTools Issues test (18 tests) | Uses the Chrome DevTools Protocol | Runs on Chromium only; the dimension and ratio tests run everywhere |
+| X-05 | WebKit | Tab walks reached no link (18 tests) | WebKit follows Safari: Tab skips links unless "Press Tab to highlight each item" is on; Option+Tab includes them. The Windows and Linux WebKit builds do not map Option+Tab, so links cannot be reached from the keyboard at all (checked on a minimal page with two links, a button and a field) | The walks press Option+Tab on WebKit and are skipped on WebKit outside macOS; Chromium and Firefox still run them on every page. The forced-colours walk now fails when it visits nothing, which WebKit had let pass |
+
+While checking, the rewritten CSP probe failed once on Chromium ("Fetch response has been disposed"): the test closed the page while a route handler was still answering a file. It now waits for the network to go idle first, like the per-page console test; it then passed 45 runs in a row across the three engines.
+
+No site code changed. One WebKit run had a single unrelated failure (the logo width at 360 px) together with "6 did not run", a worker lost under load; the header tests then passed 60 times in a row on WebKit (`--repeat-each=10`).
+
+CI: Firefox runs on the runner image as it is. WebKit needs system libraries (GStreamer, GTK 4, libsecret and others) that the image lacks; without them all 148 WebKit tests failed. `npx playwright install-deps webkit` installs only those, in a separate step with a 6-minute timeout, and took 29 seconds; the earlier `--with-deps` hang came from its font packages. With three engines, `npm run check` takes about 2 minutes on the runner and the job about 10 minutes, as before (Lighthouse takes about 7).
+
+Not covered: Safari itself, iOS Safari, and the WebKit Tab walk, which needs a Mac. The owner's check of the preview on an iPhone (Q-33 default) remains the only real-Safari test.
+
+## 9. Phase 7 gate: manual checks by the owner
+
+Carried over from section 7 (Q-32, Q-33). The automated Firefox and WebKit run is in section 8; these rows are the checks on real devices. Steps: `docs/staging-review.md`, section 5. Filled in by the owner at the Phase 7 gate; empty rows mean not done yet.
 
 | Check | Device and browser | Date | Result |
 | --- | --- | --- | --- |

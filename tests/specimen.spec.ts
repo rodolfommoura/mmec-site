@@ -1,11 +1,14 @@
 import { existsSync } from "node:fs";
 import { expect, test } from "@playwright/test";
+import { pressFocusNext, tabWalkSkipReason, tabWalkUnsupported } from "./support/keyboard";
 
 test.skip(!existsSync("dist/_design.html"), "design specimen not in this build");
 
 test("every focusable element on the specimen is reachable by Tab with a visible focus ring", async ({
   page,
+  browserName,
 }) => {
+  test.skip(tabWalkUnsupported(browserName), tabWalkSkipReason);
   await page.goto("/_design");
   const focusableCount = await page
     .locator("a[href], button:not([disabled]), input:not([disabled]), textarea, select")
@@ -13,7 +16,7 @@ test("every focusable element on the specimen is reachable by Tab with a visible
 
   const visited = new Set<string>();
   for (let index = 0; index < focusableCount; index += 1) {
-    await page.keyboard.press("Tab");
+    await pressFocusNext(page);
     const focus = await page.evaluate(() => {
       const element = document.activeElement as HTMLElement;
       const style = getComputedStyle(element);
