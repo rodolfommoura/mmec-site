@@ -312,6 +312,7 @@ Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in t
 - Evidence: P1 and P2 print no edition date, only the year in their titles. Their file metadata shows creation on 25 June 2026, which is the export date, not necessarily the edition date. P3 prints the date of the official gazette it reproduces (10 April 2026).
 - Question: what is the edition date of each booklet, if the firm wants it shown?
 - **Default:** P1 and P2 show "Edição: 2026"; P3 shows "Clipping do Diário Oficial da União de 10 de abril de 2026", as printed on the clipping. A date given by the owner goes into the `editionDate` field of the Markdown file.
+- Note (Phase 4 gate): the terms now say publications reflect the rules "na data de cada edição", and P1 and P2 show a period note ("Edição de 2026, referente ao período ..."). Without an edition date, readers of P1 and P2 see the year only; an owner-supplied date would make the terms item precise.
 
 ### Q-28. Retention period for contact messages
 
