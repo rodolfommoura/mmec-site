@@ -78,6 +78,11 @@ const topicNumber = (index: number) => String(index + 1).padStart(2, "0");
                 </dd>
               </div>
             </dl>
+            {data.period && (
+              <p class="publication-period">
+                Edição de {data.year}, referente ao período {data.period}.
+              </p>
+            )}
             <div class="publication-actions no-print">
               <Button href={pdf}>Abrir PDF completo</Button>
               <Button variant="secondary" href={pdf} download={data.pdf}>
@@ -175,6 +180,13 @@ const topicNumber = (index: number) => String(index + 1).padStart(2, "0");
 
   .publication-details dd {
     margin-block-start: var(--space-1);
+  }
+
+  .publication-period {
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    line-height: var(--line-height-ui);
+    color: var(--color-text-muted);
   }
 
   .publication-actions {

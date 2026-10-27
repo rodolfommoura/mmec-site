@@ -81,6 +81,23 @@ for (const path of publicationPaths) {
   });
 }
 
+// Booklets whose period has ended carry a neutral note on the period they refer to.
+const periodNotes: Record<string, string> = {
+  "/publicacoes/cartilha-eleicoes-2026": "Edição de 2026, referente ao período das Eleições 2026.",
+  "/publicacoes/cartilha-propaganda-partidaria-2026":
+    "Edição de 2026, referente ao período do primeiro semestre de 2026.",
+};
+
+for (const path of publicationPaths) {
+  test(`${path} shows the period note only when its period has ended`, async ({ page }) => {
+    await page.goto(path);
+    const note = page.locator(".publication-period");
+    const expected = periodNotes[path];
+    if (expected) await expect(note).toHaveText(expected);
+    else await expect(note).toHaveCount(0);
+  });
+}
+
 test("the index lists every publication, labelled with type and year", async ({ page }) => {
   await page.goto("/publicacoes");
   const cards = page.locator("article.publication-card");

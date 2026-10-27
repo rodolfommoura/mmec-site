@@ -3,6 +3,7 @@
 type: Cartilha jurídica
 year: 2026
 order: 1
+period: "das Eleições 2026"
 title: "Eleições 2026: implicações no rádio e na televisão"
 pageTitle: "Eleições 2026 | Machado Moura e Cardoso"
 description: "Cartilha Eleições 2026: implicações no rádio e na televisão, produzida por Machado Moura e Cardoso Advogados Associados."

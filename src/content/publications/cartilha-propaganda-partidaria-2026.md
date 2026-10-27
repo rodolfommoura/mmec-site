@@ -3,6 +3,7 @@
 type: Cartilha jurídica
 year: 2026
 order: 2
+period: "do primeiro semestre de 2026"
 title: "Propaganda Partidária 2026 no rádio e na televisão"
 pageTitle: "Propaganda Partidária 2026 | Machado Moura e Cardoso"
 description: "Cartilha Propaganda Partidária 2026 no rádio e na televisão, produzida por Machado Moura e Cardoso Advogados Associados."

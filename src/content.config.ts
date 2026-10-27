@@ -19,6 +19,11 @@ const publications = defineCollection({
         order: z.number().int().default(0),
         /** Edition as printed in the document, when the document states more than the year. */
         editionDate: z.string().optional(),
+        /**
+         * Period the edition refers to, set once that period has ended; completes the note
+         * "Edição de <year>, referente ao período <period>." (for example "das Eleições 2026").
+         */
+        period: z.string().optional(),
         /** Short title for cards, the index and the breadcrumb. */
         title: z.string(),
         /** Page heading; defaults to the title. */
