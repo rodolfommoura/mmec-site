@@ -166,6 +166,8 @@ Carried over from section 7 (Q-32, Q-33). The automated Firefox and WebKit run i
 
 | Check | Device and browser | Date | Result |
 | --- | --- | --- | --- |
-| Screen-reader smoke test (skip link, headings, landmarks, menu state, one publication page, PDF links) | | | not done yet |
-| Every page in Safari | iPhone | | not done yet |
-| Every page in Firefox | computer | | not done yet |
+| Screen-reader smoke test (skip link, headings, landmarks, menu state, one publication page, PDF links) | | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-32) |
+| Every page in Safari | iPhone | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-33) |
+| Every page in Firefox | computer | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-33) |
+
+Owner decision of 2026-10-27: the three checks are not run before launch. Automated coverage before launch is Chromium, Firefox and WebKit (section 8). They are listed under "Post-launch" in `launch-checklist.md`.

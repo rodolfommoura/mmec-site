@@ -10,8 +10,8 @@ Order: section 1 before the Phase 8 session starts; sections 2 to 4 in the Phase
 - [ ] **Owner:** lawyer review of `/privacidade` and `/termos` done and its changes merged (Q-26, Q-28). The compliance table in `docs/staging-review.md`, section 3, lists the rows marked "lawyer".
 - [ ] Privacy text date: after the lawyer's changes, set "Última atualização" on `/privacidade` and `/termos` to the date the approved text is published, and the matching entries in `src/config/page-dates.ts` (sitemap `lastmod`). Update the date of any other page whose text changes after the review.
 - [ ] **Owner:** compare "OAB/DF 0100104RS" in the footer with the registration certificate (Q-17).
-- [ ] **Owner:** screen-reader smoke test and Safari (iPhone) and Firefox check on the preview, results in `docs/audit-06.md`, section 9 (Q-32, Q-33).
-- [ ] Contact details still correct: e-mail `contato@mouraeribeiro.adv.br` (single source `src/config/site.ts`; it changes only when the owner confirms a mailbox on `@mmec.adv.br`, Q-03), phones `(61) 3703-5558` and `(61) 3879-5003` (WhatsApp), address `SHIS QI 05, Bloco F, Sala 332, Lago Sul, Brasília/DF, CEP 71.615-560`. The same e-mail is the `Contact` of `/.well-known/security.txt` (expires 2027-10-27).
+- [ ] **Owner:** screen-reader smoke test and Safari (iPhone) and Firefox check on the preview, results in `docs/audit-06.md`, section 9 (Q-32, Q-33). Owner decision 2026-10-27: not done before launch, accepted as known gaps; moved to "Post-launch".
+- [ ] Contact details still correct: e-mail `contato@mouraeribeiro.adv.br` (single source `src/config/site.ts`; it changes only when the owner confirms a mailbox on `@mmec.adv.br`, Q-03; owner decision 2026-10-27: launch with this provisional address, switch after launch), phones `(61) 3703-5558` and `(61) 3879-5003` (WhatsApp), address `SHIS QI 05, Bloco F, Sala 332, Lago Sul, Brasília/DF, CEP 71.615-560`. The same e-mail is the `Contact` of `/.well-known/security.txt` (expires 2027-10-27).
 - [ ] Re-check Provimento 205/2021 on the OAB site (Q-20; last checked 2026-10-27).
 - [ ] **Owner:** confirm that no e-mail signature or external page hotlinks the removed legacy files `/assets/images/brand/*.png` or `/assets/icons/*.png` (`docs/url-map.md`). If one does, keep that file at its path.
 
@@ -68,3 +68,15 @@ The site uses the existing Web Analytics site for `mmec.adv.br` (token in `src/c
 
 - [ ] Watch Web Analytics visits, Worker errors and Search Console coverage for the old `.html` URLs (they should move to the new URLs through the `301`s).
 - [ ] Keep the Worker `mmec` intact for at least 30 days.
+
+## Post-launch
+
+Owner decisions of 2026-10-27: these items do not block the cutover and are done after launch.
+
+- [ ] C-17: the PDFs keep the wording "atuação especializada" for the launch (p. 28 of P1, p. 7 of P2; `docs/staging-review.md`, section 3). Revisit after launch; new PDF exports would fix it (Q-06).
+- [ ] Q-03: the site launches with the provisional contact e-mail `contato@mouraeribeiro.adv.br`. **Owner:** confirm a mailbox on `@mmec.adv.br`, then change the single source `src/config/site.ts` (also the `Contact` of `/.well-known/security.txt`). No DNS or e-mail record change in this project (`CLAUDE.md` rule 9).
+- [ ] Known gap, Q-32: screen-reader smoke test (NVDA or VoiceOver), steps in `docs/staging-review.md`, section 5; results in `docs/audit-06.md`, section 9.
+- [ ] Known gap, Q-33: every page in real Firefox on the owner's computer; results in `docs/audit-06.md`, section 9.
+- [ ] Known gap, Q-33: every page in real Safari on an iPhone; results in `docs/audit-06.md`, section 9.
+
+Automated coverage before launch: the Playwright suite (axe, keyboard, display modes, console and CSP) on Chromium, Firefox and WebKit (`docs/audit-06.md`, section 8).

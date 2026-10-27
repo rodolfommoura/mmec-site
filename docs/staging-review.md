@@ -65,7 +65,7 @@ Rules as summarised in [`open-questions.md`](open-questions.md), "Rules relied o
 | C-14 | Publications pages and cards (three pages, home, `/publicacoes`) | Prov. art. 4, caput and Anexo Único (content marketing) | ok | Technical and informative, no results disclosed. |
 | C-15 | Legal notices on the publication pages ("… devem ser submetidas à análise jurídica específica …") | Prov. art. 2, VIII; art. 4 | ok | Neutral wording, no pointer to the firm (Q-08). |
 | C-16 | Contact data printed inside the PDFs | CED art. 40, V | lawyer | PDFs served unchanged (Q-18). |
-| C-17 | "atuação especializada" on p. 28 of P1 and p. 7 of P2 | Prov. art. 3, III | lawyer | The site avoids the word; the PDFs still use it and are not edited (Q-06). New exports would fix it. |
+| C-17 | "atuação especializada" on p. 28 of P1 and p. 7 of P2 | Prov. art. 3, III | lawyer | The site avoids the word; the PDFs still use it and are not edited (Q-06). New exports would fix it. Owner decision 2026-10-27: the PDFs keep the wording for the launch; revisit after launch (`launch-checklist.md`, "Post-launch"). |
 | C-18 | P2 p. 2 "orientação básica para os clientes do escritório" and "dirimidas pelo escritório" | Prov. art. 2, VIII; art. 4 | lawyer | Inside the PDF only (Q-08). |
 | C-19 | Terms: "A leitura dos materiais não cria uma relação advogado-cliente." | Prov. art. 4 (no solicitation) | ok | Supports the informative nature. |
 | C-20 | Meta descriptions, Open Graph text and `LegalService` structured data | Prov. art. 3, § 1 | ok | Same wording as the visible copy; no rating, review or price fields. |
@@ -87,6 +87,8 @@ From Phase 6 (Q-32, Q-33). Results go to `docs/audit-06.md`, section 9.
 2. Safari on an iPhone and Firefox on a computer: open every page of the preview and report anything that looks different from Chrome (layout, fonts, menu, PDF links).
 3. Read every page for the content sign-off, with this review's compliance table (section 3) at hand.
 
+Owner decision of 2026-10-27: checks 1 and 2 are not run before launch and are accepted as known gaps (Q-32, Q-33); automated coverage is Chromium, Firefox and WebKit (`audit-06.md`, section 8). They are post-launch items in `launch-checklist.md`.
+
 ## 6. Lighthouse
 
 `npm run test:lighthouse` on the build of this branch, 2026-10-27: every budget passes for the seven pages with both presets (three runs each). Desktop scores 100 / 100 / 100 / 100 (performance, accessibility, best practices, SEO) on every page. Mobile numbers match the Phase 6 reference (`audit-06.md`, section 6: performance 98 to 99, the other categories 100).
@@ -103,3 +105,5 @@ The reviewer agent ran twice, as the phase asks.
 Notes handled on this branch: the audit counts in sections 1 and 2 corrected (51 after the inventory additions); the dev-only `npm audit` findings referenced (section 1); the launch checklist gained a check that `3402fce` is the deployed commit before tagging, a one-hop `http` to `https` check on the apex, an explicit warning on the `noindex` step, and dates for any page changed after the lawyer review. Run 2 found the preview HTML identical to `dist/` except the two privacy-page spaces fixed here. Run 2's `test:a11y` clashed with a concurrent Lighthouse server on port 4323; `npm run check` was then re-run alone and passed (165 tests).
 
 Notes left for the owner: the old-domain e-mail at sign-off (Q-03); Q-34; the rows marked "lawyer" in section 3.
+
+Decided by the owner on 2026-10-27: launch with the provisional e-mail (Q-03) and the PDFs' current wording (C-17), both revisited after launch.

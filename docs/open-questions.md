@@ -12,7 +12,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 |---|---|---|---|
 | Q-01 | Short name "MMC" vs "MMEC" | Phase 2 | Never "MMC". Full name in copy, "MMEC" only as a short form. |
 | Q-02 | "Desde 2004" and "22+ anos" | Phase 3 | "Desde 2004" confirmed; no counter, no "22+". |
-| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Resolved: keep the current email until the owner confirms the new one; the Maps link opens the renamed listing (pin `-15.8463737, -47.8944906`). |
+| Q-03 | Old email domain and the "Moura e Ribeiro" Maps listing | Phase 3, 8 | Resolved: keep the current email until the owner confirms the new one; the Maps link opens the renamed listing (pin `-15.8463737, -47.8944906`). 2026-10-27: launch with `contato@mouraeribeiro.adv.br`; the `@mmec.adv.br` switch is post-launch. |
 | Q-04 | Decorative claims "360°", "DF", "01" | Phase 3 | Drop. |
 | Q-05 | Phone numbers, WhatsApp and postcode | Phase 3 | Publish `(61) 3703-5558` and `(61) 3879-5003` (labelled and linked as WhatsApp); CEP `71.615-560`. |
 | Q-06 | "Especializada" and OAB art. 3, III | Phase 3 | Never "especializada" or "especialização" (no certified title); say "atuação em direito da radiodifusão". |
@@ -41,8 +41,8 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-29 | Cloudflare Web Analytics site token | Resolved | Token of the existing site for `mmec.adv.br` set in `src/config/analytics.ts`; automatic setup turned off at the cutover (`docs/launch-checklist.md`). |
 | Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. |
 | Q-31 | Replacing `@lhci/cli` (unmaintained, dev-only audit findings) | Phase 6 | Keep it until Phase 6 reviews the performance tooling. |
-| Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 9. |
-| Q-33 | Firefox and Safari | Phase 7 gate | Automated: the whole suite runs on Chromium, Firefox and WebKit, locally and in CI (`audit-06.md`, section 8). Manual: owner opens the preview in Safari on an iPhone and in Firefox; results in `audit-06.md`, section 9. |
+| Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 9. 2026-10-27: accepted as a known gap, not tested before launch; post-launch. |
+| Q-33 | Firefox and Safari | Phase 7 gate | Automated: the whole suite runs on Chromium, Firefox and WebKit, locally and in CI (`audit-06.md`, section 8). Manual: owner opens the preview in Safari on an iPhone and in Firefox; results in `audit-06.md`, section 9. 2026-10-27: the manual part is accepted as a known gap, not tested before launch; post-launch. |
 | Q-34 | Two legacy `keep` rows not on the new site (H-04, E-03) | Phase 7 gate | Leave out: the facts are in the `h1` and the breadcrumb. |
 
 ## Naming and identity
@@ -76,6 +76,8 @@ Answer: "Desde 2004" is confirmed as the founding reference. No counter, no "22+
 Answer: The owner has already renamed the Google Business Profile. A mailbox on `@mmec.adv.br` will exist later, not now: keep `contato@mouraeribeiro.adv.br` in the contact config until the owner confirms the new address. In Phase 3, check that the Maps listing shows the current firm name. If it does, the map link may point to the listing; otherwise it points to the coordinates.
 
 Resolved (Phase 3 gate): the owner supplied the listing URL, which carries "Machado Moura e Cardoso Advogados Associados". The "Abrir no Google Maps" link now opens that listing (no iframe, `rel="noopener noreferrer"`). Its pin is `-15.8463737, -47.8944906`; the legacy coordinates `-15.8521537, -47.8945894` sit about 640 m away and are no longer used. The email part stands as answered above: `contato@mouraeribeiro.adv.br` stays until the owner confirms a mailbox on `@mmec.adv.br`.
+
+Decision (2026-10-27): the site launches with the provisional contact e-mail `contato@mouraeribeiro.adv.br`. Switching to an `@mmec.adv.br` address is a post-launch item (`launch-checklist.md`, "Post-launch").
 
 ### Q-16. Preview Worker name
 
@@ -363,6 +365,8 @@ Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
 - Question: may NVDA be installed for a check, or will the owner (or someone at the firm) run a short test with NVDA on Windows or VoiceOver on an iPhone?
 - **Default:** not done in Phase 6. axe covers names, roles, landmarks and heading order on every page. A ten-minute smoke test (skip link, headings list, landmarks, menu button state, one publication page, the PDF links) is added to the Phase 7 staging review.
 
+Decision (2026-10-27): accepted as a known gap; no screen-reader test before launch. It is a post-launch item (`launch-checklist.md`, "Post-launch"). Automated coverage before launch: axe and the keyboard tests in Chromium, Firefox and WebKit (`audit-06.md`, section 8).
+
 ### Q-33. Firefox and Safari
 
 - Evidence: Chromium, Chrome and Edge passed the browser-run suites. Firefox 156 is installed but the run's permission policy refused to drive it; there is no Apple device. Playwright's Firefox and WebKit builds would need a download.
@@ -372,6 +376,8 @@ Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
 Answer (27 October 2026): installation approved. The whole suite runs on Chromium, Firefox and WebKit, locally and in CI; no site defect found (`docs/audit-06.md`, section 8). A real Safari check on an iPhone or a Mac is still useful, since the WebKit Tab walk cannot run outside macOS.
 
 Status: automated Firefox and WebKit coverage is done. Real Safari (iPhone) stays a manual check by the owner at the Phase 7 gate, with Firefox on the owner's computer; results in `audit-06.md`, section 9.
+
+Decision (2026-10-27): the manual part (real Safari on an iPhone, real Firefox on the owner's computer) is accepted as a known gap, not tested before launch; it is a post-launch item (`launch-checklist.md`, "Post-launch"). Automated coverage is Chromium, Firefox and WebKit (`audit-06.md`, section 8).
 
 ## Staging review (Phase 7)
 
@@ -390,3 +396,4 @@ Opened by the Phase 7 unattended run on 2026-10-27. Review: `docs/staging-review
 - Q-26 and Q-28: lawyer review of the privacy policy and terms, before the cutover.
 - Q-32 and Q-33: manual checks at the gate, results in `audit-06.md`, section 9 (Q-33: real Safari on an iPhone, and Firefox on the owner's computer; the automated Firefox and WebKit run is in section 8).
 - Compliance rows marked "lawyer" in `staging-review.md`, section 3 (C-04, C-06, C-07, C-12, C-16 to C-18, C-21).
+- Decided 2026-10-27: C-17 (the PDFs keep "atuação especializada" for the launch, revisited after launch), Q-03 (launch with the provisional e-mail), Q-32 and the manual part of Q-33 (accepted as known gaps). All in `launch-checklist.md`, "Post-launch".
