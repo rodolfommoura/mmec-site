@@ -455,6 +455,18 @@ Describes the site as it works after Phase 5 (Q-09). Pending the review by the f
 | NF-07, NF-08 | One paragraph | Kept. |
 | NF-03, G-07, G-08, G-15 | Links `Voltar à página inicial`, `Publicações`; `Contato` with the e-mail address | Phase 4 task: links back to Home and Publications, and the contact address. |
 
+## Metadata and interface labels (Phases 4 and 5)
+
+Recorded in the Phase 7 content audit (`staging-review.md`, section 2). They add no facts.
+
+| Source | New text | Where |
+|---|---|---|
+| PR-05 | `Como o site de Machado Moura e Cardoso Advogados Associados trata dados pessoais, em conformidade com a LGPD.` | Meta description of `/privacidade` |
+| T-05 | `Condições de uso do site e das publicações de Machado Moura e Cardoso Advogados Associados.` | Meta description of `/termos` |
+| none (interface) | `Trilha de navegação` | Accessible name of the breadcrumb |
+| none (interface) | `Tipo` / `Edição` / `Arquivo` | Metadata labels on the publication pages |
+| none (interface) | `PDF: <URL of the PDF>` | Print-only line on the publication pages |
+
 ## External sources
 
 | ID | Source | Fact used |

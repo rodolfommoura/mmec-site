@@ -159,3 +159,15 @@ No site code changed. One WebKit run had a single unrelated failure (the logo wi
 CI: Firefox runs on the runner image as it is. WebKit needs system libraries (GStreamer, GTK 4, libsecret and others) that the image lacks; without them all 148 WebKit tests failed. `npx playwright install-deps webkit` installs only those, in a separate step with a 6-minute timeout, and took 29 seconds; the earlier `--with-deps` hang came from its font packages. With three engines, `npm run check` takes about 2 minutes on the runner and the job about 10 minutes, as before (Lighthouse takes about 7).
 
 Not covered: Safari itself, iOS Safari, and the WebKit Tab walk, which needs a Mac. The owner's check of the preview on an iPhone (Q-33 default) remains the only real-Safari test.
+
+## 9. Phase 7 gate: manual checks by the owner
+
+Carried over from section 7 (Q-32, Q-33). The automated Firefox and WebKit run is in section 8; these rows are the checks on real devices. Steps: `docs/staging-review.md`, section 5. Filled in by the owner at the Phase 7 gate; empty rows mean not done yet.
+
+| Check | Device and browser | Date | Result |
+| --- | --- | --- | --- |
+| Screen-reader smoke test (skip link, headings, landmarks, menu state, one publication page, PDF links) | | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-32) |
+| Every page in Safari | iPhone | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-33) |
+| Every page in Firefox | computer | 2026-10-27 | not done yet; accepted as a known gap by the owner, post-launch (Q-33) |
+
+Owner decision of 2026-10-27: the three checks are not run before launch. Automated coverage before launch is Chromium, Firefox and WebKit (section 8). They are listed under "Post-launch" in `launch-checklist.md`.
