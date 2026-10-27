@@ -10,10 +10,23 @@ for (const path of [...listPagePaths(), "/404"]) {
       if (message.type() === "error") errors.push(message.text());
     });
     page.on("pageerror", (error) => errors.push(error.message));
+    // Not every engine is known to log a violation as a console error; the event is standard.
+    await page.addInitScript(() => {
+      const violations: string[] = [];
+      Object.assign(window, { __cspViolations: violations });
+      document.addEventListener("securitypolicyviolation", (event) =>
+        violations.push(`${event.effectiveDirective} ${event.blockedURI}`),
+      );
+    });
     await serveWithSiteHeaders(page, baseURL ?? "");
     await page.goto(path);
     await page.waitForLoadState("networkidle");
     expect(errors).toEqual([]);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { __cspViolations: string[] }).__cspViolations,
+      ),
+    ).toEqual([]);
   });
 }
 
