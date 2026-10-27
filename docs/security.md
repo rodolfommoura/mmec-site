@@ -38,7 +38,7 @@ base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-re
 ## Analytics and privacy
 
 - Decision: `docs/decisions/0003-analytics.md` (Cloudflare Web Analytics, manual setup, plus Google Search Console; no GA4, no Clarity). It lists what the dashboard shows and what it does not measure (PDF opens and downloads, events, sessions).
-- The token of the existing Web Analytics site for `mmec.adv.br` is set in `src/config/analytics.ts` (Q-29), so every page loads the beacon and the CSP allows its two hosts. With an empty token nothing is loaded and no third-party host is allowed. Turning off the site's automatic setup and exporting its history are Phase 8 steps (`docs/launch-checklist.md`).
+- The token of the existing Web Analytics site for `mmec.adv.br` is set in `src/config/analytics.ts` (Q-29), so every page on the preview and production hosts loads the beacon and the CSP allows its two hosts. On a local server (`localhost`, `127.0.0.1`, `[::1]`) the same build loads no beacon: its report would be rejected by Cloudflare's CORS policy (`src/components/WebAnalytics.astro`). With an empty token nothing is loaded and no third-party host is allowed. Turning off the site's automatic setup and exporting its history are Phase 8 steps (`docs/launch-checklist.md`).
 - `/privacidade` section 2 matches the Cloudflare documentation read on 2026-10-26 (no cookies or storage, IP discarded, processing possibly outside Brazil); its text and "Última atualização" stay unchanged. The lawyer review is still open (Q-26).
 - No third-party request: `tests/home.spec.ts` fails on any request to a host not approved in decision 0003.
 

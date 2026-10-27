@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SkipLink from "../components/SkipLink.astro";
+import WebAnalytics from "../components/WebAnalytics.astro";
 import { webAnalytics } from "../config/analytics";
 import { mainContentId, ogImage, site } from "../config/site";
 import "../styles/tokens.css";
@@ -74,14 +75,7 @@ const jsonLd = structuredData && JSON.stringify(structuredData).replaceAll("<", 
     <Font cssVariable="--font-newsreader-face" preload={[{ style: "normal" }]} />
     <Font cssVariable="--font-cormorant-garamond-face" preload />
     <Font cssVariable="--font-public-sans-face" />
-    {webAnalytics.token && (
-      <script
-        is:inline
-        defer
-        src={webAnalytics.scriptUrl}
-        data-cf-beacon={JSON.stringify({ token: webAnalytics.token })}
-      />
-    )}
+    {webAnalytics.token && <WebAnalytics />}
   </head>
   <body>
     <SkipLink />

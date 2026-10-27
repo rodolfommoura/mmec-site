@@ -22,7 +22,7 @@ Implementation:
 
 - **Manual setup** (the JS snippet with a site token), not the automatic injection. It works the same on the preview (`workers.dev`) and on `mmec.adv.br`, is visible in the repository, and keeps the CSP exact. The automatic injection must stay **off** in the dashboard: only one snippet may run per page, and an injected copy would be blocked by the CSP.
 - The token lives in `src/config/analytics.ts`. While it is empty, no script is printed and the CSP allows no third-party host, so nothing loads before the owner creates the site in the dashboard.
-- With a token, `BaseLayout` prints `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "…"}'>` and the build adds exactly two CSP sources: `script-src https://static.cloudflareinsights.com` and `connect-src https://cloudflareinsights.com`.
+- With a token, `BaseLayout` renders `src/components/WebAnalytics.astro`, a same-origin script that adds `<script src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "…"}'>` to the page, except on `localhost`, `127.0.0.1` and `[::1]` (amended on 2026-10-26: the preview, production and local servers serve the same build, and from a local server with a port the beacon's report is rejected by Cloudflare's CORS policy, which Lighthouse counts as console errors). The build adds exactly two CSP sources: `script-src https://static.cloudflareinsights.com` and `connect-src https://cloudflareinsights.com`.
 - Search Console is set up by the owner in Google (verification) and needs no code (see `docs/security.md`, "Search engines").
 
 ## What the Cloudflare dashboard shows

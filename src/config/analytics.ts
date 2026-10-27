@@ -1,5 +1,5 @@
 // Cloudflare Web Analytics (docs/decisions/0003-analytics.md). Manual setup: the beacon is
-// loaded by BaseLayout only when a site token is set, and the Content-Security-Policy allows
+// loaded by WebAnalytics.astro only when a site token is set and the host is not local, and the Content-Security-Policy allows
 // its two hosts only then (src/integrations/csp-headers.mjs).
 
 interface WebAnalytics {
