@@ -30,7 +30,7 @@ The internal specimen page is injected by `src/integrations/design-specimen.mjs`
 - `DESIGN_SPECIMEN=true` (`npm run build:specimen`, used by `npm run check`);
 - Workers Builds builds a branch other than `main` (the default build variable `WORKERS_CI_BRANCH`), so pull request previews show it.
 
-A plain `npm run build`, and every Workers Builds build of `main`, has no `/_design`. No Cloudflare setting is needed. The page is always `noindex` and must stay out of the sitemap added in Phase 5.
+A plain `npm run build`, and every Workers Builds build of `main`, has no `/_design`. No Cloudflare setting is needed. The page is always `noindex` and is never listed in the sitemap (`src/pages/sitemap.xml.ts`).
 
 ## One-time setup: connect the repository (owner)
 
@@ -65,7 +65,7 @@ Needs the owner's Cloudflare login and a GitHub app approval, so it is not autom
 nvm use            # Node from .nvmrc
 npm ci
 npx playwright install chromium   # once, for test:a11y and test:lighthouse
-npm run check      # lint, typecheck, build, HTML validation, links, axe
+npm run check      # lint, typecheck, build, HTML validation, links, headers, axe
 npm run test:lighthouse
 npm run preview    # serve dist/ on http://localhost:4321
 ```
@@ -79,7 +79,7 @@ npm run preview    # serve dist/ on http://localhost:4321
 - `@lhci/cli` 0.15.1 (last published 2025-06-25) pulls in old `tmp`, `extract-zip`, `proxy-agent`, `uuid`, `inquirer` and `zod`. It only audits `localhost`.
 - `wrangler` pulls in `undici` through `miniflare`, used only by `wrangler dev`.
 - Do not run `npm audit fix --force`: it downgrades both packages to very old majors.
-- Phase 5 (supply chain) re-checks these and replaces `@lhci/cli` if it is still unmaintained.
+- Phase 5 re-checked these (`docs/security.md`, "Supply chain"): `wrangler` 4.153.0 fixes its finding; replacing `@lhci/cli` moved to Phase 6 (Q-31).
 
 ## CI
 

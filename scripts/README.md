@@ -3,7 +3,8 @@
 Node scripts used by the npm scripts in `package.json`.
 
 - `check-links.mjs`: `npm run test:links`. Starts `astro preview` on the built `dist/` and crawls every internal link with linkinator.
-- `check-redirects.mjs`: second half of `npm run test:links`. Serves `dist/` with Wrangler's local runtime (same `_redirects`, `html_handling` and `not_found_handling` as the Worker) and checks every legacy URL listed in `docs/url-map.md`: kept paths answer `200`, redirects answer a single `301` to the right target, removed paths and the not-found page answer `404`. `robots.txt` and `sitemap.xml` are skipped until Phase 5 builds them.
+- `check-redirects.mjs`: second half of `npm run test:links`. Serves `dist/` with Wrangler's local runtime (same `_redirects`, `html_handling` and `not_found_handling` as the Worker) and checks every legacy URL listed in `docs/url-map.md`: kept paths answer `200`, redirects answer a single `301` to the right target, removed paths and the not-found page answer `404`.
+- `check-headers.mjs`: `npm run test:headers`. Serves `dist/` with Wrangler's local runtime (same `_headers` as the Worker) and checks the security headers, cache headers and content types on a sample of paths (`docs/security.md`).
 - `pages.mjs`: lists the URL paths of the built pages, shared by the accessibility tests.
 - `build-specimen.mjs`: `npm run build:specimen`. Builds with the internal design specimen at `/_design` (`DESIGN_SPECIMEN=true`).
 - `check-production-build.mjs`: run by `npm run check` after `npm run build`; fails if the specimen leaked into a production build.
