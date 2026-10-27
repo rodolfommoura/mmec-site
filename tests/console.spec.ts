@@ -20,6 +20,8 @@ for (const path of [...listPagePaths(), "/404"]) {
 test("the policy is enforced in the browser", async ({ page, baseURL }) => {
   await serveWithSiteHeaders(page, baseURL ?? "");
   await page.goto("/");
+  // Lets every routed file finish, so no route handler is still answering when the page closes.
+  await page.waitForLoadState("networkidle");
   // An inline script that no hash allows must be refused. The violation event is standard; the
   // console wording differs between engines.
   const violatedDirective = await page.evaluate(
