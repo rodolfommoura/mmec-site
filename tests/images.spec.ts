@@ -18,7 +18,9 @@ for (const path of [...listPagePaths(), "/404"]) {
   });
 
   // DevTools Issues through the Chrome DevTools Protocol: Chromium projects only.
-  test(`Chromium reports no lazy image issue on ${path}`, async ({ page }) => {
+  test(`Chromium reports no lazy image issue on ${path}`, async ({ page, browserName }) => {
+    // Firefox and WebKit have no DevTools Issues; the dimension and ratio tests cover them.
+    test.skip(browserName !== "chromium", "Chrome DevTools Protocol only");
     const cdp = await page.context().newCDPSession(page);
     const issues: string[] = [];
     cdp.on("Audits.issueAdded", ({ issue }) => {

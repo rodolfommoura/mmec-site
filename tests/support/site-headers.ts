@@ -27,8 +27,13 @@ export async function serveWithSiteHeaders(page: Page, baseURL: string) {
         isScript ? { contentType: "text/javascript", body: "" } : { status: 204, body: "" },
       );
     }
-    if (!url.startsWith(baseURL)) return route.continue();
-    const response = await route.fetch();
+    // `upgrade-insecure-requests` makes WebKit ask for same-origin files over https, even on
+    // localhost (Chromium and Firefox exempt it). In production the site is https only, so the
+    // upgraded request is answered from the local http server and the policy stays unchanged.
+    const upgraded = baseURL.replace(/^http:/, "https:");
+    const local = url.startsWith(upgraded) ? baseURL + url.slice(upgraded.length) : url;
+    if (!local.startsWith(baseURL)) return route.continue();
+    const response = await route.fetch({ url: local });
     return route.fulfill({
       response,
       headers: { ...response.headers(), "content-security-policy": contentSecurityPolicy },
