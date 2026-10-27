@@ -363,3 +363,5 @@ Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
 - Evidence: Chromium, Chrome and Edge passed the browser-run suites. Firefox 156 is installed but the run's permission policy refused to drive it; there is no Apple device. Playwright's Firefox and WebKit builds would need a download.
 - Question: may the Playwright Firefox and WebKit builds be installed (`npx playwright install firefox webkit`) so the accessibility suites run in all three engines?
 - **Default:** not installed. The owner opens the preview in Safari on an iPhone and in Firefox during the Phase 7 gate and reports anything that looks wrong.
+
+Answer (27 October 2026): installation approved. The whole suite runs on Chromium, Firefox and WebKit, locally and in CI; no site defect found (`docs/audit-06.md`, section 8). A real Safari check on an iPhone or a Mac is still useful, since the WebKit Tab walk cannot run outside macOS.
