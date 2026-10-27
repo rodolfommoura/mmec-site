@@ -2,7 +2,7 @@
 
 Audit of the built site (`npm run build`, served by `astro preview`) on 2026-10-27, branch `fix/a11y-performance`, following `docs/phases/06-accessibility-performance.md`. Pages: `/`, `/publicacoes`, the three publication pages, `/privacidade`, `/termos` and the not-found page.
 
-Status: **findings recorded before the fixes.** Results after the fixes are in "Results after fixes" at the end.
+Sections 1 to 3 record the state before the fixes; section 6 the state after them. Every blocking finding is fixed. Automated checks found no accessibility violation; the findings come from the manual checks and Lighthouse diagnostics.
 
 ## 1. Automated audits (before fixes)
 
@@ -68,7 +68,17 @@ Driven with Playwright (Chromium 156) and checked on screenshots, since this run
 
 ## 4. Browser matrix
 
-To be completed after the fixes (section 6).
+Run after the fixes. The browser-run suites are `a11y`, `keyboard`, `display-modes`, `header`, `console` and `publications` (200 tests for Chrome and Edge together).
+
+| Browser | Version | How | Result |
+| --- | --- | --- | --- |
+| Chromium (Playwright build) | 156.0.8078.4 | `npm run check`, Lighthouse | pass |
+| Google Chrome (installed) | 155.0.8059.86 | Playwright `channel: "chrome"`, suites above | pass |
+| Microsoft Edge (installed) | 156.0.4314.42 | Playwright `channel: "msedge"`, suites above | pass |
+| Firefox (installed) | 156.0 | Headless screenshots were planned; the run's permission policy refused to drive the installed Firefox | **not tested** (Q-33) |
+| Safari, macOS and iOS | n/a | No Apple device in this run | **not tested** (Q-33) |
+
+The Playwright Firefox and WebKit builds are not installed; downloading them was left out of an unattended run (no software is installed without the owner's approval).
 
 ## 5. Findings and decisions
 
@@ -82,4 +92,38 @@ To be completed after the fixes (section 6).
 | N-02 | Standalone text links below 44 px tall                              | Non-blocking | Keep (AA met; 44 px is AAA 2.5.5)                                                           |
 | N-03 | Render-blocking CSS files                                           | Non-blocking | Keep (CSP without `'unsafe-inline'` or per-page hashes)                                     |
 | N-04 | No screen-reader test                                               | Needs owner  | `docs/open-questions.md` Q-32                                                               |
-| N-05 | Safari (macOS and iOS) not tested                                   | Needs owner  | `docs/open-questions.md` Q-33                                                               |
+| N-05 | Safari (macOS and iOS) and Firefox not tested | Needs owner | `docs/open-questions.md` Q-33 |
+| N-06 | Internal design specimen `/_design` scrolls sideways at 320 px | Non-blocking | Keep (never published; left out of the display tests) |
+| N-07 | Lighthouse CI keeps `@lhci/cli` 0.15.1 (Q-31) | Non-blocking | Keep: the dev-only audit findings affect tooling that audits `localhost` only |
+
+## 6. Results after fixes
+
+| ID | Fix | Test |
+| --- | --- | --- |
+| F-01 | In forced colours the ink logo file replaces the cream one (as in print, `base.css`); under a dark system theme the logo frame keeps the cream background within the clear space (`Logo.astro`). The artwork is unchanged. | `display-modes.spec.ts`, "forced colours" |
+| F-02 | The home and contact button groups are `no-print`; the e-mail, telephone and address above them still print. | `display-modes.spec.ts`, "print", every page |
+| F-03 | Print no longer appends the address after `mailto:` links; the test checks that every such link shows the address as its text. | same |
+| F-04 | `PublicationCard` takes a `priority` prop (eager, `fetchpriority="high"`); `/publicacoes` sets it on the first card only. | `publications.spec.ts`, "the index loads the first cover with priority" |
+
+New tests keep the manual checks that a browser can measure: `tests/keyboard.spec.ts` (Tab walk and focus ring on every page at two widths, and in forced colours) and `tests/display-modes.spec.ts` (reflow at 320 and 640 px, WCAG text spacing, reduced motion, forced colours, print). The new tests were checked to fail on the code before the fixes.
+
+Final runs: `npm run check` passes (167 Playwright tests, 0 axe violations, 0 html-validate errors; links, redirects and headers pass). `npm run test:lighthouse` passes every budget; representative runs:
+
+| Page | Mobile P / A / BP / SEO | Mobile LCP | Desktop P / A / BP / SEO | Desktop LCP | CLS | TBT |
+| --- | --- | --- | --- | --- | --- | --- |
+| `/` | 98 / 100 / 100 / 100 | 2.26 s | 100 / 100 / 100 / 100 | 0.51 s | 0 | 0 ms |
+| `/publicacoes` | 99 / 100 / 100 / 100 | 2.19 s | 100 / 100 / 100 / 100 | 0.49 s | 0 | 0 ms |
+| `/publicacoes/calendario-voz-do-brasil-2026` | 99 / 100 / 100 / 100 | 2.18 s | 100 / 100 / 100 / 100 | 0.47 s | 0 | 0 ms |
+| `/publicacoes/cartilha-eleicoes-2026` | 99 / 100 / 100 / 100 | 2.11 s | 100 / 100 / 100 / 100 | 0.47 s | 0 | 0 ms |
+| `/publicacoes/cartilha-propaganda-partidaria-2026` | 99 / 100 / 100 / 100 | 2.11 s | 100 / 100 / 100 / 100 | 0.47 s | 0 | 0 ms |
+| `/privacidade` | 99 / 100 / 100 / 100 | 1.96 s | 100 / 100 / 100 / 100 | 0.45 s | 0 | 0 ms |
+| `/termos` | 99 / 100 / 100 / 100 | 2.03 s | 100 / 100 / 100 / 100 | 0.45 s | 0 | 0 ms |
+
+On `/publicacoes` the "LCP image was lazily loaded" audit now passes. The simulated mobile LCP barely moves, because in the lab it is bound by the fonts and the CSS, not by the cover request.
+
+## 7. Remaining items
+
+- Screen-reader smoke test with NVDA (Windows) or VoiceOver (iOS, macOS): Q-32.
+- Firefox and Safari check: Q-33. The Phase 7 gate on the owner's phone and computer covers part of it.
+- Non-blocking items N-01, N-02, N-03, N-06 and N-07 above: kept; no owner decision needed unless the owner wants 44 px targets everywhere (N-02).
+- Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled at the cutover (Phase 8, `docs/security.md`).

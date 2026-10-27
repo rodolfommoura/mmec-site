@@ -18,6 +18,8 @@ Stop when the pull request is open.
 4. Link and asset check on the preview; compare with the old site page by page to ensure no content was lost unintentionally (`docs/parity.md`).
 5. Pre-launch checklist in `docs/launch-checklist.md`: robots and `noindex` removal plan, redirect tests, www behaviour, sitemap submission, analytics decision applied, security headers, 404, favicon, social previews, privacy text date, contact details, backups of the old site (tag and archive of `rodolfommoura/mmec-site-legacy`).
 
+6. Carried over from Phase 6 (`docs/audit-06.md`, Q-32 and Q-33): ask the owner, at the gate, for a short screen-reader smoke test (NVDA on Windows or VoiceOver on an iPhone: skip link, headings list, landmarks, menu button state, one publication page, the PDF links) and a look at the preview in Safari on an iPhone and in Firefox. Record the results in `docs/audit-06.md`.
+
 ## Definition of done
 
 - `docs/parity.md` and `docs/launch-checklist.md` complete.
