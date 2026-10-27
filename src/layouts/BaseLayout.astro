@@ -18,12 +18,23 @@ interface Props {
   noindex?: boolean;
   /** Public path of the page; adds the canonical URL and Open Graph tags. Omit on the 404. */
   canonicalPath?: string;
+  /** Structured data (schema.org) printed as JSON-LD. */
+  structuredData?: Record<string, unknown>;
 }
 
-const { title, description, currentPath, noindex = false, canonicalPath } = Astro.props;
+const {
+  title,
+  description,
+  currentPath,
+  noindex = false,
+  canonicalPath,
+  structuredData,
+} = Astro.props;
 const robots = noindex || !site.indexable ? "noindex, nofollow" : undefined;
 const canonicalUrl = canonicalPath ? new URL(canonicalPath, Astro.site).href : undefined;
 const ogImageUrl = new URL(ogImage.path, Astro.site).href;
+// "<" escaped so the JSON can never close the script element.
+const jsonLd = structuredData && JSON.stringify(structuredData).replaceAll("<", "\\u003c");
 ---
 
 <!doctype html>
@@ -49,8 +60,13 @@ const ogImageUrl = new URL(ogImage.path, Astro.site).href;
         <meta property="og:image:height" content={String(ogImage.height)} />
         <meta property="og:image:alt" content={ogImage.alt} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImageUrl} />
+        <meta name="twitter:image:alt" content={ogImage.alt} />
       </>
     )}
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/brand/png/mmec-symbol-avatar-512-on-cream.png" />

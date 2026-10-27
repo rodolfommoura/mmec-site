@@ -96,6 +96,7 @@ PDF links are the most likely to be shared outside the site (email, messaging, o
 | New URL | Reason |
 |---|---|
 | `/publicacoes` | Publications index. See [`decisions/0002-site-structure.md`](decisions/0002-site-structure.md). |
+| `/.well-known/security.txt` | Security contact (RFC 9116), Phase 5. See [`security.md`](security.md). |
 | `/equipe` | **Reserved for Phase 9. Not built.** Until then it answers `404` like any unknown path; nothing links to it. |
 
 ## `_redirects`
@@ -121,4 +122,4 @@ Implemented in Phase 4 in [`public/_redirects`](../public/_redirects). The rules
 /termos.html                                /termos                                           301
 ```
 
-`_redirects` rules run before `html_handling`, so `.html` paths give one `301` and not a `307` followed by a `301`. Confirmed in Phase 4 with Wrangler's local runtime, which applies the same asset rules as the Worker; to be confirmed once more on the preview URL. The link test (`npm run test:links`, `scripts/check-redirects.mjs`) reads this file and checks every row against the built site. `robots.txt` and `sitemap.xml` are skipped until Phase 5 builds them.
+`_redirects` rules run before `html_handling`, so `.html` paths give one `301` and not a `307` followed by a `301`. Confirmed in Phase 4 with Wrangler's local runtime, which applies the same asset rules as the Worker; to be confirmed once more on the preview URL. The link test (`npm run test:links`, `scripts/check-redirects.mjs`) reads this file and checks every row against the built site. `robots.txt` and `sitemap.xml` are built since Phase 5.

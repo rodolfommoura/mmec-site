@@ -8,13 +8,20 @@ import Section from "../components/Section.astro";
 import { practiceAreas } from "../config/practice-areas";
 import { getPublications } from "../config/publications";
 import { site } from "../config/site";
+import { legalServiceData } from "../config/structured-data";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const publications = await getPublications();
 const areaNumber = (index: number) => String(index + 1).padStart(2, "0");
 ---
 
-<BaseLayout title={site.name} description={site.description} currentPath="/" canonicalPath="/">
+<BaseLayout
+  title={site.name}
+  description={site.description}
+  currentPath="/"
+  canonicalPath="/"
+  structuredData={legalServiceData(new URL("/", Astro.site))}
+>
   <section class="opening" id="inicio" aria-labelledby="inicio-titulo">
     <!-- The symbol, once, large and cropped, as a quiet watermark (docs/brand.md). -->
     <img
