@@ -22,10 +22,10 @@ keyFacts:
   - "Prazo do direito de resposta na programação normal: 48 horas."
   - "Suspensão possível da programação por infrações específicas: 24 horas."
 topicsEyebrow: "Conteúdo da cartilha"
-topicsTitle: "Seis áreas críticas para a operação das emissoras."
+topicsTitle: "Seis áreas para a operação das emissoras."
 topics:
   - title: "Calendário eleitoral"
-    text: "Prazos críticos, marcos operacionais e controles internos."
+    text: "Prazos, marcos operacionais e controles internos."
   - title: "Pesquisas"
     text: "Registro, divulgação, checagem documental e riscos."
   - title: "Programação normal"

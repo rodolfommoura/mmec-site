@@ -221,8 +221,8 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | E-16 | `:93` | `48h` / `prazo do direito de resposta` | metric | rewrite | P1 p. 2 is more precise: "Prazo do direito de resposta na programação normal". Use the PDF wording. |
 | E-17 | `:94` | `24h` / `suspensão possível da programação` | metric | rewrite | P1 p. 2: "suspensão possível da programação por infrações específicas". Use the PDF wording. |
 | E-18 | `:102`; `cartilha-propaganda-partidaria-2026.html:103` | `Conteúdo da cartilha` | eyebrow | keep | |
-| E-19 | `:103` | `Seis áreas críticas para a operação das emissoras.` | `h2` | keep | |
-| E-20 | `:105` | `01` `Calendário eleitoral` / `Prazos críticos, marcos operacionais e controles internos.` | topic | keep | |
+| E-19 | `:103` | `Seis áreas críticas para a operação das emissoras.` | `h2` | rewrite | "críticas" dropped; see the rewrite log. |
+| E-20 | `:105` | `01` `Calendário eleitoral` / `Prazos críticos, marcos operacionais e controles internos.` | topic | rewrite | "críticos" dropped; see the rewrite log. |
 | E-21 | `:106` | `02` `Pesquisas` / `Registro, divulgação, checagem documental e riscos.` | topic | keep | |
 | E-22 | `:107` | `03` `Programação normal` / `Condutas vedadas, jornalismo e critérios de isonomia.` | topic | keep | |
 | E-23 | `:108` | `04` `Debates` / `Regras, convites, acessibilidade e arquivamento de evidências.` | topic | keep | |
@@ -410,6 +410,8 @@ Copy of the publication pages lives in `src/content/publications/*.md`; legal pa
 | VB-11 to VB-13, P3 arts. 5 and 8 | `Ano de referência: 2026.` / `Inserção informativa diária sobre o horário alternativo às 19h do fuso horário local, exceto aos sábados, domingos e feriados.` / `Vigência até a divulgação do calendário do ano de 2027.` | Metrics as text, with the qualifiers of the Portaria. |
 | P3 p. 1 header | Edition `Clipping do Diário Oficial da União de 10 de abril de 2026` | Date printed on the clipping ("CLIPPING DO DIÁRIO OFICIAL DA UNIÃO 10.04.2026"). P1 and P2 print no date, so they show the year only (Q-27). |
 | OWN-02, E-05, PP-11 | P1: `Edição de 2026, referente ao período das Eleições 2026.` / P2: `Edição de 2026, referente ao período do primeiro semestre de 2026.` | Owner instruction at the Phase 4 gate: factual note on the booklets whose period has ended, without calling them outdated. Year from the `year` field, period from the new `period` field; "de" contracted to "das" / "do". P3 has no note: its calendar is in force until the 2027 calendar (VB-13). |
+| E-19, OWN-02 | `Seis áreas para a operação das emissoras.` | Owner instruction at the Phase 4 gate: "críticas" dropped. |
+| E-20, OWN-02 | `Prazos, marcos operacionais e controles internos.` | Owner instruction at the Phase 4 gate: "críticos" dropped. |
 | P1, P2, P3 files | `PDF · 29 páginas · 423 KB` and equivalents | Read from the files at build time (size) and checked against the PDF page tree in tests (pages). |
 | G-07, H-70 rewrite | Index: `h1` `Publicações`, lead `Material informativo para emissoras.`; description `Publicações de Machado Moura e Cardoso Advogados Associados: material informativo para emissoras de rádio e televisão.` | Reuses the Phase 3 heading; "rádio e televisão" from the publication titles. |
 | E-07, E-08, PP-06, VB-06 | `Abrir PDF completo` / `Baixar cartilha` / `Baixar documento` | Kept. |
