@@ -442,6 +442,7 @@ Describes the site as it works after Phase 5 (Q-09). Pending the review by the f
 | T-12, T-13, PDF-04, Q-11 | `É permitida a leitura e o download dos materiais. A reprodução das cartilhas é autorizada apenas de forma integral.` | Follows the PDFs. |
 | T-15 | `Este site contém links para serviços de terceiros, como Google Maps e WhatsApp.` | Examples replaced by the external links the site really has. |
 | T-06, T-10, T-14, T-17 | Headings in sentence case | Typography only. |
+| OWN-02 | New section `2. Data das publicações`: `As publicações refletem as normas em vigor na data de cada edição. Alterações posteriores nas normas podem afetar o seu conteúdo.` | Owner instruction at the Phase 4 gate. Later sections renumbered 3 to 5. |
 
 ### Not-found page
 
