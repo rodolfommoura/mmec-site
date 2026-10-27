@@ -3,7 +3,7 @@
 type: Clipping regulatório
 year: 2026
 order: 3
-editionDate: "Diário Oficial da União de 10 de abril de 2026"
+editionDate: "Clipping do Diário Oficial da União de 10 de abril de 2026"
 title: "Calendário A Voz do Brasil 2026"
 heading: "Calendário de flexibilização ou dispensa de A Voz do Brasil."
 pageTitle: "Calendário A Voz do Brasil 2026 | Machado Moura e Cardoso"

@@ -299,14 +299,14 @@ Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in t
 ### Q-26. Lawyer review of the privacy policy and terms
 
 - Evidence: `docs/phases/04-publications-legal.md`, task 4. The new texts (`/privacidade`, `/termos`) are rewritten from the legacy text and describe the site after Phase 5: no cookies, no forms, Cloudflare Web Analytics and Google Search Console (Q-09). Sources are logged in `content-sources.md` ("Rewrites on the publication, legal and not-found pages").
-- Question: the firm's lawyer must review the final legal text line by line before launch. Points to check in particular: the description of Cloudflare Web Analytics and Search Console, the list of processors, the absence of a named encarregado (the policy points to the contact e-mail, per Q-09), and the reuse clause (Q-11).
+- Question: the firm's lawyer must review the final legal text line by line before launch. Points to check in particular: the description of Cloudflare Web Analytics and Search Console, the list of processors, the absence of a named encarregado (the policy points to the contact e-mail, per Q-09), the reuse clause (Q-11), the statement that data may be processed outside Brazil and its basis under LGPD art. 33, and "sem aviso prévio" kept from the legacy terms (T-18).
 - **Default:** the texts ship on the preview with "Última atualização: 26 de outubro de 2026". The Phase 7 content sign-off, and therefore the cutover, waits for the review. If Phase 5 finds that the analytics behave differently, Phase 5 updates the policy and its date.
 
 ### Q-27. Edition dates of the two booklets
 
 - Evidence: P1 and P2 print no edition date, only the year in their titles. Their file metadata shows creation on 25 June 2026, which is the export date, not necessarily the edition date. P3 prints the date of the official gazette it reproduces (10 April 2026).
 - Question: what is the edition date of each booklet, if the firm wants it shown?
-- **Default:** P1 and P2 show "Edição: 2026"; P3 shows "Diário Oficial da União de 10 de abril de 2026". A date given by the owner goes into the `editionDate` field of the Markdown file.
+- **Default:** P1 and P2 show "Edição: 2026"; P3 shows "Clipping do Diário Oficial da União de 10 de abril de 2026", as printed on the clipping. A date given by the owner goes into the `editionDate` field of the Markdown file.
 
 ### Q-28. Retention period for contact messages
 
