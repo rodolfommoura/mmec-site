@@ -18,18 +18,21 @@ for (const path of [...listPagePaths(), "/404"]) {
 }
 
 test("the policy is enforced in the browser", async ({ page, baseURL }) => {
-  const violations: string[] = [];
-  page.on("console", (message) => {
-    if (message.text().includes("Content Security Policy")) violations.push(message.text());
-  });
   await serveWithSiteHeaders(page, baseURL ?? "");
   await page.goto("/");
-  // An inline script that no hash allows must be refused.
-  await page.evaluate(() => {
-    const script = document.createElement("script");
-    script.textContent = "window.__cspProbe = true;";
-    document.head.append(script);
-  });
+  // An inline script that no hash allows must be refused. The violation event is standard; the
+  // console wording differs between engines.
+  const violatedDirective = await page.evaluate(
+    () =>
+      new Promise<string>((resolve) => {
+        document.addEventListener("securitypolicyviolation", (event) =>
+          resolve(event.effectiveDirective),
+        );
+        const script = document.createElement("script");
+        script.textContent = "window.__cspProbe = true;";
+        document.head.append(script);
+      }),
+  );
+  expect(violatedDirective).toMatch(/^script-src/);
   expect(await page.evaluate(() => "__cspProbe" in window)).toBe(false);
-  expect(violations.length).toBeGreaterThan(0);
 });

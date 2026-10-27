@@ -32,7 +32,11 @@ async function serveAs(page: Page, host: string, baseURL: string): Promise<strin
   if (!policy) throw new Error("No Content-Security-Policy in dist/_headers.");
   await page.route(`https://${host}/**`, async (route) => {
     const { pathname, search } = new URL(route.request().url());
-    const response = await route.fetch({ url: `${baseURL}${pathname}${search}` });
+    // Firefox lists the Host header among the request headers and route.fetch would forward it;
+    // `astro preview` (Vite) answers 403 to a host it does not serve.
+    const headers = { ...route.request().headers() };
+    delete headers.host;
+    const response = await route.fetch({ url: `${baseURL}${pathname}${search}`, headers });
     return route.fulfill({
       response,
       headers: { ...response.headers(), "content-security-policy": policy },
