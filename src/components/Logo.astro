@@ -73,6 +73,17 @@ const src = (fileTone: Tone) => `/brand/svg/${file.name}-${fileTone}.svg`;
     overflow: clip;
   }
 
+  /*
+   * A dark forced-colours theme would put the ink logo on black. Keep the cream it is drawn
+   * for behind it, within the clear space the frame already holds.
+   */
+  @media (forced-colors: active) and (prefers-color-scheme: dark) {
+    .logo-frame {
+      forced-color-adjust: none;
+      background: var(--color-cream);
+    }
+  }
+
   /* The brand minimum wins over the global `max-width: 100%` for images. */
   .logo {
     max-width: none;
