@@ -1,0 +1,22 @@
+---
+/**
+ * Cloudflare Web Analytics beacon (docs/decisions/0003-analytics.md). BaseLayout renders this
+ * component only with a site token. The script is bundled into a same-origin file, so the CSP
+ * needs no inline hash for it.
+ */
+---
+
+<script>
+  import { webAnalytics } from "../config/analytics";
+
+  // Checked in the browser because production, the preview Worker (`*.workers.dev`) and
+  // `astro preview` serve the same build. Cloudflare answers the beacon's report with CORS
+  // headers only for the host the site is registered for, so on any other host the beacon
+  // would only produce console errors.
+  if (webAnalytics.hosts.includes(location.hostname)) {
+    const beacon = document.createElement("script");
+    beacon.src = webAnalytics.scriptUrl;
+    beacon.dataset.cfBeacon = JSON.stringify({ token: webAnalytics.token });
+    document.head.append(beacon);
+  }
+</script>

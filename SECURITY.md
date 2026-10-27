@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Please do not open a public issue. Use GitHub's **private vulnerability reporting** ("Security" tab, "Report a vulnerability") on this repository. A dedicated security contact address will be published at `/.well-known/security.txt` once the site is live.
+Please do not open a public issue. Use GitHub's **private vulnerability reporting** ("Security" tab, "Report a vulnerability") on this repository. The site also publishes a contact address at `/.well-known/security.txt` (RFC 9116).
 
 ## Scope
 
@@ -13,3 +13,4 @@ The static website served at `mmec.adv.br` and the build pipeline in this reposi
 - Dependencies are locked and reviewed; Dependabot is enabled for npm and GitHub Actions.
 - GitHub Actions are pinned by commit SHA and run with least-privilege permissions.
 - No secrets are stored in the repository.
+- Strict Content-Security-Policy and security headers; checklist and results in `docs/security.md`.

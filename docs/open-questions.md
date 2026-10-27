@@ -38,6 +38,9 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-26 | Lawyer review of the privacy policy and terms | Phase 7 (before launch) | Texts ship on the preview; the firm's lawyer reviews them before the Phase 7 sign-off. |
 | Q-27 | Edition dates of the two booklets | Phase 4 | The PDFs print no date: show the edition year only. |
 | Q-28 | Retention period for contact messages | Phase 7 (lawyer review) | Criterion stated (time needed for the request and legal and professional obligations); no fixed period. |
+| Q-29 | Cloudflare Web Analytics site token | Resolved | Token of the existing site for `mmec.adv.br` set in `src/config/analytics.ts`; automatic setup turned off at the cutover (`docs/launch-checklist.md`). |
+| Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. |
+| Q-31 | Replacing `@lhci/cli` (unmaintained, dev-only audit findings) | Phase 6 | Keep it until Phase 6 reviews the performance tooling. |
 
 ## Naming and identity
 
@@ -320,3 +323,26 @@ Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in t
 - Question: how long does the firm keep contact messages received by e-mail, telephone or WhatsApp?
 - **Default:** the policy states no period. To be decided with the lawyer review (Q-26).
 - Answer (owner, Phase 4 gate, 2026-10-26): state the criterion, not a period: data from contact messages is kept for the time needed to handle the request and to meet legal and professional obligations. A fixed period, if any, comes with the lawyer review (Q-26).
+
+## Security, privacy and SEO (Phase 5)
+
+Opened by the Phase 5 unattended run on 2026-10-26. The analytics decision itself is closed: `docs/decisions/0003-analytics.md`, accepted by the owner (Q-09). The security.txt contact is the site contact address, as instructed by the owner.
+
+### Q-29. Cloudflare Web Analytics site token
+
+- Evidence: decision `0003-analytics` chooses the manual setup (JS snippet with a site token). Only the owner can create the site in the Cloudflare dashboard.
+- Question: please create the Web Analytics site for `mmec.adv.br` and send the token (it is public: it appears in every page).
+- **Default (superseded by the answer below):** `token` stays empty in `src/config/analytics.ts`. No script is printed and the CSP allows no third-party host. Setting the token is a one-line pull request; the build then adds the two Cloudflare hosts to the CSP. Leave the automatic injection **off** in the dashboard (one snippet per page; an injected copy would be blocked by the CSP). Until the token is set, section 2 of `/privacidade` describes a measurement that is not yet running; the text becomes accurate when the token lands, before the cutover.
+- Answer (owner, 2026-10-26): use the existing Web Analytics site for `mmec.adv.br`, token `29be01cd60f149a9be4d8ea0b7236dc4`. It has automatic setup on and data since 2026-06-23; the history is exported and automatic setup is turned off at the cutover (`docs/launch-checklist.md`).
+
+### Q-30. Google Search Console verification
+
+- Evidence: the legacy repository has no Google verification file and no `google-site-verification` meta tag. If the existing property was verified through the GA4 tag, verification is lost when GA4 is dropped at the cutover.
+- Question: how is the current Search Console property verified, and may it become a Domain property?
+- **Default:** a Domain property for `mmec.adv.br`, verified by a DNS TXT record that the owner adds (this project does not touch DNS, `CLAUDE.md` rule 9). No code change. If a URL-prefix property with an HTML file or meta tag is preferred, the owner sends the file or tag and a small pull request adds it. Details: `docs/security.md`, "Search engines".
+
+### Q-31. Replacing `@lhci/cli`
+
+- Evidence: `@lhci/cli` 0.15.1 is still the latest release (published 2025-06-25) and accounts for most dev-only `npm audit` findings (`docs/security.md`, "Supply chain"). `docs/deploy.md` planned to replace it in Phase 5 if still unmaintained.
+- Question: replace it (for example with `lighthouse` driven by a small script) or keep it?
+- **Default:** keep it; the findings affect only CI tooling that audits `localhost`. Phase 6 (accessibility and performance) owns the Lighthouse setup and decides.

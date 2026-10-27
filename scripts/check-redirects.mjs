@@ -6,9 +6,6 @@ import { readFileSync } from "node:fs";
 process.env.WRANGLER_SEND_METRICS ??= "false";
 const { unstable_startWorker } = await import("wrangler");
 
-// Regenerated in Phase 5 (docs/phases/05-security-privacy-seo.md). Remove when they land.
-const plannedPaths = new Set(["/robots.txt", "/sitemap.xml"]);
-
 // "Any other path with a trailing slash": platform behaviour, checked on one sample page.
 const trailingSlashSample = { path: "/privacidade/", target: "/privacidade" };
 
@@ -108,15 +105,9 @@ const worker = await unstable_startWorker({
 });
 
 let failures = 0;
-let skipped = 0;
 try {
   await worker.ready;
   for (const expectation of expected) {
-    if (plannedPaths.has(expectation.path)) {
-      skipped += 1;
-      console.log(`SKIPPED ${expectation.path} (planned for a later phase)`);
-      continue;
-    }
     const response = await worker.fetch(`http://localhost${expectation.path}`, {
       redirect: "manual",
       // A browser navigation, so not_found_handling serves the 404 page.
@@ -133,5 +124,5 @@ try {
   await worker.dispose();
 }
 
-console.log(`Checked ${expected.length} URLs, ${failures} failed, ${skipped} skipped.`);
+console.log(`Checked ${expected.length} URLs, ${failures} failed.`);
 process.exitCode = failures === 0 ? 0 : 1;

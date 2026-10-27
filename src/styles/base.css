@@ -44,6 +44,16 @@ picture {
   height: auto;
 }
 
+/*
+ * Chromium reports a lazy image whose height computes to `auto` as having no explicit
+ * dimensions, even with width and height attributes. An explicit ratio taken from those
+ * attributes keeps the space reserved and the image responsive; browsers without typed
+ * `attr()` drop the declaration and use the ratio the attributes already give.
+ */
+img[loading="lazy"][width][height] {
+  aspect-ratio: attr(width type(<number>)) / attr(height type(<number>));
+}
+
 input,
 button,
 textarea,
