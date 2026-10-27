@@ -1,5 +1,6 @@
 // Lighthouse CI: budgets from docs/phases/01-foundation.md, run against `astro preview`.
-// Audits every built page except the 404, which answers 404 on purpose (docs/audit-06.md).
+// Audits every built page except the 404, which answers 404 on purpose, and the internal
+// design specimen, present after `npm run check` but never published (docs/audit-06.md).
 // Mobile preset; lighthouserc.desktop.cjs reuses this file with the desktop preset.
 const { chromium } = require("@playwright/test");
 const { listPagePaths } = require("./scripts/pages.mjs");
@@ -11,7 +12,9 @@ module.exports = {
     collect: {
       startServerCommand: `npx astro preview --port ${port}`,
       startServerReadyPattern: "localhost",
-      url: listPagePaths().map((path) => `http://localhost:${port}${path}`),
+      url: listPagePaths()
+        .filter((path) => path !== "/_design")
+        .map((path) => `http://localhost:${port}${path}`),
       numberOfRuns: 3,
       chromePath: chromium.executablePath(),
       settings: {
