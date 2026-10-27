@@ -102,7 +102,7 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     <li>a revogação do consentimento.</li>
   </ul>
   <p>
-    O canal para as solicitações dos titulares de dados é o e-mail
+    O canal para as solicitações dos titulares de dados é o e-mail{" "}
     <a href={`mailto:${contact.email}`}>{contact.email}</a>. Você também pode peticionar à
     Autoridade Nacional de Proteção de Dados (ANPD).
   </p>
@@ -118,7 +118,7 @@ import LegalLayout from "../layouts/LegalLayout.astro";
       E-mail: <a href={`mailto:${contact.email}`}>{contact.email}</a>
     </li>
     <li>
-      Endereço: {contact.address.street}, {contact.address.district.replace(" · ", ", ")},
+      Endereço: {contact.address.street}, {contact.address.district.replace(" · ", ", ")},{" "}
       {contact.address.postcode}
     </li>
   </ul>
