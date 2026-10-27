@@ -41,6 +41,9 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-29 | Cloudflare Web Analytics site token | Resolved | Token of the existing site for `mmec.adv.br` set in `src/config/analytics.ts`; automatic setup turned off at the cutover (`docs/launch-checklist.md`). |
 | Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. |
 | Q-31 | Replacing `@lhci/cli` (unmaintained, dev-only audit findings) | Phase 6 | Keep it until Phase 6 reviews the performance tooling. |
+| Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 8. |
+| Q-33 | Firefox and Safari | Phase 7 gate | Owner opens the preview in both; results in `audit-06.md`, section 8. |
+| Q-34 | Two legacy `keep` rows not on the new site (H-04, E-03) | Phase 7 gate | Leave out: the facts are in the `h1` and the breadcrumb. |
 
 ## Naming and identity
 
@@ -166,6 +169,8 @@ Answer: Accepted as proposed.
 - **Default:** Phase 7 re-checks the OAB page and updates this list before the content sign-off.
 
 Answer: Accepted as proposed.
+
+Phase 7 (2026-10-27): the OAB page shows no new wording of arts. 1 to 6 and no amending or replacing provimento; a web search found none either. Re-check on the day of the cutover (`launch-checklist.md`).
 
 ## Contact
 
@@ -363,3 +368,21 @@ Opened by the Phase 6 unattended run on 2026-10-27. Audit: `docs/audit-06.md`.
 - Evidence: Chromium, Chrome and Edge passed the browser-run suites. Firefox 156 is installed but the run's permission policy refused to drive it; there is no Apple device. Playwright's Firefox and WebKit builds would need a download.
 - Question: may the Playwright Firefox and WebKit builds be installed (`npx playwright install firefox webkit`) so the accessibility suites run in all three engines?
 - **Default:** not installed. The owner opens the preview in Safari on an iPhone and in Firefox during the Phase 7 gate and reports anything that looks wrong.
+
+## Staging review (Phase 7)
+
+Opened by the Phase 7 unattended run on 2026-10-27. Review: `docs/staging-review.md`; parity: `docs/parity.md`.
+
+### Q-34. Two legacy `keep` rows not on the new site
+
+- Evidence: the mechanical parity check (`parity.md`, "Findings") found two rows marked `keep` in `content-sources.md` with no visible text on the new site and no decision recording why: H-04, the hero eyebrow "Advocacia setorial · Brasília/DF"; E-03, the "Voltar ao início" link of the election booklet page.
+- Neither loses a fact: the home `h1` says "Atuação em direito da radiodifusão, em Brasília, desde 2004", and every publication page has the breadcrumb "Início" and the header navigation.
+- Question: should the eyebrow come back above the home `h1`, or the "Voltar ao início" link on the publication pages?
+- **Default:** leave both out. Restoring either is a small copy change.
+
+### Gate items carried into Phase 7
+
+- Q-17: compare the footer registration with the certificate (owner).
+- Q-26 and Q-28: lawyer review of the privacy policy and terms, before the cutover.
+- Q-32 and Q-33: manual checks at the gate, results in `audit-06.md`, section 8.
+- Compliance rows marked "lawyer" in `staging-review.md`, section 3 (C-04, C-06, C-07, C-12, C-16 to C-18, C-21).

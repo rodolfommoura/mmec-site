@@ -129,3 +129,13 @@ On `/publicacoes` the "LCP image was lazily loaded" audit now passes. The simula
 - Firefox and Safari check: Q-33. The Phase 7 gate on the owner's phone and computer covers part of it.
 - Non-blocking items N-01, N-02, N-03, N-06 and N-07 above: kept; no owner decision needed unless the owner wants 44 px targets everywhere (N-02).
 - Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled at the cutover (Phase 8, `docs/security.md`).
+
+## 8. Phase 7 gate: manual checks by the owner
+
+Carried over from section 7 (Q-32, Q-33). Steps: `docs/staging-review.md`, section 5. Filled in by the owner at the Phase 7 gate; empty rows mean not done yet.
+
+| Check | Device and browser | Date | Result |
+| --- | --- | --- | --- |
+| Screen-reader smoke test (skip link, headings, landmarks, menu state, one publication page, PDF links) | | | not done yet |
+| Every page in Safari | iPhone | | not done yet |
+| Every page in Firefox | computer | | not done yet |
