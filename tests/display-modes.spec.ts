@@ -2,7 +2,9 @@ import { expect, test, type Page } from "@playwright/test";
 import { listPagePaths } from "../scripts/pages.mjs";
 import { contact } from "../src/config/site";
 
-const paths = [...listPagePaths(), "/404"];
+// The design specimen is internal and never published; it shows every button and wide token
+// tables on purpose.
+const paths = [...listPagePaths().filter((path) => path !== "/_design"), "/404"];
 
 // WCAG 1.4.12 Text Spacing: the minimum values a user style sheet may apply.
 const textSpacing = `
