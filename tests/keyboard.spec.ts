@@ -1,7 +1,8 @@
 import { expect, test, type Page } from "@playwright/test";
 import { listPagePaths } from "../scripts/pages.mjs";
 
-const paths = [...listPagePaths(), "/404"];
+// The design specimen has its own keyboard test (specimen.spec.ts), which covers its form fields.
+const paths = [...listPagePaths().filter((path) => path !== "/_design"), "/404"];
 const viewports = [
   { width: 1280, height: 800 },
   { width: 375, height: 740 },
@@ -23,6 +24,9 @@ async function walkFocus(page: Page): Promise<FocusStop[]> {
     const stop = await page.evaluate(() => {
       const element = document.activeElement;
       if (!(element instanceof HTMLElement) || element === document.body) return null;
+      // Marks the element, so the walk ends when focus wraps round, even past twin links.
+      if (element.dataset.focusWalk) return null;
+      element.dataset.focusWalk = "seen";
       const style = getComputedStyle(element);
       const box = element.getBoundingClientRect();
       return {
@@ -33,7 +37,7 @@ async function walkFocus(page: Page): Promise<FocusStop[]> {
         height: box.height,
       };
     });
-    if (!stop || stop.name === stops[0]?.name) break;
+    if (!stop) break;
     stops.push(stop);
   }
   return stops;
@@ -47,7 +51,14 @@ for (const viewport of viewports) {
       await page.setViewportSize(viewport);
       await page.goto(path);
       const stops = await walkFocus(page);
-      expect(stops.length).toBeGreaterThan(5);
+      const focusable = await page
+        .locator("a[href], button")
+        .evaluateAll(
+          (elements) =>
+            elements.filter((element) => element.checkVisibility({ visibilityProperty: true }))
+              .length,
+        );
+      expect(stops.length).toBe(focusable);
       expect(stops[0].name).toContain("Ir para o conteúdo");
       for (const stop of stops) {
         expect.soft(stop.outlineStyle, stop.name).toBe("solid");
