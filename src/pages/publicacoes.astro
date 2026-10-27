@@ -29,8 +29,9 @@ const publications = await getPublications();
       <p class="lead">Material informativo para emissoras.</p>
     </header>
     <div class="publications-list">
-      {publications.map((publication) => (
-        <PublicationCard publication={publication} level={2} />
+      {/* The first cover is the largest element in the first screen on phones. */}
+      {publications.map((publication, index) => (
+        <PublicationCard publication={publication} level={2} priority={index === 0} />
       ))}
     </div>
   </div>
