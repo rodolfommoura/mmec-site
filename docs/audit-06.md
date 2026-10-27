@@ -140,14 +140,14 @@ Run on 27 October 2026, after the owner approved `npx playwright install firefox
 | Firefox | 157.0 | Desktop Firefox | pass | pass |
 | WebKit | 27.2 | Desktop Safari | pass, Tab walks skipped | pass, Tab walks skipped |
 
-Playwright 1.64.1. Totals: 495 tests, 458 passed and 37 skipped in both places, 0 failed.
+Playwright 1.64.1. Totals: 495 tests, 458 passed and 37 skipped in both places, 0 failed. Per engine: Chromium 165 passed; Firefox 156 passed, 9 skipped (the DevTools Issues test on each page); WebKit 137 passed, 28 skipped (the same 9, plus 19 Tab walks: 16 page walks, forced colours, the skip link and the specimen).
 
 The first run on Firefox and WebKit had 49 failures. None was a site defect; each came from the test harness or from an engine difference:
 
 | ID | Engine | Failure | Cause | Change |
 | --- | --- | --- | --- | --- |
 | X-01 | Firefox | Beacon not loaded on `mmec.adv.br` (2 tests) | Firefox lists the Host header among the request headers; `route.fetch` forwarded it and `astro preview` (Vite) answered 403 to that host | `analytics.spec.ts` drops the Host header before fetching from the local server |
-| X-02 | Firefox | "The policy is enforced" saw no violation | The test matched Chromium's console text ("Content Security Policy"); Firefox writes "Content-Security-Policy" | The test waits for the standard `securitypolicyviolation` event and now also checks that the directive is `script-src` |
+| X-02 | Firefox | "The policy is enforced" saw no violation | The test matched Chromium's console text ("Content Security Policy"); Firefox writes "Content-Security-Policy" | The test waits for the standard `securitypolicyviolation` event and now also checks that the directive is `script-src`; the per-page console test also fails on any such event, since the console wording is not a contract |
 | X-03 | WebKit | "SSL connect error" on every page (10 tests) | WebKit applies `upgrade-insecure-requests` to `http://localhost`, which Chromium and Firefox exempt; the local server has no TLS. In production the site is https only, so nothing is upgraded | `support/site-headers.ts` answers the upgraded request from the local server; the policy is unchanged |
 | X-04 | Firefox, WebKit | DevTools Issues test (18 tests) | Uses the Chrome DevTools Protocol | Runs on Chromium only; the dimension and ratio tests run everywhere |
 | X-05 | WebKit | Tab walks reached no link (18 tests) | WebKit follows Safari: Tab skips links unless "Press Tab to highlight each item" is on; Option+Tab includes them. The Windows and Linux WebKit builds do not map Option+Tab, so links cannot be reached from the keyboard at all (checked on a minimal page with two links, a button and a field) | The walks press Option+Tab on WebKit and are skipped on WebKit outside macOS; Chromium and Firefox still run them on every page. The forced-colours walk now fails when it visits nothing, which WebKit had let pass |
