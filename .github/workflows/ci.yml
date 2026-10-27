@@ -47,6 +47,10 @@ jobs:
         # A stalled browser download should fail the step, not eat the job timeout.
         timeout-minutes: 10
 
+      - name: Install WebKit system libraries
+        run: npx playwright install-deps webkit
+        timeout-minutes: 6
+
       # Lint, typecheck, build, HTML validation, link check and axe.
       - name: Run checks
         run: npm run check
