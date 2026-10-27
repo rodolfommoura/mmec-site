@@ -1,6 +1,7 @@
 // Cloudflare Web Analytics (docs/decisions/0003-analytics.md). Manual setup: the beacon is
-// loaded by WebAnalytics.astro only when a site token is set and the host is not local, and the Content-Security-Policy allows
-// its two hosts only then (src/integrations/csp-headers.mjs).
+// loaded by WebAnalytics.astro only when a site token is set and the host is not local, and
+// the Content-Security-Policy allows its two hosts only with a token
+// (src/integrations/csp-headers.mjs).
 
 interface WebAnalytics {
   /** Site token from the Cloudflare dashboard (public, printed in the HTML). Empty: no beacon. */

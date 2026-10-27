@@ -47,6 +47,8 @@ test("loads no beacon on a local server", async ({ page, baseURL }) => {
 // The build served under the preview and production host names, with the production policy.
 for (const host of ["mmec-site.example.workers.dev", "mmec.adv.br"]) {
   test(`loads the beacon with the site token on ${host}`, async ({ page, baseURL }) => {
+    const policy = contentSecurityPolicy;
+    if (!policy) throw new Error("No Content-Security-Policy in dist/_headers.");
     const errors = collectConsoleErrors(page);
     const requests = await stubAnalytics(page);
     await page.route(`https://${host}/**`, async (route) => {
@@ -54,7 +56,7 @@ for (const host of ["mmec-site.example.workers.dev", "mmec.adv.br"]) {
       const response = await route.fetch({ url: `${baseURL}${pathname}${search}` });
       return route.fulfill({
         response,
-        headers: { ...response.headers(), "content-security-policy": contentSecurityPolicy ?? "" },
+        headers: { ...response.headers(), "content-security-policy": policy },
       });
     });
     await page.goto(`https://${host}/`);
