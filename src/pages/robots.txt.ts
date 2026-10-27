@@ -1,6 +1,6 @@
-// robots.txt allows crawling everywhere, on the preview too: a crawler must be able to fetch
-// a page to see its noindex (X-Robots-Tag in public/_headers, robots meta in BaseLayout).
-// Production rules at the cutover: docs/security.md, "Search engines".
+// robots.txt allows crawling everywhere, on the workers.dev hosts too: a crawler must be able
+// to fetch a page there to see its noindex (X-Robots-Tag in public/_headers, robots meta on
+// preview builds). Indexing rules: docs/security.md, "Search engines".
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = ({ site }) =>

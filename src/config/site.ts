@@ -1,5 +1,7 @@
 // Single source for the firm's identity and contact data. Sources: docs/content-sources.md.
 
+import { isIndexable } from "./indexing";
+
 export const site = {
   // G-01
   name: "Machado Moura e Cardoso Advogados Associados",
@@ -14,8 +16,8 @@ export const site = {
   oabRegistration: "OAB/DF 0100104RS",
   // OWN-03, provided by the owner; shown only in the privacy policy, as the controller's ID.
   cnpj: "07.028.086/0001-00",
-  // Until Phase 8 every page is served with noindex (docs/phases/01-foundation.md).
-  indexable: false,
+  // Production builds are indexable; pull request previews are not (src/config/indexing.ts).
+  indexable: isIndexable(process.env),
 } as const;
 
 // Default Open Graph image, built by src/pages/og/mmec-og-default.png.ts.

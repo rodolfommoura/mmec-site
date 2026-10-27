@@ -19,9 +19,6 @@ module.exports = {
       chromePath: chromium.executablePath(),
       settings: {
         chromeFlags: "--headless=new --no-sandbox",
-        // The preview is noindex on purpose until Phase 8, which this audit would penalise.
-        // Re-enable it in Phase 8 when noindex is removed.
-        skipAudits: ["is-crawlable"],
       },
     },
     assert: {
