@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { approvedOrigins } from "./support/site-headers";
 
 const widths = [320, 390, 768, 1024, 1440];
 
@@ -14,10 +15,13 @@ const legacyAnchors = [
   ...Array.from({ length: 6 }, (_, index) => `area-${index + 1}`),
 ];
 
-test("makes no third-party request on load", async ({ page, baseURL }) => {
+// Only the hosts approved in docs/decisions/0003-analytics.md, and only with a site token.
+test("makes no unapproved third-party request on load", async ({ page, baseURL }) => {
   const external: string[] = [];
   page.on("request", (request) => {
-    if (!request.url().startsWith(baseURL ?? "")) external.push(request.url());
+    const url = request.url();
+    if (url.startsWith(baseURL ?? "")) return;
+    if (!approvedOrigins.some((origin) => url.startsWith(origin))) external.push(url);
   });
   await page.goto("/");
   await page.waitForLoadState("networkidle");

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import { cspHeaders } from "./src/integrations/csp-headers.mjs";
 import { designSpecimen } from "./src/integrations/design-specimen.mjs";
 
 // Latin subset, as published by Fontsource for the `latin` files.
@@ -36,8 +37,17 @@ export default defineConfig({
   trailingSlash: "never",
   build: {
     format: "file",
+    // External stylesheets and scripts keep the Content-Security-Policy free of 'unsafe-inline'
+    // and of per-page hashes; only the @font-face blocks of the Fonts API stay inline (hashed).
+    inlineStylesheets: "never",
   },
-  integrations: [designSpecimen()],
+  vite: {
+    build: {
+      // Astro inlines processed scripts below this size; 0 keeps every script external.
+      assetsInlineLimit: 0,
+    },
+  },
+  integrations: [designSpecimen(), cspHeaders()],
   // The last fallback is a generic family, so Astro generates metric-adjusted fallback faces
   // (Times New Roman for serif, Arial for sans-serif) to avoid layout shift while fonts load.
   fonts: [
