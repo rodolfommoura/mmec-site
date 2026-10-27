@@ -6,6 +6,8 @@ Sections 1 to 3 record the state before the fixes; section 6 the state after the
 
 ## 1. Automated audits (before fixes)
 
+The Lighthouse rows below already use the setup this phase introduced (every page, both presets), run on the code before the fixes.
+
 | Check                                                   | Command                        | Result                                    |
 | ------------------------------------------------------- | ------------------------------ | ----------------------------------------- |
 | axe-core, WCAG 2.0/2.1/2.2 A and AA, every page and 404 | `npm run test:a11y`            | 0 violations                              |
@@ -27,7 +29,7 @@ Lighthouse CI audited only four pages before this phase; it now audits every bui
 | `/privacidade`                                     | 99 / 100 / 100 / 100    | 1.96 s     | 100 / 100 / 100 / 100    | 0.45 s      | 0   | 0 ms |
 | `/termos`                                          | 99 / 100 / 100 / 100    | 2.03 s     | 100 / 100 / 100 / 100    | 0.45 s      | 0   | 0 ms |
 
-Exception: the not-found page is not audited by Lighthouse. It answers `404` on purpose, which the SEO category scores as a failure (`http-status-code`). It is covered by axe, html-validate and the Playwright tests instead.
+Exceptions: the internal design specimen `/_design`, present in `dist/` after `npm run check` but never published, is left out. The not-found page is not audited by Lighthouse. It answers `404` on purpose, which the SEO category scores as a failure (`http-status-code`). It is covered by axe, html-validate and the Playwright tests instead.
 
 Mobile is Lighthouse's simulated slow 4G on a mid-range phone, so the mobile LCP is a lab figure, not a field one. INP has no lab value; the lab proxy (TBT) is 0 ms on every page and the only scripts are the menu toggle (0.7 KB) and the analytics loader (0.7 KB).
 
@@ -38,7 +40,7 @@ Driven with Playwright (Chromium 156) and checked on screenshots, since this run
 | Check                         | How                                                                                                                 | Finding                                                                                                                                                                                                                                                                          |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Keyboard-only walkthrough     | Tab through every page at 1280 and 375 px until focus leaves the document                                           | Every link and button is reached in reading order (10 to 23 stops per page); no trap; no focusable element is hidden.                                                                                                                                                         |
-| Visible focus                 | Computed outline on every focus stop, normal and forced colours                                                     | Every stop has a 3 px solid outline (green on cream, cream on the green footer, system highlight in forced colours). Focus scrolled into view after the smooth scroll settles.                                                                                                 |
+| Visible focus                 | Computed outline on every focus stop, normal and forced colours                                                     | Every stop had a 3 px solid outline: green on cream, cream on the green footer, a system colour in forced colours (read from the computed styles during the audit). Each focused element was in the viewport once the smooth scroll settled (checked by hand on the home page). The tests keep a weaker guarantee: a solid outline of at least 2 px on every stop, and in forced colours on the home page only.                                                                                                 |
 | Skip link                     | First Tab, Enter                                                                                                    | First focus stop, visible, moves focus to `main` (also covered by `tests/header.spec.ts`).                                                                                                                                                                                       |
 | Mobile menu                   | 375 px: open, Tab, Escape; without JavaScript                                                                       | Escape closes and returns focus to "Menu". The menu is a non-modal disclosure that pushes the page down, not an overlay, so it has no focus trap by design (a trap would be wrong for this pattern, WAI-ARIA APG "Disclosure"). Without JavaScript every link shows.               |
 | 200 % zoom                    | 1280 px window at 200 % = 640 CSS px viewport                                                                       | No horizontal scroll, no clipped text, on every page.                                                                                                                                                                                                                            |
@@ -68,7 +70,7 @@ Driven with Playwright (Chromium 156) and checked on screenshots, since this run
 
 ## 4. Browser matrix
 
-Run after the fixes. The browser-run suites are `a11y`, `keyboard`, `display-modes`, `header`, `console` and `publications` (200 tests for Chrome and Edge together).
+Run after the fixes. The browser-run suites are `a11y`, `keyboard`, `display-modes`, `header`, `console` and `publications` (100 tests per browser, 200 in total, run with a temporary Playwright configuration that is not kept).
 
 | Browser | Version | How | Result |
 | --- | --- | --- | --- |
@@ -107,7 +109,7 @@ The Playwright Firefox and WebKit builds are not installed; downloading them was
 
 New tests keep the manual checks that a browser can measure: `tests/keyboard.spec.ts` (Tab walk and focus ring on every page at two widths, and in forced colours) and `tests/display-modes.spec.ts` (reflow at 320 and 640 px, WCAG text spacing, reduced motion, forced colours, print). The new tests were checked to fail on the code before the fixes.
 
-Final runs: `npm run check` passes (167 Playwright tests, 0 axe violations, 0 html-validate errors; links, redirects and headers pass). `npm run test:lighthouse` passes every budget; representative runs:
+Final runs: `npm run check` passes (165 Playwright tests, 0 axe violations, 0 html-validate errors; links, redirects and headers pass). `npm run test:lighthouse` passes every budget; representative runs:
 
 | Page | Mobile P / A / BP / SEO | Mobile LCP | Desktop P / A / BP / SEO | Desktop LCP | CLS | TBT |
 | --- | --- | --- | --- | --- | --- | --- |
