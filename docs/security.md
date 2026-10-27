@@ -52,7 +52,7 @@ base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-re
 
 Production rules at the cutover (Phase 8):
 
-1. Remove `X-Robots-Tag` from `public/_headers` and set `indexable: true` in `src/config/site.ts` (this removes the robots meta tag).
+1. Remove `X-Robots-Tag` from `public/_headers` and from the required headers in `scripts/check-headers.mjs`, and set `indexable: true` in `src/config/site.ts` (this removes the robots meta tag).
 2. Keep `robots.txt` as it is; it already points to `https://mmec.adv.br/sitemap.xml`.
 3. Re-enable the Lighthouse `is-crawlable` audit (`lighthouserc.cjs`).
 4. In Search Console, submit `https://mmec.adv.br/sitemap.xml` and watch the coverage report for the legacy `.html` URLs, which answer `301` (`docs/url-map.md`).
@@ -61,7 +61,7 @@ Search Console verification (owner): prefer a **Domain property** verified by a 
 
 ## security.txt
 
-`/.well-known/security.txt` (`src/pages/.well-known/security.txt.ts`, RFC 9116): `Contact` is the site contact address from `src/config/site.ts` (owner decision for Phase 5, Q-03), `Expires` one year after the build (every deploy renews it), `Preferred-Languages: pt, en` and `Canonical`. When the mailbox on `@mmec.adv.br` is confirmed, changing `contact.email` updates this file too. `tests/seo.spec.ts` checks the contact and that `Expires` is in the future.
+`/.well-known/security.txt` (`src/pages/.well-known/security.txt.ts`, RFC 9116): `Contact` is the site contact address from `src/config/site.ts` (owner decision for Phase 5, Q-03), `Expires` one year after the build (every deploy renews it; if the site is not redeployed for a year, the file lapses, so redeploy at least yearly), `Preferred-Languages: pt` and `Canonical`. When the mailbox on `@mmec.adv.br` is confirmed, changing `contact.email` updates this file too. `tests/seo.spec.ts` checks the contact and that `Expires` is in the future.
 
 ## Supply chain
 

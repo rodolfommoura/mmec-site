@@ -17,7 +17,11 @@ import { webAnalytics } from "../config/analytics.ts";
 
 export const cspPlaceholder = "%CONTENT_SECURITY_POLICY%";
 
-/** Contents of inline (no `src`) executable scripts and of style elements in one page. */
+/**
+ * Contents of inline (no `src`) executable scripts and of style elements in one page.
+ * Regexes fit Astro's minified output (double-quoted attributes); a miss is caught by the
+ * browser CSP test in tests/console.spec.ts.
+ */
 export function inlineBlocks(/** @type {string} */ html) {
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)]
     .filter(([, attributes]) => !/\bsrc=/.test(attributes))

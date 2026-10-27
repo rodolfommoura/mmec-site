@@ -332,7 +332,7 @@ Opened by the Phase 5 unattended run on 2026-10-26. The analytics decision itsel
 
 - Evidence: decision `0003-analytics` chooses the manual setup (JS snippet with a site token). Only the owner can create the site in the Cloudflare dashboard.
 - Question: please create the Web Analytics site for `mmec.adv.br` and send the token (it is public: it appears in every page).
-- **Default:** `token` stays empty in `src/config/analytics.ts`. No script is printed and the CSP allows no third-party host. Setting the token is a one-line pull request; the build then adds the two Cloudflare hosts to the CSP. Leave the automatic injection **off** in the dashboard (one snippet per page; an injected copy would be blocked by the CSP).
+- **Default:** `token` stays empty in `src/config/analytics.ts`. No script is printed and the CSP allows no third-party host. Setting the token is a one-line pull request; the build then adds the two Cloudflare hosts to the CSP. Leave the automatic injection **off** in the dashboard (one snippet per page; an injected copy would be blocked by the CSP). Until the token is set, section 2 of `/privacidade` describes a measurement that is not yet running; the text becomes accurate when the token lands, before the cutover.
 
 ### Q-30. Google Search Console verification
 

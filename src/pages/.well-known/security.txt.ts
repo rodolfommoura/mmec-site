@@ -11,7 +11,8 @@ export const GET: APIRoute = ({ site }) => {
   const body = [
     `Contact: mailto:${contact.email}`,
     `Expires: ${expires.toISOString().replace(".000Z", "Z")}`,
-    "Preferred-Languages: pt, en",
+    // Portuguese only: no source says the firm handles reports in other languages.
+    "Preferred-Languages: pt",
     `Canonical: ${new URL("/.well-known/security.txt", site).href}`,
     "",
   ].join("\n");
