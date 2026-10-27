@@ -121,6 +121,13 @@ test("the privacy policy names no tool the site does not use", async ({ page }) 
   expect(text).not.toMatch(/Google Analytics|Clarity|rigorosos termos/);
 });
 
+test("the privacy policy identifies the controller by CNPJ", async ({ page }) => {
+  await page.goto("/privacidade");
+  await expect(page.locator("main")).toContainText(
+    "Machado Moura e Cardoso Advogados Associados, CNPJ nº 07.028.086/0001-00.",
+  );
+});
+
 test("the not-found page links home, to the publications and to the contact address", async ({
   page,
 }) => {
