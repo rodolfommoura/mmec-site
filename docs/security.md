@@ -38,7 +38,7 @@ base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-re
 ## Analytics and privacy
 
 - Decision: `docs/decisions/0003-analytics.md` (Cloudflare Web Analytics, manual setup, plus Google Search Console; no GA4, no Clarity). It lists what the dashboard shows and what it does not measure (PDF opens and downloads, events, sessions).
-- Nothing is loaded before the owner sets the token in `src/config/analytics.ts`.
+- The token of the existing Web Analytics site for `mmec.adv.br` is set in `src/config/analytics.ts` (Q-29), so every page loads the beacon and the CSP allows its two hosts. With an empty token nothing is loaded and no third-party host is allowed. Turning off the site's automatic setup and exporting its history are Phase 8 steps (`docs/launch-checklist.md`).
 - `/privacidade` section 2 matches the Cloudflare documentation read on 2026-10-26 (no cookies or storage, IP discarded, processing possibly outside Brazil); its text and "Última atualização" stay unchanged. The lawyer review is still open (Q-26).
 - No third-party request: `tests/home.spec.ts` fails on any request to a host not approved in decision 0003.
 
@@ -75,7 +75,7 @@ Search Console verification (owner): prefer a **Domain property** verified by a 
 | Dependabot | Version updates weekly for npm and GitHub Actions (`.github/dependabot.yml`); alerts and security updates enabled (see below). |
 | GitHub Actions pinned by commit SHA | Yes: `actions/checkout`, `actions/setup-node`, `actions/cache`, `actions/upload-artifact`, all GitHub-owned, with the version as a comment. Workflow token is `contents: read`. |
 | Secrets in the repository | None; secret scanning with push protection is enabled. The Cloudflare Web Analytics token is public by design (it is printed in every page). |
-| Third-party scripts | None. Cloudflare Web Analytics only after a token is set (decision 0003). |
+| Third-party scripts | Cloudflare Web Analytics only (decision 0003), loaded because a token is set. |
 
 Dev-only audit findings (nothing from them reaches `dist/` or the Worker):
 

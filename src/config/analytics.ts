@@ -13,8 +13,8 @@ interface WebAnalytics {
 }
 
 export const webAnalytics: WebAnalytics = {
-  // Provided by the owner (NEEDS_OWNER in the Phase 5 pull request).
-  token: "",
+  // Existing Web Analytics site for mmec.adv.br, provided by the owner (Q-29).
+  token: "29be01cd60f149a9be4d8ea0b7236dc4",
   scriptUrl: "https://static.cloudflareinsights.com/beacon.min.js",
   scriptOrigin: "https://static.cloudflareinsights.com",
   reportOrigin: "https://cloudflareinsights.com",
