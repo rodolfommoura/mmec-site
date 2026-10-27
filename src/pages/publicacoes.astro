@@ -1,0 +1,67 @@
+---
+// Publications index (docs/decisions/0002-site-structure.md). Lists every entry of the
+// publications collection, newest edition year first (Q-19).
+import Breadcrumb from "../components/Breadcrumb.astro";
+import PublicationCard from "../components/PublicationCard.astro";
+import { getPublications, publicationsPath } from "../config/publications";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const publications = await getPublications();
+---
+
+<BaseLayout
+  title="Publicações | Machado Moura e Cardoso"
+  description="Publicações de Machado Moura e Cardoso Advogados Associados: material informativo para emissoras de rádio e televisão."
+  currentPath={publicationsPath}
+  canonicalPath={publicationsPath}
+>
+  <div class="container publications-page">
+    <Breadcrumb
+      items={[
+        { label: "Início", href: "/" },
+        { label: "Publicações", href: publicationsPath },
+      ]}
+    />
+    <header class="publications-header">
+      <!-- G-07 and H-69 rewritten (Q-14) -->
+      <h1>Publicações</h1>
+      <!-- H-70 rewritten in Phase 3 -->
+      <p class="lead">Material informativo para emissoras.</p>
+    </header>
+    <div class="publications-list">
+      {publications.map((publication) => (
+        <PublicationCard publication={publication} level={2} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .publications-page {
+    padding-block: var(--space-8) var(--space-section);
+  }
+
+  .publications-header {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    margin-block: var(--space-8) var(--space-12);
+  }
+
+  .publications-list {
+    display: grid;
+    gap: var(--space-12) var(--grid-gutter);
+  }
+
+  @media (width >= 48rem) {
+    .publications-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64rem) {
+    .publications-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

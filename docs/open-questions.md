@@ -35,6 +35,9 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-23 | Logo minimum width: artboard or artwork | Phase 3 gate | Resolved: 300 px applies to the visible artwork; header and footer use 400 px of artwork from 64rem. |
 | Q-24 | Mobile header layout | Phase 3 gate | Same row only if both fit; at 360 px they do not, so the "Menu" button stays on a second row. Symbol-plus-text still not used. |
 | Q-25 | "Abrir no WhatsApp" link label | Phase 3 | Use it next to the WhatsApp number, linking to `wa.me`. |
+| Q-26 | Lawyer review of the privacy policy and terms | Phase 7 (before launch) | Texts ship on the preview; the firm's lawyer reviews them before the Phase 7 sign-off. |
+| Q-27 | Edition dates of the two booklets | Phase 4 | The PDFs print no date: show the edition year only. |
+| Q-28 | Retention period for contact messages | Phase 7 (lawyer review) | Criterion stated (time needed for the request and legal and professional obligations); no fixed period. |
 
 ## Naming and identity
 
@@ -221,6 +224,8 @@ Answer: Accepted as proposed.
 
 Answer: The owner delegated the decision: keep the calendar PDF in the preview. Ask for a new export with the current letterhead before Phase 7. If it does not arrive, serve the existing file unchanged at the same URL (existing links must not break) and record it as a known issue.
 
+Phase 4 (owner decision for the phase): the calendar PDF and its cover are served unchanged at the same URLs. The outdated letterhead is recorded under "Known issues" in [`CHANGELOG.md`](CHANGELOG.md). A new export, if it arrives, replaces `public/assets/docs/calendario-voz-do-brasil-2026.pdf` and the cover in `src/assets/publications/` with no code change.
+
 ### Q-14. Section name "Inteligência setorial"
 
 - Evidence: G-07, H-69. The section only lists the firm's three publications.
@@ -235,6 +240,8 @@ Answer: Accepted as proposed.
 - **Default:** keep all three, each labelled with its year and type, worded in the past or neutral tense, with no "current" language. The index lists them newest first by edition year, then in legacy order.
 
 Answer: Keep all three publications online, each labelled with its year and type. New editions are expected (for example a 2027 calendar), so adding an edition must be a content-only change.
+
+Phase 4: each publication is one Markdown file in `src/content/publications/` with typed frontmatter, plus its PDF in `public/assets/docs/` (the cover is optional). Cards and pages show "type · year" (for example "Cartilha jurídica · 2026"); the area labels of the legacy cards ("Direito eleitoral", "Regulação") are no longer shown. The index lists the newest year first. `src/content/README.md` explains how to add an edition.
 
 ## Site
 
@@ -284,3 +291,32 @@ Checked at the Phase 3 gate (after Q-23): they do not fit. At a 360 px viewport 
 
 - Evidence: Q-05 publishes `(61) 3879-5003` as a WhatsApp number with a WhatsApp link. No source has a label for that link.
 - **Default:** the contact block shows the number (a `tel:` link) followed by "Abrir no WhatsApp" (a link to `https://wa.me/556138795003`). The owner may change the label.
+
+## Publications and legal pages (Phase 4)
+
+Opened by the Phase 4 unattended run on 2026-10-26. Each default is applied in the Phase 4 pull request and reviewed at the Phase 4 human gate.
+
+### Q-26. Lawyer review of the privacy policy and terms
+
+- Evidence: `docs/phases/04-publications-legal.md`, task 4. The new texts (`/privacidade`, `/termos`) are rewritten from the legacy text and describe the site after Phase 5: no cookies, no forms, Cloudflare Web Analytics and Google Search Console (Q-09). Sources are logged in `content-sources.md` ("Rewrites on the publication, legal and not-found pages").
+- Question: the firm's lawyer must review the final legal text line by line before launch. Points to check in particular: the description of Cloudflare Web Analytics and Search Console, the list of processors, the absence of a named encarregado (the policy points to the contact e-mail, per Q-09), the reuse clause (Q-11), the statement that data may be processed outside Brazil and its basis under LGPD art. 33, and "sem aviso prévio" kept from the legacy terms (T-18).
+- Owner instructions at the Phase 4 gate (2026-10-26, `content-sources.md` OWN-02): the policy now states one purpose per data category, the retention criterion (Q-28), processing outside Brazil by Cloudflare, Google and WhatsApp (Meta), and the e-mail as the channel for data subject requests.
+- CNPJ of the controller: **provided** by the owner (07.028.086/0001-00, `content-sources.md` OWN-03) and shown in section 5 of the privacy policy only.
+- Open for the lawyer review:
+  - **Legal basis** for each purpose (LGPD art. 7) and for the international transfer (art. 33). The policy deliberately names none; the lawyer adds them.
+  - **"sem aviso prévio"** in the terms (T-18): keep, qualify or drop.
+- **Default:** the texts ship on the preview with "Última atualização: 26 de outubro de 2026". The Phase 7 content sign-off, and therefore the cutover, waits for the review. If Phase 5 finds that the analytics behave differently, Phase 5 updates the policy and its date.
+
+### Q-27. Edition dates of the two booklets
+
+- Evidence: P1 and P2 print no edition date, only the year in their titles. Their file metadata shows creation on 25 June 2026, which is the export date, not necessarily the edition date. P3 prints the date of the official gazette it reproduces (10 April 2026).
+- Question: what is the edition date of each booklet, if the firm wants it shown?
+- **Default:** P1 and P2 show "Edição: 2026"; P3 shows "Clipping do Diário Oficial da União de 10 de abril de 2026", as printed on the clipping. A date given by the owner goes into the `editionDate` field of the Markdown file.
+- Note (Phase 4 gate): the terms now say publications reflect the rules "na data de cada edição", and P1 and P2 show a period note ("Edição de 2026, referente ao período ..."). Without an edition date, readers of P1 and P2 see the year only; an owner-supplied date would make the terms item precise.
+
+### Q-28. Retention period for contact messages
+
+- Evidence: the legacy policy states no retention period. LGPD art. 15 and 16 deal with the end of processing; no source says how long the firm keeps messages.
+- Question: how long does the firm keep contact messages received by e-mail, telephone or WhatsApp?
+- **Default:** the policy states no period. To be decided with the lawyer review (Q-26).
+- Answer (owner, Phase 4 gate, 2026-10-26): state the criterion, not a period: data from contact messages is kept for the time needed to handle the request and to meet legal and professional obligations. A fixed period, if any, comes with the lawyer review (Q-26).

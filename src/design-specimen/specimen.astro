@@ -12,7 +12,7 @@ import Prose from "../components/Prose.astro";
 import PublicationCard from "../components/PublicationCard.astro";
 import Section from "../components/Section.astro";
 import TextLink from "../components/TextLink.astro";
-import { publications } from "../config/publications";
+import { getPublications, typeAndYear } from "../config/publications";
 import { contact, site } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
@@ -26,6 +26,7 @@ import {
 import tokensCss from "../styles/tokens.css?raw";
 
 const colors = readBrandColors(tokensCss);
+const publications = await getPublications();
 
 const colorUses: Record<(typeof colorNames)[number], string> = {
   ink: "Texto, logo, títulos",
@@ -410,14 +411,14 @@ const breadcrumbItems = [
           <thead>
             <tr>
               <th scope="col">Publicação</th>
-              <th scope="col">Categoria</th>
+              <th scope="col">Tipo e ano</th>
             </tr>
           </thead>
           <tbody>
             {publications.map((publication) => (
               <tr>
-                <td>{publication.title}</td>
-                <td>{publication.category}</td>
+                <td>{publication.data.title}</td>
+                <td>{typeAndYear(publication)}</td>
               </tr>
             ))}
           </tbody>

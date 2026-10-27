@@ -1,0 +1,59 @@
+---
+// Terms of use. Sources: docs/content-sources.md, rows T-01 to T-19, PDF-04, and the rewrite
+// log "Privacy policy and terms (Phase 4)". Reuse follows the PDFs (Q-11).
+// The firm's lawyer reviews the final text before launch (docs/open-questions.md, Q-26).
+import { site } from "../config/site";
+import LegalLayout from "../layouts/LegalLayout.astro";
+---
+
+<LegalLayout
+  title="Termos de Uso"
+  pageTitle="Termos de Uso | Machado Moura e Cardoso"
+  description="Condições de uso do site e das publicações de Machado Moura e Cardoso Advogados Associados."
+  path="/termos"
+  updated="2026-10-26"
+>
+  <p>
+    Bem-vindo ao site do escritório {site.name}. Ao acessar e utilizar este site (mmec.adv.br), você
+    concorda com os seguintes Termos de Uso.
+  </p>
+
+  <h2>1. Natureza informativa</h2>
+  <p>
+    Todo o conteúdo disponibilizado neste site, incluindo cartilhas e clippings regulatórios, possui
+    caráter estritamente informativo e institucional. Nenhum conteúdo deste site deve ser
+    interpretado como aconselhamento jurídico, parecer ou recomendação legal. A leitura dos
+    materiais não cria uma relação advogado-cliente.
+  </p>
+
+  <h2>2. Data das publicações</h2>
+  <p>
+    As publicações refletem as normas em vigor na data de cada edição. Alterações posteriores nas
+    normas podem afetar o seu conteúdo.
+  </p>
+
+  <h2>3. Propriedade intelectual</h2>
+  <p>
+    Os textos, imagens, cartilhas em PDF, logotipos e design apresentados neste site são de
+    propriedade exclusiva do escritório {site.name}, estando protegidos pela Lei de Direitos
+    Autorais (Lei nº 9.610/1998). Atos oficiais reproduzidos nos materiais, como a Portaria do
+    Ministério das Comunicações reproduzida no clipping do calendário A Voz do Brasil, não são de
+    propriedade do escritório.
+  </p>
+  <p>
+    É permitida a leitura e o download dos materiais. A reprodução das cartilhas é autorizada apenas
+    de forma integral.
+  </p>
+
+  <h2>4. Links de terceiros</h2>
+  <p>
+    Este site contém links para serviços de terceiros, como Google Maps e WhatsApp. Não nos
+    responsabilizamos pelo conteúdo, políticas de privacidade ou práticas desses sites externos.
+  </p>
+
+  <h2>5. Alterações nos termos</h2>
+  <p>
+    O escritório reserva-se o direito de atualizar ou modificar estes Termos de Uso a qualquer
+    momento, sem aviso prévio. Recomendamos que os usuários visitem esta página periodicamente.
+  </p>
+</LegalLayout>

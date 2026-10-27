@@ -12,6 +12,8 @@ export const site = {
   location: "Brasília · Distrito Federal",
   // OWN-01, exactly as provided by the owner (Q-17).
   oabRegistration: "OAB/DF 0100104RS",
+  // OWN-03, provided by the owner; shown only in the privacy policy, as the controller's ID.
+  cnpj: "07.028.086/0001-00",
   // Until Phase 8 every page is served with noindex (docs/phases/01-foundation.md).
   indexable: false,
 } as const;

@@ -1,48 +1,37 @@
-// Card data for the firm's publications (H-72 to H-84). Phase 4 builds their pages.
-import type { ImageMetadata } from "astro";
-import electionsCover from "../assets/publications/cartilha-eleicoes-2026-cover.png";
-import partyBroadcastCover from "../assets/publications/cartilha-propaganda-partidaria-2026-cover.png";
-import vozDoBrasilCover from "../assets/publications/calendario-voz-do-brasil-2026-cover.png";
+// Publications from the content collection (src/content/publications/), with the PDF facts
+// read from the files themselves so the size shown always matches what is served.
+import { statSync } from "node:fs";
+import { join } from "node:path";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-export interface Publication {
-  category: string;
-  title: string;
-  summary: string;
-  linkLabel: string;
-  href: string;
-  cover: ImageMetadata;
-  coverAlt: string;
+export type Publication = CollectionEntry<"publications">;
+
+export const publicationsPath = "/publicacoes";
+export const pdfBasePath = "/assets/docs/";
+
+/** Newest edition year first, then the order within the year (Q-19). */
+export async function getPublications(): Promise<Publication[]> {
+  const entries = await getCollection("publications");
+  return entries.sort((a, b) => b.data.year - a.data.year || a.data.order - b.data.order);
 }
 
-export const publications: readonly Publication[] = [
-  {
-    category: "Direito eleitoral · 2026",
-    title: "Eleições 2026: implicações no rádio e na televisão",
-    summary:
-      "Cartilha operacional sobre calendário eleitoral, pesquisas, programação, debates, horário gratuito e direito de resposta.",
-    linkLabel: "Acessar a cartilha",
-    href: "/publicacoes/cartilha-eleicoes-2026",
-    cover: electionsCover,
-    coverAlt: "Capa da cartilha Eleições 2026: implicações no rádio e na televisão",
-  },
-  {
-    category: "Direito eleitoral · 2026",
-    title: "Propaganda Partidária 2026 no rádio e na televisão",
-    summary:
-      "Orientações para emissoras sobre exibição, distribuição horária, dias de veiculação, reserva, entrega de mídia e programação normal.",
-    linkLabel: "Acessar a cartilha",
-    href: "/publicacoes/cartilha-propaganda-partidaria-2026",
-    cover: partyBroadcastCover,
-    coverAlt: "Capa da cartilha Propaganda Partidária 2026 no rádio e na televisão",
-  },
-  {
-    category: "Regulação · 2026",
-    title: "Calendário A Voz do Brasil 2026",
-    summary:
-      "Portaria MCOM nº 22.129/2026 com hipóteses de flexibilização, dispensa e calendário anual de eventos.",
-    linkLabel: "Acessar o documento",
-    href: "/publicacoes/calendario-voz-do-brasil-2026",
-    cover: vozDoBrasilCover,
-    coverAlt: "Prévia do calendário A Voz do Brasil 2026",
-  },
-];
+export const publicationHref = (publication: Publication) =>
+  `${publicationsPath}/${publication.id}`;
+
+export const pdfHref = (publication: Publication) => `${pdfBasePath}${publication.data.pdf}`;
+
+/** "Cartilha jurídica · 2026": the year and type label of every card and page (Q-19). */
+export const typeAndYear = (publication: Publication) =>
+  `${publication.data.type} · ${publication.data.year}`;
+
+/** Size in bytes of the PDF in public/; the build fails if the file is missing. */
+export function pdfBytes(publication: Publication): number {
+  return statSync(join(process.cwd(), "public", pdfBasePath, publication.data.pdf)).size;
+}
+
+const sizeFormat = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
+
+/** Decimal kilobytes, as file managers and browsers show them ("423 KB"). */
+export const formatBytes = (bytes: number) => `${sizeFormat.format(bytes / 1000)} KB`;
+
+export const formatPages = (pages: number) => (pages === 1 ? "1 página" : `${pages} páginas`);

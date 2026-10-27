@@ -72,7 +72,7 @@ PDF links are the most likely to be shared outside the site (email, messaging, o
 
 | Old URL | Fate | Target | Note |
 |---|---|---|---|
-| `/assets/images/publicacoes/capa-cartilha-eleicoes-2026.png` | kept or redirected | new cover file | Phase 4 decides the optimised file; the old path must still answer (`200` or `301`). |
+| `/assets/images/publicacoes/capa-cartilha-eleicoes-2026.png` | kept or redirected | new cover file | Phase 4: the original file is served unchanged at the old path (`200`); pages use optimised AVIF/WebP built from `src/assets/publications/<slug>-cover.png`. |
 | `/assets/images/publicacoes/capa-propaganda-partidaria-2026.png` | kept or redirected | new cover file | Same rule. |
 | `/assets/images/publicacoes/capa-calendario-voz-do-brasil-2026.png` | kept or redirected | new cover file | Same rule. |
 | `/assets/images/brand/logo-horizontal.png` | removed | none | Replaced by the brand-folder files. Before cutover, check that no email signature or external page hotlinks it (Phase 8 checklist). |
@@ -98,7 +98,9 @@ PDF links are the most likely to be shared outside the site (email, messaging, o
 | `/publicacoes` | Publications index. See [`decisions/0002-site-structure.md`](decisions/0002-site-structure.md). |
 | `/equipe` | **Reserved for Phase 9. Not built.** Until then it answers `404` like any unknown path; nothing links to it. |
 
-## Draft `_redirects` (implemented in Phase 1 or 4, not in this phase)
+## `_redirects`
+
+Implemented in Phase 4 in [`public/_redirects`](../public/_redirects). The rules below, plus two rules that make `/404` and `/404.html` answer `404` (a `200` rewrite to a path with no asset, so `not_found_handling` serves the not-found page with status `404`).
 
 ```text
 /index.html                                 /                                                 301
@@ -119,4 +121,4 @@ PDF links are the most likely to be shared outside the site (email, messaging, o
 /termos.html                                /termos                                           301
 ```
 
-Phase 1 must confirm on the preview Worker that `_redirects` rules run before `html_handling`, so that `.html` paths give one `301` and not a `307` followed by a `301`. The link test (`npm run test:links`) checks every row of this file.
+`_redirects` rules run before `html_handling`, so `.html` paths give one `301` and not a `307` followed by a `301`. Confirmed in Phase 4 with Wrangler's local runtime, which applies the same asset rules as the Worker; to be confirmed once more on the preview URL. The link test (`npm run test:links`, `scripts/check-redirects.mjs`) reads this file and checks every row against the built site. `robots.txt` and `sitemap.xml` are skipped until Phase 5 builds them.

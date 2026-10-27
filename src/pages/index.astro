@@ -6,10 +6,11 @@ import ContactBlock from "../components/ContactBlock.astro";
 import PublicationCard from "../components/PublicationCard.astro";
 import Section from "../components/Section.astro";
 import { practiceAreas } from "../config/practice-areas";
-import { publications } from "../config/publications";
+import { getPublications } from "../config/publications";
 import { site } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const publications = await getPublications();
 const areaNumber = (index: number) => String(index + 1).padStart(2, "0");
 ---
 

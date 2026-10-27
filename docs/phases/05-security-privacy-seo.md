@@ -26,6 +26,7 @@ Present the analytics options to me and wait for my decision before implementing
 
 - Security headers verified on the preview URL with an external scanner or `curl -I`; CSP produces zero violations in the browser console on every page.
 - No third-party request except those explicitly approved in decision 0003.
+- The privacy policy (`/privacidade`, written in Phase 4) matches what is actually deployed: re-check the Cloudflare Web Analytics description, allow the beacon in the CSP, and update "Última atualização" if the text changes.
 - Reviewer verdict recorded.
 
 ## Human gate

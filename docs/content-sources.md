@@ -221,8 +221,8 @@ Inventory of every piece of visible copy, metadata, URL, document and image on t
 | E-16 | `:93` | `48h` / `prazo do direito de resposta` | metric | rewrite | P1 p. 2 is more precise: "Prazo do direito de resposta na programação normal". Use the PDF wording. |
 | E-17 | `:94` | `24h` / `suspensão possível da programação` | metric | rewrite | P1 p. 2: "suspensão possível da programação por infrações específicas". Use the PDF wording. |
 | E-18 | `:102`; `cartilha-propaganda-partidaria-2026.html:103` | `Conteúdo da cartilha` | eyebrow | keep | |
-| E-19 | `:103` | `Seis áreas críticas para a operação das emissoras.` | `h2` | keep | |
-| E-20 | `:105` | `01` `Calendário eleitoral` / `Prazos críticos, marcos operacionais e controles internos.` | topic | keep | |
+| E-19 | `:103` | `Seis áreas críticas para a operação das emissoras.` | `h2` | rewrite | "críticas" dropped; see the rewrite log. |
+| E-20 | `:105` | `01` `Calendário eleitoral` / `Prazos críticos, marcos operacionais e controles internos.` | topic | rewrite | "críticos" dropped; see the rewrite log. |
 | E-21 | `:106` | `02` `Pesquisas` / `Registro, divulgação, checagem documental e riscos.` | topic | keep | |
 | E-22 | `:107` | `03` `Programação normal` / `Condutas vedadas, jornalismo e critérios de isonomia.` | topic | keep | |
 | E-23 | `:108` | `04` `Debates` / `Regras, convites, acessibilidade e arquivamento de evidências.` | topic | keep | |
@@ -393,11 +393,82 @@ Every rewritten sentence on `src/pages/index.astro` and `src/config/practice-are
 | H-70, H-77, P1 | `Material informativo para emissoras` (`h2`) | Marketing heading replaced by a description of what the section lists: guidance written for radio and TV stations (H-77; P1 summary). |
 | H-90, G-08 | `Contato` (`h2`) | Owner request at the Phase 3 gate: the section heading is the navigation label (G-08). The "Contato" eyebrow is dropped so the word is not shown twice. |
 
+## Rewrites on the publication, legal and not-found pages (Phase 4)
+
+Copy of the publication pages lives in `src/content/publications/*.md`; legal pages in `src/pages/privacidade.astro` and `src/pages/termos.astro`; the not-found page in `src/pages/404.astro`. Rows marked `keep` are used verbatim (punctuation normalised) and are not repeated here. Rewrites add no facts.
+
+### Publications
+
+| Source | New text | What changed |
+|---|---|---|
+| H-72, H-78, E-04, PP-03, VB-03 | Card eyebrow `Cartilha jurídica · 2026` / `Clipping regulatório · 2026` | Owner decision Q-19: every publication is labelled with its type and year. The area labels "Direito eleitoral" and "Regulação" are no longer shown. |
+| E-05, PP-04, H-73, H-76 | `h1` without the final full stop on the two booklets | Same title as the card (punctuation only). VB-04 keeps its wording. |
+| E-15 to E-17, P1 p. 2 | `Seis seções específicas.` / `Prazo do direito de resposta na programação normal: 48 horas.` / `Suspensão possível da programação por infrações específicas: 24 horas.` | Metrics as text, in the PDF wording. |
+| PP-10 | `O material organiza exibição, distribuição horária, ...` | "A nova edição" dropped. |
+| PP-11 to PP-13, P2 pp. 2 and 5 | `Exibição no primeiro semestre de 2026.` / `Inserções nos intervalos da programação normal, entre 19h30 e 22h30.` / `Até 10 inserções de 30 segundos por dia.` | Metrics as text; "intervalos" and "até" follow the PDF. |
+| PP-22, PP-23 | `... Situações específicas devem ser submetidas à análise jurídica específica, considerando as circunstâncias concretas e eventuais alterações normativas.` | "do escritório" replaced by the neutral wording of E-27 (Q-08). |
+| VB-11 to VB-13, P3 arts. 5 and 8 | `Ano de referência: 2026.` / `Inserção informativa diária sobre o horário alternativo às 19h do fuso horário local, exceto aos sábados, domingos e feriados.` / `Vigência até a divulgação do calendário do ano de 2027.` | Metrics as text, with the qualifiers of the Portaria. |
+| P3 p. 1 header | Edition `Clipping do Diário Oficial da União de 10 de abril de 2026` | Date printed on the clipping ("CLIPPING DO DIÁRIO OFICIAL DA UNIÃO 10.04.2026"). P1 and P2 print no date, so they show the year only (Q-27). |
+| OWN-02, E-05, PP-11 | P1: `Edição de 2026, referente ao período das Eleições 2026.` / P2: `Edição de 2026, referente ao período do primeiro semestre de 2026.` | Owner instruction at the Phase 4 gate: factual note on the booklets whose period has ended, without calling them outdated. Year from the `year` field, period from the new `period` field; "de" contracted to "das" / "do". P3 has no note: its calendar is in force until the 2027 calendar (VB-13). |
+| E-19, OWN-02 | `Seis áreas para a operação das emissoras.` | Owner instruction at the Phase 4 gate: "críticas" dropped. |
+| E-20, OWN-02 | `Prazos, marcos operacionais e controles internos.` | Owner instruction at the Phase 4 gate: "críticos" dropped. |
+| P1, P2, P3 files | `PDF · 29 páginas · 423 KB` and equivalents | Read from the files at build time (size) and checked against the PDF page tree in tests (pages). |
+| G-07, H-70 rewrite | Index: `h1` `Publicações`, lead `Material informativo para emissoras.`; description `Publicações de Machado Moura e Cardoso Advogados Associados: material informativo para emissoras de rádio e televisão.` | Reuses the Phase 3 heading; "rádio e televisão" from the publication titles. |
+| E-07, E-08, PP-06, VB-06 | `Abrir PDF completo` / `Baixar cartilha` / `Baixar documento` | Kept. |
+
+### Privacy policy
+
+Describes the site as it works after Phase 5 (Q-09). Pending the review by the firm's lawyer (Q-26).
+
+| Source | New text (summary) | What changed |
+|---|---|---|
+| PR-03 | `Última atualização: 26 de outubro de 2026` | Date the new text was written. |
+| PR-07, PR-08, Q-09, Q-10 | No cookies, no forms, no sign-up; technical access data received by the host (Cloudflare) to deliver pages; aggregated statistics | GA4 and Clarity claims removed; hosting stated as a fact of the setup (`wrangler.jsonc`). |
+| PR-09, Q-05 | Contact by e-mail, telephone or WhatsApp | Telephone added: both numbers are published (Q-05). |
+| PR-10, PR-11, PR-12, PR-13, EXT-01 | `2. Como medimos o uso do site`: Cloudflare Web Analytics (no cookies or browser storage, no individual identification, IP discarded, possible processing outside Brazil) and Google Search Console (data obtained by Google on its own search pages, no code on the site) | Tools from the owner's answer to Q-09; behaviour from the Cloudflare documentation (EXT-01). Phase 5 verifies it again before enabling the beacon. |
+| PR-12, PR-13 | `O site não utiliza ferramentas de publicidade, mapas de calor ou gravação de sessões.` | Negative statement that follows from dropping GA4 and Clarity (Q-09); true of the build. |
+| PR-15, PR-16 | Processors named: Cloudflare and the e-mail, telephone and WhatsApp services the visitor chooses | Unverifiable "rigorosos termos de confidencialidade" dropped. |
+| PR-18, LAW-01 | All nine rights of LGPD art. 18 and the right to petition the ANPD (art. 18, § 1) | Partial list completed from the law text. |
+| OWN-02 | Purpose per category: `Esses dados são tratados para entregar as páginas do site.` / `Esses dados são tratados para medir o uso agregado do site.` / `Esses dados são tratados para responder à sua solicitação de contato.` | Owner instruction at the Phase 4 gate: one purpose per data category, no legal basis named (the lawyer adds it, Q-26). |
+| OWN-02, Q-28 | `Os dados das mensagens de contato são mantidos pelo tempo necessário ao atendimento da solicitação e ao cumprimento de obrigações legais e profissionais.` | Owner instruction at the Phase 4 gate: retention stated by criterion, with no fixed period. |
+| OWN-02, EXT-01 | Section 2: `Os dados podem ser processados pelo Google fora do Brasil.`; section 3: `A Cloudflare, o Google e o WhatsApp (Meta) podem tratar dados fora do Brasil.` | Owner instruction at the Phase 4 gate: international processing stated for the three providers; basis under LGPD art. 33 left to the lawyer (Q-26). |
+| PR-19, OWN-02 | `O canal para as solicitações dos titulares de dados é o e-mail contato@…` (address from `src/config/site.ts`) | Owner instruction at the Phase 4 gate: the e-mail is named as the channel for data subject requests. |
+| PR-19 to PR-22, Q-09, OWN-03 | `O controlador dos dados pessoais tratados por meio deste site é Machado Moura e Cardoso Advogados Associados, CNPJ nº 07.028.086/0001-00.`; e-mail and full address from `src/config/site.ts` | Controller named (Q-09) and identified by CNPJ (OWN-03); postcode added (PDF-05). |
+
+### Terms of use
+
+| Source | New text | What changed |
+|---|---|---|
+| T-03 | `Última atualização: 26 de outubro de 2026` | Date the new text was written. |
+| T-07 | `... incluindo cartilhas e clippings regulatórios, ...` | Only what the site offers (no articles). |
+| T-11, Q-11 | Adds: `Atos oficiais reproduzidos nos materiais, como a Portaria do Ministério das Comunicações reproduzida no clipping do calendário A Voz do Brasil, não são de propriedade do escritório.` | Qualifies "todos" (P3 reproduces an official act). |
+| T-12, T-13, PDF-04, Q-11 | `É permitida a leitura e o download dos materiais. A reprodução das cartilhas é autorizada apenas de forma integral.` | Follows the PDFs. |
+| T-15 | `Este site contém links para serviços de terceiros, como Google Maps e WhatsApp.` | Examples replaced by the external links the site really has. |
+| T-06, T-10, T-14, T-17 | Headings in sentence case | Typography only. |
+| OWN-02 | New section `2. Data das publicações`: `As publicações refletem as normas em vigor na data de cada edição. Alterações posteriores nas normas podem afetar o seu conteúdo.` | Owner instruction at the Phase 4 gate. Later sections renumbered 3 to 5. |
+
+### Not-found page
+
+| Source | New text | What changed |
+|---|---|---|
+| NF-04, NF-05 | `404 · Página não encontrada` (eyebrow) | Display code and eyebrow joined in one line. |
+| NF-07, NF-08 | One paragraph | Kept. |
+| NF-03, G-07, G-08, G-15 | Links `Voltar à página inicial`, `Publicações`; `Contato` with the e-mail address | Phase 4 task: links back to Home and Publications, and the contact address. |
+
+## External sources
+
+| ID | Source | Fact used |
+|---|---|---|
+| LAW-01 | Lei nº 13.709/2018 (LGPD), [planalto.gov.br](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm), read on 2026-10-26 | Art. 5, VI (controlador); art. 18, I to IX and § 1 (data subject rights). |
+| EXT-01 | Cloudflare documentation: [RUM beacon](https://developers.cloudflare.com/speed/observatory/rum-beacon/) and [Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/), read on 2026-10-26 | Web Analytics uses no cookies or browser storage, does not fingerprint visitors, discards the IP address at the edge, and may process data outside the visitor's country. |
+
 ## Facts provided by the owner
 
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | OWN-01 | Owner answer to Q-17 | `OAB/DF 0100104RS` | OAB registration of the firm | keep | Footer, exactly as written. Number final including the "RS" suffix; seccional OAB/DF confirmed. Phase 7 compares the footer with the registration certificate. |
+| OWN-02 | Owner instructions at the Phase 4 gate (PR #7), 2026-10-26 | Privacy policy: purpose per data category, retention criterion, processing outside Brazil by Cloudflare, Google and WhatsApp (Meta), e-mail as the data subject channel. Terms: publications reflect the rules at each edition date. Publications: period note on the two booklets; "críticas" and "críticos" dropped from the election booklet topics. | owner wording | keep | Sentences logged in "Rewrites on the publication, legal and not-found pages (Phase 4)". |
+| OWN-03 | Owner instruction at the Phase 4 gate (PR #7), 2026-10-26 | `07.028.086/0001-00` | CNPJ of the firm | keep | Stored once in `src/config/site.ts` (`site.cnpj`); shown only in section 5 of the privacy policy, not in the footer or other pages. Check digits verified. |
 
 ## Images and icons
 

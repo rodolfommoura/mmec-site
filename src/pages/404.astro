@@ -1,4 +1,9 @@
 ---
+// Not-found page (NF-01 to NF-08). Served with status 404 for every unknown path, and for
+// /404 and /404.html themselves (public/_redirects).
+import TextLink from "../components/TextLink.astro";
+import { publicationsPath } from "../config/publications";
+import { contact } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -7,10 +12,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="Página não encontrada no site Machado Moura e Cardoso Advogados Associados."
 >
   <div class="container not-found">
+    <!-- NF-04, NF-05 -->
+    <p class="eyebrow">404 · Página não encontrada</p>
+    <!-- NF-06 -->
     <h1>O endereço acessado não está disponível.</h1>
-    <p>
-      <a href="/">Voltar à página inicial</a>
+    <!-- NF-07, NF-08 -->
+    <p class="lead not-found-text">
+      A página pode ter sido removida, atualizada ou digitada incorretamente. Retorne ao início para
+      acessar o conteúdo institucional e as publicações do escritório.
     </p>
+    <ul class="not-found-links plain-list">
+      <!-- NF-03 -->
+      <li>
+        <TextLink href="/">Voltar à página inicial</TextLink>
+      </li>
+      <!-- G-07 rewritten (Q-14) -->
+      <li>
+        <TextLink href={publicationsPath}>Publicações</TextLink>
+      </li>
+    </ul>
+    <dl class="not-found-contact">
+      <!-- G-08, G-15 -->
+      <dt>Contato</dt>
+      <dd>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </dd>
+    </dl>
   </div>
 </BaseLayout>
 
@@ -19,5 +46,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     display: grid;
     gap: var(--space-6);
     padding-block: var(--space-section);
+  }
+
+  .not-found-text {
+    max-width: var(--measure);
+  }
+
+  .not-found-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-8);
+    font-family: var(--font-ui);
+    font-size: var(--text-ui);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .not-found-links li {
+    margin: 0;
+  }
+
+  .not-found-links a,
+  .not-found-contact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-min-size);
+    overflow-wrap: anywhere;
+  }
+
+  .not-found-contact dd {
+    margin-block-start: var(--space-1);
   }
 </style>
