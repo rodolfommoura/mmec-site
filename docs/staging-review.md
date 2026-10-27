@@ -10,7 +10,7 @@ Related documents: [`parity.md`](parity.md) (content compared with the legacy si
 |---|---|---|
 | Full check suite | `npm run check` | Pass: lint, typecheck, build, html-validate 0 errors, 102 links 0 broken, 41 legacy URLs 0 failed, headers on 7 paths 0 failed, 165 Playwright tests passed (axe 0 violations) |
 | Lighthouse budgets | `npm run test:lighthouse` | See section 6 |
-| Content audit of `dist/` | `node scripts/audit-content-text.mjs` (new) | 60 segments not quoted verbatim, all traced by hand (section 2) |
+| Content audit of `dist/` | `node scripts/audit-content-text.mjs` (new) | 51 segments not quoted verbatim after this phase's inventory additions (60 before them), all traced by hand (section 2) |
 | Legacy `keep` rows present | throwaway script over `dist/` | 2 rows missing without a decision (H-04, E-03; `parity.md`) |
 | Preview pages and redirects | `curl` on the preview | Every page `200`; every legacy URL one `301` to the final URL; unknown path `404` |
 | Preview links | `linkinator` on the preview, internal only | 58 links and assets, all `200` |
@@ -18,6 +18,7 @@ Related documents: [`parity.md`](parity.md) (content compared with the legacy si
 | Legacy files | download from the preview, `cmp` with the legacy clone | Three PDFs and three covers byte-identical; removed files answer `404` as planned |
 | Response headers on the preview | `curl -sI` | CSP, HSTS (one day), `nosniff`, `X-Frame-Options`, referrer, permissions and COOP policies, `X-Robots-Tag: noindex, nofollow` |
 | Current production (`mmec.adv.br`, legacy) | `curl` | Apex `200`; `www` and `http` redirect with `301` (see the `www` item in `launch-checklist.md`) |
+| Dependencies | `npm audit --omit=dev`; `npm audit` | 0 production vulnerabilities; 19 dev-only (via `wrangler` and `@lhci/cli`), already recorded in `docs/security.md`, "Supply chain", and Q-31 |
 | Provimento 205/2021 (Q-20) | OAB page read on 2026-10-27, plus a web search | No new wording of arts. 1 to 6 and no replacing provimento found |
 
 ## 2. Content audit
@@ -29,7 +30,7 @@ Related documents: [`parity.md`](parity.md) (content compared with the legacy si
 | "…, página inicial" (home link name, every page) | G-01, G-02 (rewrite per component) | Sourced |
 | "© 2026 Machado Moura e Cardoso Advogados Associados." | G-20 | Sourced |
 | "(61) 3703-5558", "(61) 3879-5003 · Abrir no WhatsApp" (home) | H-93, Q-05, Q-25 (non-breaking hyphen only) | Sourced |
-| Privacy policy paragraphs and list items (25 segments) | PR-04, PR-05, PR-09, PR-15 and the Phase 4 privacy rewrite log (summaries), LAW-01, EXT-01, OWN-02, OWN-03 | Sourced. LGPD art. 18, I to IX and § 1 compared with the law text: the list paraphrases each item and adds none. |
+| Privacy policy paragraphs and list items (24 segments) | PR-04, PR-05, PR-09, PR-15 and the Phase 4 privacy rewrite log (summaries), LAW-01, EXT-01, OWN-02, OWN-03 | Sourced. LGPD art. 18, I to IX and § 1 compared with the law text: the list paraphrases each item and adds none. |
 | Terms paragraph "Todo o conteúdo … relação advogado-cliente." | T-07 rewrite, T-08, T-09 | Sourced |
 | "O material organiza exibição, … programação normal." | PP-10 rewrite | Sourced |
 | "PDF · 29 páginas · 423 KB" and equivalents | Phase 4 log, read from the files | Sourced |
@@ -88,8 +89,17 @@ From Phase 6 (Q-32, Q-33). Results go to `docs/audit-06.md`, section 8.
 
 ## 6. Lighthouse
 
-`npm run test:lighthouse` on the build of this branch: see the pull request description for the run result. Phase 6 numbers (`audit-06.md`, section 6) remain the reference: performance 98 to 100, accessibility, best practices and SEO 100 on every page and preset.
+`npm run test:lighthouse` on the build of this branch, 2026-10-27: every budget passes for the seven pages with both presets (three runs each). Desktop scores 100 / 100 / 100 / 100 (performance, accessibility, best practices, SEO) on every page. Mobile numbers match the Phase 6 reference (`audit-06.md`, section 6: performance 98 to 99, the other categories 100).
 
 ## 7. Reviewer agent
 
-The reviewer agent ran twice, as the phase asks: once on the full project (`git diff 81dc878...HEAD`), once on the built `dist/` and the live preview. Verdicts and the handling of each finding are recorded in the pull request description.
+The reviewer agent ran twice, as the phase asks.
+
+| Run | Scope | Verdict | Blocking findings |
+|---|---|---|---|
+| 1 | Full project, `git diff 81dc878...HEAD`, and the Phase 7 commits | APPROVE WITH NOTES | None |
+| 2 | Built `dist/` and the live preview (pages, every legacy URL, headers, byte comparison of preview HTML with `dist/`) | APPROVE WITH NOTES | None |
+
+Notes handled on this branch: the audit counts in sections 1 and 2 corrected (51 after the inventory additions); the dev-only `npm audit` findings referenced (section 1); the launch checklist gained a check that `3402fce` is the deployed commit before tagging, a one-hop `http` to `https` check on the apex, an explicit warning on the `noindex` step, and dates for any page changed after the lawyer review. Run 2 found the preview HTML identical to `dist/` except the two privacy-page spaces fixed here. Run 2's `test:a11y` clashed with a concurrent Lighthouse server on port 4323; `npm run check` was then re-run alone and passed (165 tests).
+
+Notes left for the owner: the old-domain e-mail at sign-off (Q-03); Q-34; the rows marked "lawyer" in section 3.
