@@ -7,6 +7,6 @@ export const pageLastModified: Readonly<Record<string, string>> = {
   "/publicacoes/calendario-voz-do-brasil-2026": "2026-10-26",
   "/publicacoes/cartilha-eleicoes-2026": "2026-10-26",
   "/publicacoes/cartilha-propaganda-partidaria-2026": "2026-10-26",
-  "/privacidade": "2026-10-26",
-  "/termos": "2026-10-26",
+  "/privacidade": "2026-10-27",
+  "/termos": "2026-10-27",
 };
