@@ -467,8 +467,8 @@ Describes the site as it works after Phase 5 (Q-09). Pending the review by the f
 | ID | Source | Text | Type | Status | Note |
 |---|---|---|---|---|---|
 | OWN-01 | Owner answer to Q-17 | `OAB/DF 0100104RS` | OAB registration of the firm | keep | Footer, exactly as written. Number final including the "RS" suffix; seccional OAB/DF confirmed. Phase 7 compares the footer with the registration certificate. |
-| OWN-03 | Owner instruction at the Phase 4 gate (PR #7), 2026-10-26 | `07.028.086/0001-00` | CNPJ of the firm | keep | Stored once in `src/config/site.ts` (`site.cnpj`); shown only in section 5 of the privacy policy, not in the footer or other pages. Check digits verified. |
 | OWN-02 | Owner instructions at the Phase 4 gate (PR #7), 2026-10-26 | Privacy policy: purpose per data category, retention criterion, processing outside Brazil by Cloudflare, Google and WhatsApp (Meta), e-mail as the data subject channel. Terms: publications reflect the rules at each edition date. Publications: period note on the two booklets; "críticas" and "críticos" dropped from the election booklet topics. | owner wording | keep | Sentences logged in "Rewrites on the publication, legal and not-found pages (Phase 4)". |
+| OWN-03 | Owner instruction at the Phase 4 gate (PR #7), 2026-10-26 | `07.028.086/0001-00` | CNPJ of the firm | keep | Stored once in `src/config/site.ts` (`site.cnpj`); shown only in section 5 of the privacy policy, not in the footer or other pages. Check digits verified. |
 
 ## Images and icons
 
