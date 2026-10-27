@@ -41,12 +41,13 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
 
       # No --with-deps: its apt step pulls large font packages from a slow mirror.
-      # The runner image already ships the system libraries Chromium needs.
+      # The runner image already ships the system libraries Chromium and Firefox need.
       - name: Install Playwright browsers (Chromium also serves Lighthouse)
         run: npx playwright install chromium firefox webkit
         # A stalled browser download should fail the step, not eat the job timeout.
         timeout-minutes: 10
 
+      # WebKit needs GStreamer, GTK 4 and a few more; this installs only those.
       - name: Install WebKit system libraries
         run: npx playwright install-deps webkit
         timeout-minutes: 6
