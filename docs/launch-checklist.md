@@ -18,10 +18,11 @@ Order: section 1 before the Phase 8 session starts; sections 2 to 4 in the Phase
 ## 2. Backups of the legacy site
 
 - [x] Confirm that `3402fce` is the commit the Worker `mmec` serves (its current version and build in the Cloudflare dashboard, noted in the next step's record) before tagging it. Done 2026-10-27: version `4f83c91f…` uploaded one minute after `3402fce`, served files identical (`docs/deploy.md`).
-- [ ] Tag the deployed legacy commit: `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` (the repository is otherwise never modified). Commands, run from the legacy clone: `git tag -a legacy-final 3402fce -m "Legacy site as deployed before the cutover"` and `git push origin legacy-final`.
-- [ ] Archive copy: `git bundle create mmec-site-legacy-final.bundle --all` in the legacy clone, plus the GitHub source zip of the tag; **owner** stores both in the firm's Drive.
+- [x] Tag the deployed legacy commit: `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` (the repository is otherwise never modified). Commands, run from the legacy clone: `git tag -a legacy-final 3402fce -m "Legacy site as deployed before the cutover"` and `git push origin legacy-final`. Done by the owner, confirmed on GitHub 2026-10-28: annotated tag object `b1fca948…`, peeled to `3402fce` on GitHub.
+- [x] Archive copy: `git bundle create mmec-site-legacy-final.bundle --all` in the legacy clone. Bundle created and verified by the owner (confirmed 2026-10-28).
+- [ ] **Owner:** store the bundle and the GitHub source zip of the tag `legacy-final` in the firm's Drive.
 - [x] Note the current Worker version of `mmec` and the custom-domain configuration (read-only), in `docs/deploy.md`.
-- [ ] **Owner:** export the Google Analytics 4 and Search Console history (Q-09) and the Cloudflare Web Analytics history since 2026-06-23.
+- [x] **Owner:** export the Google Analytics 4 and Search Console history (Q-09) and the Cloudflare Web Analytics history since 2026-06-23. Done 2026-10-27 by the owner's assistant: Search Console (Excel, 16 months), GA4 pages and traffic acquisition (CSV), Clarity (CSV and PDF), Web Analytics (CSV from the API). The files are in the owner's Downloads folder, to be moved to the Drive.
 - [ ] Do not archive the legacy GitHub repository or delete the Worker `mmec` for at least 30 days after the cutover (rollback path).
 
 ## 3. Production build
@@ -37,36 +38,36 @@ Today the preview is kept out of search engines twice: `X-Robots-Tag: noindex, n
 
 ### Zone settings
 
-- [ ] Turn off Bot Fight Mode at the cutover. Its JavaScript detections inject an inline script into every HTML page, which the CSP blocks (console error on every page) and which sets a `cf_clearance` cookie the privacy policy does not mention. On the Free plan the detections cannot be turned off alone (`docs/deploy.md`).
+- [x] Turn off Bot Fight Mode and its JavaScript detections at the cutover. The detections inject an inline script into every HTML page, which the CSP blocks (console error on every page) and which sets a `cf_clearance` cookie the privacy policy does not mention. They are a separate setting (`enable_js`): `fight_mode: false` alone left the script in place (`docs/deploy.md`). Done 2026-10-28: both `false`, script gone from the live HTML.
 
 ### Cloudflare Web Analytics
 
 The site uses the existing Web Analytics site for `mmec.adv.br` (token in `src/config/analytics.ts`, decision `0003-analytics`, Q-29).
 
-- [ ] Export the Web Analytics history since 2026-06-23 from the dashboard before changing the site settings, so the data collected for the legacy site is kept.
-- [ ] Turn off "automatic setup" (`auto_install`) of that Web Analytics site at the cutover. This site prints the manual snippet itself; a copy injected at the edge would be a second beacon on every page, and the Content-Security-Policy blocks it anyway.
-- [ ] Validate the beacon in production. It runs only on `mmec.adv.br` and `www.mmec.adv.br` (`src/components/WebAnalytics.astro`), so the preview cannot show it. After the cutover, open the home page on both hosts with the browser console open: `beacon.min.js` loads, the report to `https://cloudflareinsights.com/cdn-cgi/rum` succeeds with no CORS or CSP error, and the visit appears in the dashboard.
+- [x] Export the Web Analytics history since 2026-06-23 from the dashboard before changing the site settings, so the data collected for the legacy site is kept. Done by the owner 2026-10-27.
+- [x] Turn off "automatic setup" (`auto_install`) of that Web Analytics site at the cutover. This site prints the manual snippet itself; a copy injected at the edge would be a second beacon on every page, and the Content-Security-Policy blocks it anyway. Done 2026-10-28.
+- [x] Validate the beacon in production. It runs only on `mmec.adv.br` and `www.mmec.adv.br` (`src/components/WebAnalytics.astro`), so the preview cannot show it. After the cutover, open the home page on both hosts with the browser console open: `beacon.min.js` loads, the report to `https://cloudflareinsights.com/cdn-cgi/rum` succeeds with no CORS or CSP error, and the visit appears in the dashboard. Done after the switch by the owner's assistant in a real browser on `mmec.adv.br`: console clean, beacon reporting. The check on `www` is moot: `www` answers `301` to the apex before any page loads.
 
 ### Response headers
 
 - [ ] Raise `Strict-Transport-Security` `max-age` from `86400` (one day, `public/_headers`) once HTTPS is confirmed working on `mmec.adv.br`. Keep it without `preload` (and without `includeSubDomains`, see `docs/security.md`). Update the header table in `docs/security.md` in the same change.
-- [ ] After the switch, `curl -sI https://mmec.adv.br/` shows the CSP (with the two Cloudflare Insights hosts), HSTS, `nosniff`, `X-Frame-Options: DENY`, referrer, permissions and COOP policies, and no `X-Robots-Tag`.
+- [x] After the switch, `curl -sI https://mmec.adv.br/` shows the CSP (with the two Cloudflare Insights hosts), HSTS, `nosniff`, `X-Frame-Options: DENY`, referrer, permissions and COOP policies, and no `X-Robots-Tag`. Done 2026-10-28.
 
 ## 4. Switch and verification (Phase 8)
 
 - [x] Email DNS records (MX, SPF, DKIM, DMARC) are not part of the change and stay as they are (`CLAUDE.md` rule 9). Read on 2026-10-27: null MX, `v=spf1 -all`, DMARC `p=reject`, no DKIM record; the cutover changes no DNS record.
-- [ ] Deploy the production build to the Worker `mmec-site`, then move the custom domain `mmec.adv.br` from `mmec` to `mmec-site`. Rollback: move the domain back to `mmec`.
-- [ ] `www` behaviour: today (legacy, checked 2026-10-27) `https://www.mmec.adv.br/` answers `301` to `https://mmec.adv.br/`, and `http://www.mmec.adv.br/` takes two hops (`http://www` to `https://www`, then to the apex). Find where the `www` rule lives (zone redirect rule or the `mmec` Worker) before moving the domain, and confirm after the switch that `www` still answers one `301` to the apex, keeping the path.
-- [ ] `http://mmec.adv.br/` answers one `301` to `https://mmec.adv.br/` (it does today on the legacy site).
-- [ ] Redirect tests against production: every row of `docs/url-map.md` answers as specified. One-line check per URL: `curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://mmec.adv.br/<path>`.
-- [ ] HTTPS and certificate valid on the apex and `www`.
-- [ ] 404: `https://mmec.adv.br/nao-existe`, `/404` and `/404.html` answer `404` with the not-found page.
-- [ ] The three PDFs answer `200` at `/assets/docs/…` and match the files in the repository.
-- [ ] Favicon: `/favicon.ico`, `/favicon.svg` and the `apple-touch-icon` load (variant F, `docs/brand.md`).
-- [ ] Social previews: `https://mmec.adv.br/og/mmec-og-default.png` answers `200` (it does not exist on the legacy site, so the preview pages cannot show it today); check the home page and one publication with a link-preview tool (for example the LinkedIn Post Inspector or a WhatsApp message to oneself).
-- [ ] **Owner:** Google Search Console: verify the Domain property by DNS TXT (Q-30), submit `https://mmec.adv.br/sitemap.xml`, request indexing of the home page.
+- [x] Deploy the production build to the Worker `mmec-site`, then move the custom domain `mmec.adv.br` from `mmec` to `mmec-site`. Rollback: move the domain back to `mmec`. Done 2026-10-28: version `c4f0bb15…`, domain moved with `override_existing_origin: true` (`docs/deploy.md`, "Result").
+- [x] `www` behaviour: today (legacy, checked 2026-10-27) `https://www.mmec.adv.br/` answers `301` to `https://mmec.adv.br/`, and `http://www.mmec.adv.br/` takes two hops (`http://www` to `https://www`, then to the apex). Find where the `www` rule lives (zone redirect rule or the `mmec` Worker) before moving the domain, and confirm after the switch that `www` still answers one `301` to the apex, keeping the path. Done: zone redirect rule, untouched; after the switch `https://www` answers one `301` to the apex with the path.
+- [x] `http://mmec.adv.br/` answers one `301` to `https://mmec.adv.br/` (it does today on the legacy site). Done 2026-10-28.
+- [x] Redirect tests against production: every row of `docs/url-map.md` answers as specified. One-line check per URL: `curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://mmec.adv.br/<path>`. Done 2026-10-28: `npm run test:production`, 41/41.
+- [x] HTTPS and certificate valid on the apex and `www`. Done 2026-10-28: Google Trust Services, valid until 2027-01-17.
+- [x] 404: `https://mmec.adv.br/nao-existe`, `/404` and `/404.html` answer `404` with the not-found page. Done 2026-10-28.
+- [x] The three PDFs answer `200` at `/assets/docs/…` and match the files in the repository. Done 2026-10-28: byte-identical.
+- [x] Favicon: `/favicon.ico`, `/favicon.svg` and the `apple-touch-icon` load (variant F, `docs/brand.md`). Done 2026-10-28.
+- [ ] Social previews: `https://mmec.adv.br/og/mmec-og-default.png` answers `200` (it does not exist on the legacy site, so the preview pages cannot show it today); check the home page and one publication with a link-preview tool (for example the LinkedIn Post Inspector or a WhatsApp message to oneself). Image `200` on 2026-10-28; the link-preview check is still open.
+- [ ] **Owner:** Google Search Console: verify the Domain property by DNS TXT (Q-30), submit `https://mmec.adv.br/sitemap.xml`, request indexing of the home page. The Domain property exists and is verified (owner, 2026-10-28); sitemap and indexing request still open.
 - [ ] Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled against the production build.
-- [ ] Record the result and the rollback instructions in `docs/deploy.md`, and post-launch notes in `docs/CHANGELOG.md`.
+- [x] Record the result and the rollback instructions in `docs/deploy.md`, and post-launch notes in `docs/CHANGELOG.md`. Done: `docs/deploy.md`, "Result (2026-10-28)".
 
 ## 5. First week
 
