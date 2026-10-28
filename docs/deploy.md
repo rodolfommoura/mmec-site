@@ -17,7 +17,7 @@ The Worker `mmec-site` was created on 2026-10-26 with the steps under "One-time 
 - `assets.directory: "./dist"`: the Astro build output.
 - `assets.html_handling: "auto-trailing-slash"`: same as the legacy Worker. With Astro's `build.format: "file"`, `/privacidade` serves `privacidade.html`, and `/privacidade.html` or `/privacidade/` redirect to `/privacidade`.
 - `assets.not_found_handling: "404-page"`: unknown paths answer `404` with `dist/404.html`.
-- `workers_dev: true` and `preview_urls: true`: the Worker and its previews are reachable on `*.workers.dev`. No route or custom domain is declared here: `mmec.adv.br` is attached through the API at the cutover, and `wrangler deploy` leaves a custom domain it does not declare in place.
+- `workers_dev: true` and `preview_urls: true`: the Worker and its previews are reachable on `*.workers.dev`. No route or custom domain is declared here: `mmec.adv.br` was moved to this Worker through the API at the cutover (2026-10-28), and `wrangler deploy` leaves a custom domain it does not declare in place.
 - `previews: {}`: an empty Worker Previews block. Workers Builds runs `wrangler preview` on non-production branches, and that command fails when the block is missing.
 
 Search engine indexing (since Phase 8):
@@ -87,7 +87,7 @@ Read through the Cloudflare API and `curl`; nothing was changed.
 
 ### Zone settings changed at the cutover
 
-- **Bot Fight Mode: off.** On the Free plan its JavaScript detections cannot be turned off separately, and with a CSP they work only through nonces, which a static site cannot issue. The site has no forms, logins or API to protect, and the challenges can also catch link-preview bots. The managed WAF rules, DDoS protection and the "block AI bots" setting stay as they are.
+- **Bot Fight Mode and JavaScript detections: off.** They are two settings of `bot_management`: `fight_mode` (Bot Fight Mode) and `enable_js` (JavaScript detections, which inject `/cdn-cgi/challenge-platform/scripts/jsd/main.js`). Turning off `fight_mode` alone left the script in place; it went away only with `enable_js: false`, a few minutes after the call. With a CSP the detections work only through nonces, which a static site cannot issue. The site has no forms, logins or API to protect, and the challenges can also catch link-preview bots. The managed WAF rules, DDoS protection and the other `bot_management` settings (`ai_bots_protection: block`, `ai_training: disallow`, managed `robots.txt`) stay as they are. A `PUT` with only the changed fields keeps the others; its response may show other fields with default values, so read the settings again with `GET` to confirm.
 - **Web Analytics automatic setup: off**, after the owner exports the history since 2026-06-23. The site prints its own beacon (decision `0003-analytics`).
 
 ### Steps
@@ -96,13 +96,15 @@ Each step waits for its own "go".
 
 1. Legacy backup: tag `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` and push the tag (the only change ever made to that repository), then `git bundle create mmec-site-legacy-final.bundle --all`. The owner stores the bundle and the tag's source zip in the firm's Drive.
 2. The owner merges the Phase 8 pull request. Workers Builds deploys `main` to `mmec-site`. Check on `https://mmec-site.rodolfo-e70.workers.dev/`: no robots meta tag, `X-Robots-Tag: noindex, nofollow` present.
-3. The owner exports the Web Analytics history. Then turn off Bot Fight Mode and the Web Analytics automatic setup (API: `PUT /zones/{zone}/bot_management` with `fight_mode: false`; `PUT /accounts/{account}/rum/site_info/{site}` with `auto_install: false`).
-4. Switch: attach `mmec.adv.br` to `mmec-site`. One call, which is expected to replace the service of the existing domain in place (read the domain list right after it; if the call is refused, use the dashboard steps under "Rollback" with the Workers swapped):
+3. The owner exports the Web Analytics history. Then turn off Bot Fight Mode, its JavaScript detections and the Web Analytics automatic setup (API: `PUT /zones/{zone}/bot_management` with `{ "fight_mode": false, "enable_js": false }`; `PUT /accounts/{account}/rum/site_info/{site_tag}` with `{ "auto_install": false, "zone_tag": "{zone}", "lite": false }`). Check the live HTML for `/cdn-cgi/challenge-platform/` again a few minutes later.
+4. Switch: move `mmec.adv.br` from `mmec` to `mmec-site`. Save the domain record first (`GET /accounts/{account}/workers/domains`) for the rollback. The `PUT` without a flag is refused with `409`, error `100116` ("Hostname 'mmec.adv.br' already in use by other custom domain"), because the hostname belongs to another Worker; `override_existing_origin: true` moves it in place (same domain id and certificate, no gap). Never add `override_existing_dns_record`, which would replace a DNS record:
 
    ```text
    PUT /accounts/{account}/workers/domains
-   { "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec-site", "environment": "production" }
+   { "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec-site", "environment": "production", "override_existing_origin": true }
    ```
+
+   List the domains again right after it: `service` must be `mmec-site`, `enabled` `true`, `cert_id` unchanged.
 
 5. Verify (next section).
 
@@ -118,14 +120,34 @@ curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" http://mmec.adv.br/
 
 Then by hand: the certificate on the apex and `www`, the three PDFs against the repository files, the favicon and `apple-touch-icon`, `/og/mmec-og-default.png`, a link preview of the home page and one publication, the Web Analytics beacon in the browser console on both hosts, and `npm run test:lighthouse` (`is-crawlable` now enabled). Owner: Search Console (submit the sitemap, request indexing of the home page).
 
+`check-headers.mjs` with a base URL expects no `X-Robots-Tag`, so it fits `https://mmec.adv.br` only. Against a `*.workers.dev` URL every request reports `x-robots-tag: noindex, nofollow` as a failure, which is the expected header there: read the other problems listed, if any, and check the `workers.dev` host rule with the local run (`npm run test:headers`). `check-redirects.mjs` works against either host.
+
+### Result (2026-10-28)
+
+All times UTC. Each production step ran after the owner's "go".
+
+| Step | Result |
+|---|---|
+| 1. Legacy backup | Annotated tag `legacy-final` (object `b1fca948…`) on `3402fce`, on GitHub (`git ls-remote --tags origin "legacy-final^{}"`). Bundle `mmec-site-legacy-final.bundle` created and verified by the owner, to be stored in the firm's Drive with the tag's source zip. |
+| 2. Deploy | PR #12 merged as `74dfe71`; Workers Builds deployed `mmec-site` deployment `11a58848-c602-4fdf-94a0-2512a35d4f7f`, version `c4f0bb15-049d-40cb-9efc-168d8c72589b` (01:57). On `workers.dev`: no robots meta tag, `X-Robots-Tag: noindex, nofollow`, every other header and 41/41 URL-map rows as specified, no `Set-Cookie`. |
+| 3. Zone settings | Web Analytics history exported by the owner. `fight_mode: false`, then `enable_js: false` (02:09); the injected script was gone from `https://mmec.adv.br/` at 02:13. `auto_install: false`; the Web Analytics site stays enabled for the zone (ruleset `3819bb72-1115-4d75-be11-c9c26b65731d`). |
+| 4. Switch | First `PUT` refused with `409` (no change). With `override_existing_origin: true` (02:16): domain `c08c07d70245115b11f8f93dca887d0d7ca769b7` now `service: mmec-site`, `enabled: true`, same certificate `111661e2-9ad4-474e-8792-fc3b7c5fbcc4`, previews off. |
+| 5. Verification | `npm run test:production`: 41/41 URLs and 7/7 header samples. No `X-Robots-Tag`, no robots meta tag, no `Set-Cookie`, no injected or legacy third-party script. `/nao-existe`, `/404` and `/404.html` answer `404`. `https://www` → apex and `http://` → `https://`: one `301` each, path kept; `http://www` two hops, as before. The three PDFs match the repository files byte for byte. `/favicon.ico`, `/favicon.svg`, the `apple-touch-icon` and `/og/mmec-og-default.png` answer `200`. Certificate (Google Trust Services WE1, `mmec.adv.br` and `*.mmec.adv.br`, valid until 2027-01-17) served on the apex and `www`. `robots.txt` and the sitemap (seven `https://mmec.adv.br` URLs) as built. |
+
+The switch happened on 27 October 2026 in Brasília time (23:16), the date of the privacy policy and terms.
+
+Open after the switch: the beacon in the browser console on both hosts, link previews, `npm run test:lighthouse`, Search Console (owner) and the HSTS ramp (`docs/security.md`), tracked in `docs/launch-checklist.md`.
+
 ### Rollback
 
-The legacy Worker `mmec` stays deployed and unchanged. To go back, attach the domain to it again (seconds; no DNS change):
+The legacy Worker `mmec` stays deployed and unchanged. To go back, move the domain to it again (seconds; no DNS change). Without the flag the call would be refused with the same `409` as the switch (not tried in this direction):
 
 ```text
 PUT /accounts/{account}/workers/domains
-{ "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec", "environment": "production" }
+{ "zone_id": "06abd900aaa376b5fb22bce8186041f1", "hostname": "mmec.adv.br", "service": "mmec", "environment": "production", "override_existing_origin": true }
 ```
+
+The record before the switch, to compare after a rollback: domain id `c08c07d70245115b11f8f93dca887d0d7ca769b7`, `service: mmec`, `environment: production`, `cert_id: 111661e2-9ad4-474e-8792-fc3b7c5fbcc4`, `previews_enabled: false`, `enabled: true`.
 
 The same in the dashboard: **Workers & Pages**, `mmec`, **Settings**, **Domains & Routes**, **Add**, **Custom domain**, `mmec.adv.br` (confirm moving it from `mmec-site`). Bot Fight Mode and the Web Analytics automatic setup do not need to be restored for the legacy site to work. Keep `mmec` and the legacy repository (not archived) for at least 30 days after the cutover.
 
