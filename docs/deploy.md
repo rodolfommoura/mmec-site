@@ -136,7 +136,9 @@ All times UTC. Each production step ran after the owner's "go".
 
 The switch happened on 27 October 2026 in Brasília time (23:16), the date of the privacy policy and terms.
 
-Open after the switch: the beacon in the browser console on both hosts, link previews, `npm run test:lighthouse`, Search Console (owner) and the HSTS ramp (`docs/security.md`), tracked in `docs/launch-checklist.md`.
+Checked afterwards by the owner's assistant in a real browser on `mmec.adv.br`: console clean, beacon reporting, redirects as above (on `www` the beacon is moot, since `www` redirects to the apex before any page loads). The GA4, Search Console, Clarity and Web Analytics history was exported on 2026-10-27.
+
+Open after the switch: link previews, `npm run test:lighthouse`, Search Console (owner) and the HSTS ramp (`docs/security.md`), tracked in `docs/launch-checklist.md`.
 
 ### Rollback
 

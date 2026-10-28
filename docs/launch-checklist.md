@@ -22,7 +22,7 @@ Order: section 1 before the Phase 8 session starts; sections 2 to 4 in the Phase
 - [x] Archive copy: `git bundle create mmec-site-legacy-final.bundle --all` in the legacy clone. Bundle created and verified by the owner (confirmed 2026-10-28).
 - [ ] **Owner:** store the bundle and the GitHub source zip of the tag `legacy-final` in the firm's Drive.
 - [x] Note the current Worker version of `mmec` and the custom-domain configuration (read-only), in `docs/deploy.md`.
-- [ ] **Owner:** export the Google Analytics 4 and Search Console history (Q-09) and the Cloudflare Web Analytics history since 2026-06-23. Web Analytics history exported 2026-10-27; GA4 and Search Console not yet confirmed.
+- [x] **Owner:** export the Google Analytics 4 and Search Console history (Q-09) and the Cloudflare Web Analytics history since 2026-06-23. Done 2026-10-27 by the owner's assistant: Search Console (Excel, 16 months), GA4 pages and traffic acquisition (CSV), Clarity (CSV and PDF), Web Analytics (CSV from the API). The files are in the owner's Downloads folder, to be moved to the Drive.
 - [ ] Do not archive the legacy GitHub repository or delete the Worker `mmec` for at least 30 days after the cutover (rollback path).
 
 ## 3. Production build
@@ -46,7 +46,7 @@ The site uses the existing Web Analytics site for `mmec.adv.br` (token in `src/c
 
 - [x] Export the Web Analytics history since 2026-06-23 from the dashboard before changing the site settings, so the data collected for the legacy site is kept. Done by the owner 2026-10-27.
 - [x] Turn off "automatic setup" (`auto_install`) of that Web Analytics site at the cutover. This site prints the manual snippet itself; a copy injected at the edge would be a second beacon on every page, and the Content-Security-Policy blocks it anyway. Done 2026-10-28.
-- [ ] Validate the beacon in production. It runs only on `mmec.adv.br` and `www.mmec.adv.br` (`src/components/WebAnalytics.astro`), so the preview cannot show it. After the cutover, open the home page on both hosts with the browser console open: `beacon.min.js` loads, the report to `https://cloudflareinsights.com/cdn-cgi/rum` succeeds with no CORS or CSP error, and the visit appears in the dashboard.
+- [x] Validate the beacon in production. It runs only on `mmec.adv.br` and `www.mmec.adv.br` (`src/components/WebAnalytics.astro`), so the preview cannot show it. After the cutover, open the home page on both hosts with the browser console open: `beacon.min.js` loads, the report to `https://cloudflareinsights.com/cdn-cgi/rum` succeeds with no CORS or CSP error, and the visit appears in the dashboard. Done after the switch by the owner's assistant in a real browser on `mmec.adv.br`: console clean, beacon reporting. The check on `www` is moot: `www` answers `301` to the apex before any page loads.
 
 ### Response headers
 
