@@ -13,10 +13,12 @@ for (const path of paths) {
   });
 }
 
-test("every page declares pt-BR and noindex", async ({ page }) => {
-  for (const path of paths) {
+// The specimen is always noindex (tests/specimen.spec.ts); every other page is indexable in the
+// production build that the suite runs on (src/config/indexing.ts).
+test("every page declares pt-BR and is indexable", async ({ page }) => {
+  for (const path of paths.filter((path) => path !== "/_design")) {
     await page.goto(path);
     await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
   }
 });

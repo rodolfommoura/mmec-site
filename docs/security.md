@@ -15,7 +15,7 @@ Source: `public/_headers`. The build writes the Content-Security-Policy into `di
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | External sites see only the origin. |
 | `Permissions-Policy` | every listed feature `=()` | The site uses no camera, location, payment, fullscreen or similar API. |
 | `Cross-Origin-Opener-Policy` | `same-origin` | Isolates the browsing context from pages it opens. |
-| `X-Robots-Tag` | `noindex, nofollow` | Preview only; removed at the cutover. |
+| `X-Robots-Tag` | `noindex, nofollow`, on `*.workers.dev` hosts only | The Worker URL, previews and deployment URLs duplicate the site; `mmec.adv.br` is the only indexable host (since Phase 8). |
 | `Cache-Control` on `/_astro/*` | `public, max-age=31536000, immutable` | File names carry a content hash. |
 | `Cache-Control` elsewhere | platform default `public, max-age=0, must-revalidate` | HTML, PDFs, brand files and favicons keep their URL when the content changes (a new PDF edition replaces the file at the same path, Q-12), so browsers revalidate with the ETag. |
 
@@ -39,25 +39,26 @@ base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-re
 
 - Decision: `docs/decisions/0003-analytics.md` (Cloudflare Web Analytics, manual setup, plus Google Search Console; no GA4, no Clarity). It lists what the dashboard shows and what it does not measure (PDF opens and downloads, events, sessions).
 - The token of the existing Web Analytics site for `mmec.adv.br` is set in `src/config/analytics.ts` (Q-29), and the CSP allows its two hosts. The beacon loads only when the page is served from `mmec.adv.br` or `www.mmec.adv.br` (`src/components/WebAnalytics.astro`): Cloudflare rejects its report from any other origin, so the preview Worker and local servers load no beacon. It can therefore only be validated in production (Phase 8, `docs/launch-checklist.md`). With an empty token nothing is loaded and no third-party host is allowed. Turning off the site's automatic setup and exporting its history are Phase 8 steps (`docs/launch-checklist.md`).
-- `/privacidade` section 2 matches the Cloudflare documentation read on 2026-10-26 (no cookies or storage, IP discarded, processing possibly outside Brazil); its text and "Última atualização" stay unchanged. The lawyer review is still open (Q-26).
+- `/privacidade` section 2 matches the Cloudflare documentation read on 2026-10-26 (no cookies or storage, IP discarded, processing possibly outside Brazil). The review of the policy and terms was approved on 2026-10-27 with no text change (Q-26); "Última atualização" is the publication date on `mmec.adv.br`, 27 October 2026.
+- Bot Fight Mode is turned off at the cutover (`docs/deploy.md`, "Zone settings changed at the cutover"): its JavaScript detections inject an inline script that the CSP blocks and issue the `cf_clearance` cookie, which the policy ("O site não utiliza cookies") does not allow for.
 - No third-party request: `tests/home.spec.ts` fails on any request to a host not approved in decision 0003.
 
 ## Search engines
 
 - Unique `<title>` and description on every page, canonical URL, Open Graph and Twitter card tags (`src/layouts/BaseLayout.astro`); checked by `tests/seo.spec.ts`.
 - `/sitemap.xml` (`src/pages/sitemap.xml.ts`): every public page, extensionless, with `lastmod` from `src/config/page-dates.ts`. The design specimen and the 404 page are never listed. Update the date in that file when a page's text changes.
-- `/robots.txt` (`src/pages/robots.txt.ts`): `Allow: /` and the sitemap URL, on the preview too. A `Disallow` would stop crawlers from fetching pages and seeing their `noindex`.
+- `/robots.txt` (`src/pages/robots.txt.ts`): `Allow: /` and the sitemap URL, on every host. A `Disallow` would stop crawlers from fetching the `workers.dev` pages and seeing their `noindex`.
 - JSON-LD `LegalService` on the home page with name, URL, telephone and postal address only (`src/config/structured-data.ts`).
 - No `hreflang`: the site has one language.
 
-Production rules at the cutover (Phase 8):
+Indexing rules since the cutover (Phase 8):
 
-1. Remove `X-Robots-Tag` from `public/_headers` and from the required headers in `scripts/check-headers.mjs`, and set `indexable: true` in `src/config/site.ts` (this removes the robots meta tag).
-2. Keep `robots.txt` as it is; it already points to `https://mmec.adv.br/sitemap.xml`.
-3. Re-enable the Lighthouse `is-crawlable` audit (`lighthouserc.cjs`).
+1. `mmec.adv.br`: no `X-Robots-Tag` and no robots meta tag. Every `*.workers.dev` host: `X-Robots-Tag: noindex, nofollow` from a host rule in `public/_headers`, whatever the build. Pull request previews also carry the robots meta tag (`src/config/indexing.ts`: Workers Builds builds of a branch other than `main`). The `_headers` file has no branch condition, so the header follows the host and the meta tag follows the build.
+2. `robots.txt` unchanged; it points to `https://mmec.adv.br/sitemap.xml`.
+3. The Lighthouse `is-crawlable` audit is enabled again (`lighthouserc.cjs`).
 4. In Search Console, submit `https://mmec.adv.br/sitemap.xml` and watch the coverage report for the legacy `.html` URLs, which answer `301` (`docs/url-map.md`).
 
-Search Console verification (owner): prefer a **Domain property** verified by a DNS TXT record on `mmec.adv.br`. It covers every subdomain and protocol, survives the rebuild, and needs no code. The legacy repository has no verification file and no `google-site-verification` meta tag, so an existing property was verified either by DNS or through the GA4 tag; in the second case, verification is lost when GA4 goes away at the cutover. A URL-prefix property verified by an HTML file or meta tag is the fallback; it needs a small pull request with the file or tag.
+Search Console verification (owner): prefer a **Domain property** verified by a DNS TXT record on `mmec.adv.br`. It covers every subdomain and protocol, survives the rebuild, and needs no code. The legacy repository has no verification file and no `google-site-verification` meta tag. The zone has a `google-site-verification` TXT record on the apex (read on 2026-10-27), so a Domain property verified by DNS most likely exists already and survives the cutover; the owner confirms it in Search Console. A URL-prefix property verified by an HTML file or meta tag is the fallback; it needs a small pull request with the file or tag.
 
 ## security.txt
 

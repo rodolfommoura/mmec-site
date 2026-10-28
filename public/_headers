@@ -1,7 +1,6 @@
 # Response headers for every static asset (Cloudflare Workers static assets).
 # The build replaces the CSP placeholder with the real policy (src/integrations/csp-headers.mjs).
 # Checklist and rationale: docs/security.md.
-# X-Robots-Tag is preview only: it keeps the site out of search indexes until the cutover (Phase 8).
 /*
   Content-Security-Policy: %CONTENT_SECURITY_POLICY%
   Strict-Transport-Security: max-age=86400
@@ -10,6 +9,10 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: accelerometer=(), autoplay=(), bluetooth=(), browsing-topics=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()
   Cross-Origin-Opener-Policy: same-origin
+
+# The workers.dev hosts (production Worker URL, previews and deployment URLs) duplicate the
+# site: keep them out of search indexes. mmec.adv.br is the only indexable host.
+https://:worker.:account.workers.dev/*
   X-Robots-Tag: noindex, nofollow
 
 # Fingerprinted build output: the file name changes with the content.

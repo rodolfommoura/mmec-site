@@ -128,7 +128,7 @@ On `/publicacoes` the "LCP image was lazily loaded" audit now passes. The simula
 - Screen-reader smoke test with NVDA (Windows) or VoiceOver (iOS, macOS): Q-32.
 - Firefox and Safari check: Q-33. The engines are now tested automatically (section 8); real Safari on an iPhone or a Mac stays with the owner.
 - Non-blocking items N-01, N-02, N-03, N-06 and N-07 above: kept; no owner decision needed unless the owner wants 44 px targets everywhere (N-02).
-- Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled at the cutover (Phase 8, `docs/security.md`).
+- Repeat `npm run test:lighthouse` with `is-crawlable` re-enabled at the cutover (Phase 8, `docs/security.md`). Re-enabled in the Phase 8 pull request; result in `docs/CHANGELOG.md`.
 
 ## 8. Cross-browser run (Q-33)
 

@@ -22,7 +22,8 @@
     "test:html": "html-validate \"dist/**/*.html\"",
     "test:lighthouse": "lhci autorun && lhci autorun --config=lighthouserc.desktop.cjs",
     "check": "npm run lint && npm run typecheck && npm run build && node scripts/check-production-build.mjs && npm run build:specimen && npm run test:html && npm run test:links && npm run test:headers && npm run test:a11y",
-    "test:headers": "node scripts/check-headers.mjs"
+    "test:headers": "node scripts/check-headers.mjs",
+    "test:production": "node scripts/check-redirects.mjs https://mmec.adv.br && node scripts/check-headers.mjs https://mmec.adv.br"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "5.3.0",

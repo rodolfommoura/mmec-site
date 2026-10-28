@@ -1,10 +1,9 @@
 // Checks the response headers of the built site, served by Wrangler with the same asset rules
 // as the Worker (_headers). The policy itself is checked in the browser by tests/console.spec.ts.
+// With a base URL (`node scripts/check-headers.mjs https://mmec.adv.br`) it checks that live
+// site instead; dist/ must then be built from the deployed commit (hashed asset name).
 import { readdirSync } from "node:fs";
-
-// No usage telemetry from CI or local test runs; set before Wrangler loads.
-process.env.WRANGLER_SEND_METRICS ??= "false";
-const { unstable_startWorker } = await import("wrangler");
+import { serveSite } from "./serve-site.mjs";
 
 const securityHeaders = {
   "content-security-policy": /^default-src 'self';.*frame-ancestors 'none'/,
@@ -14,8 +13,6 @@ const securityHeaders = {
   "referrer-policy": /^strict-origin-when-cross-origin$/,
   "permissions-policy": /^(?:[a-z-]+=\(\)(?:, |$))+$/,
   "cross-origin-opener-policy": /^same-origin$/,
-  // Preview only, removed at the cutover (Phase 8).
-  "x-robots-tag": /^noindex, nofollow$/,
 };
 
 const shortCache = /^public, max-age=0, must-revalidate$/;
@@ -32,8 +29,19 @@ const samples = [
   { path: "/pagina-inexistente", status: 404, type: "text/html" },
 ];
 
-function check(sample, response) {
+// mmec.adv.br is indexable; every workers.dev host is noindex (public/_headers).
+const robotsSamples = [
+  { host: "mmec.adv.br", robots: null },
+  { host: "mmec-site.example.workers.dev", robots: /^noindex, nofollow$/ },
+  { host: "branch-mmec-site.example.workers.dev", robots: /^noindex, nofollow$/ },
+];
+
+function check(sample, response, body) {
   const problems = [];
+  // Production HTML must not carry the preview robots meta tag (src/config/indexing.ts).
+  if (sample.status === 200 && sample.type === "text/html" && /<meta name="robots"/.test(body)) {
+    problems.push("robots meta tag in the HTML");
+  }
   if (response.status !== sample.status) problems.push(`status ${response.status}`);
   for (const [name, pattern] of Object.entries(securityHeaders)) {
     const value = response.headers.get(name);
@@ -43,32 +51,36 @@ function check(sample, response) {
   if (sample.cache && !sample.cache.test(cache)) problems.push(`cache-control: ${cache}`);
   const type = response.headers.get("content-type") ?? "";
   if (sample.type && !type.startsWith(sample.type)) problems.push(`content-type: ${type}`);
+  const robots = response.headers.get("x-robots-tag");
+  if (sample.robots === null && robots) problems.push(`x-robots-tag: ${robots}`);
+  if (sample.robots && !sample.robots.test(robots ?? "")) {
+    problems.push(`x-robots-tag: ${robots ?? "missing"}`);
+  }
   return problems;
 }
 
-const worker = await unstable_startWorker({
-  config: "wrangler.jsonc",
-  dev: { server: { hostname: "127.0.0.1", port: 0 }, inspector: false, logLevel: "warn" },
-});
+const site = await serveSite(process.argv[2]);
+// Locally the request host is chosen per check; live, only the given site can be reached.
+const checks = [
+  ...samples.map((sample) => ({ ...sample, robots: null })),
+  ...(site.live ? [] : robotsSamples.map((sample) => ({ ...sample, path: "/", status: 200 }))),
+];
 
 let failures = 0;
 try {
-  await worker.ready;
-  for (const sample of samples) {
-    const response = await worker.fetch(`http://localhost${sample.path}`, {
-      redirect: "manual",
-      headers: { "Sec-Fetch-Mode": "navigate", Accept: "text/html" },
-    });
-    await response.arrayBuffer();
-    const problems = check(sample, response);
+  for (const sample of checks) {
+    const response = await site.fetch(sample.path, sample.host);
+    const body = await response.text();
+    const problems = check(sample, response, body);
     failures += problems.length > 0 ? 1 : 0;
+    const label = `${sample.host ?? ""}${sample.path}`;
     console.log(
-      `${problems.length > 0 ? "FAIL" : "ok"} ${sample.path}${problems.length > 0 ? `: ${problems.join("; ")}` : ""}`,
+      `${problems.length > 0 ? "FAIL" : "ok"} ${label}${problems.length > 0 ? `: ${problems.join("; ")}` : ""}`,
     );
   }
 } finally {
-  await worker.dispose();
+  await site.dispose();
 }
 
-console.log(`Checked headers on ${samples.length} paths, ${failures} failed.`);
+console.log(`Checked headers on ${checks.length} requests, ${failures} failed.`);
 process.exitCode = failures === 0 ? 0 : 1;

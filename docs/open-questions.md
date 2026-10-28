@@ -39,7 +39,7 @@ Evidence references (`H-22`, `P1 p. 28`) point to [`content-sources.md`](content
 | Q-27 | Edition dates of the two booklets | Phase 4 | The PDFs print no date: show the edition year only. |
 | Q-28 | Retention period for contact messages | Phase 7 (lawyer review) | Criterion stated (time needed for the request and legal and professional obligations); no fixed period. |
 | Q-29 | Cloudflare Web Analytics site token | Resolved | Token of the existing site for `mmec.adv.br` set in `src/config/analytics.ts`; automatic setup turned off at the cutover (`docs/launch-checklist.md`). |
-| Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. |
+| Q-30 | Google Search Console verification | Phase 8 | Domain property verified by DNS TXT, done by the owner; no code. 2026-10-27: a `google-site-verification` TXT record already exists on the apex; owner confirms the property in Search Console. |
 | Q-31 | Replacing `@lhci/cli` (unmaintained, dev-only audit findings) | Phase 6 | Keep it until Phase 6 reviews the performance tooling. |
 | Q-32 | Screen-reader smoke test | Phase 7 gate | Owner runs it on the preview; results in `audit-06.md`, section 9. 2026-10-27: accepted as a known gap, not tested before launch; post-launch. |
 | Q-33 | Firefox and Safari | Phase 7 gate | Automated: the whole suite runs on Chromium, Firefox and WebKit, locally and in CI (`audit-06.md`, section 8). Manual: owner opens the preview in Safari on an iPhone and in Firefox; results in `audit-06.md`, section 9. 2026-10-27: the manual part is accepted as a known gap, not tested before launch; post-launch. |
