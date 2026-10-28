@@ -18,8 +18,9 @@ Order: section 1 before the Phase 8 session starts; sections 2 to 4 in the Phase
 ## 2. Backups of the legacy site
 
 - [x] Confirm that `3402fce` is the commit the Worker `mmec` serves (its current version and build in the Cloudflare dashboard, noted in the next step's record) before tagging it. Done 2026-10-27: version `4f83c91f…` uploaded one minute after `3402fce`, served files identical (`docs/deploy.md`).
-- [x] Tag the deployed legacy commit: `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` (the repository is otherwise never modified). Commands, run from the legacy clone: `git tag -a legacy-final 3402fce -m "Legacy site as deployed before the cutover"` and `git push origin legacy-final`. Done 2026-10-28 by the owner: annotated tag object `b1fca948…`, peeled to `3402fce` on GitHub.
-- [x] Archive copy: `git bundle create mmec-site-legacy-final.bundle --all` in the legacy clone, plus the GitHub source zip of the tag; **owner** stores both in the firm's Drive. Bundle created and verified by the owner 2026-10-28; Drive storage by the owner.
+- [x] Tag the deployed legacy commit: `legacy-final` on `3402fce` in `rodolfommoura/mmec-site-legacy` (the repository is otherwise never modified). Commands, run from the legacy clone: `git tag -a legacy-final 3402fce -m "Legacy site as deployed before the cutover"` and `git push origin legacy-final`. Done by the owner, confirmed on GitHub 2026-10-28: annotated tag object `b1fca948…`, peeled to `3402fce` on GitHub.
+- [x] Archive copy: `git bundle create mmec-site-legacy-final.bundle --all` in the legacy clone. Bundle created and verified by the owner (confirmed 2026-10-28).
+- [ ] **Owner:** store the bundle and the GitHub source zip of the tag `legacy-final` in the firm's Drive.
 - [x] Note the current Worker version of `mmec` and the custom-domain configuration (read-only), in `docs/deploy.md`.
 - [ ] **Owner:** export the Google Analytics 4 and Search Console history (Q-09) and the Cloudflare Web Analytics history since 2026-06-23. Web Analytics history exported 2026-10-27; GA4 and Search Console not yet confirmed.
 - [ ] Do not archive the legacy GitHub repository or delete the Worker `mmec` for at least 30 days after the cutover (rollback path).

@@ -149,7 +149,7 @@ PUT /accounts/{account}/workers/domains
 
 The record before the switch, to compare after a rollback: domain id `c08c07d70245115b11f8f93dca887d0d7ca769b7`, `service: mmec`, `environment: production`, `cert_id: 111661e2-9ad4-474e-8792-fc3b7c5fbcc4`, `previews_enabled: false`, `enabled: true`.
 
-The same in the dashboard: **Workers & Pages**, `mmec`, **Settings**, **Domains & Routes**, **Add**, **Custom domain**, `mmec.adv.br` (confirm moving it from `mmec-site`). Bot Fight Mode and the Web Analytics automatic setup do not need to be restored for the legacy site to work. Keep `mmec` and the legacy repository (not archived) for at least 30 days after the cutover.
+The same in the dashboard: **Workers & Pages**, `mmec`, **Settings**, **Domains & Routes**, **Add**, **Custom domain**, `mmec.adv.br` (confirm moving it from `mmec-site`). Bot Fight Mode, its JavaScript detections (`enable_js`) and the Web Analytics automatic setup should not need to be restored for the legacy site to work (not tested). Keep `mmec` and the legacy repository (not archived) for at least 30 days after the cutover.
 
 ## Local commands
 
