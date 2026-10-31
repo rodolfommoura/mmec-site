@@ -9,7 +9,7 @@ Source: `public/_headers`. The build writes the Content-Security-Policy into `di
 | Header | Value | Why |
 |---|---|---|
 | `Content-Security-Policy` | see below | Only same-origin resources; blocks injected scripts, framing and form hijacking. |
-| `Strict-Transport-Security` | `max-age=86400` | HTTPS only. Starts at one day; no `includeSubDomains` (other subdomains of `mmec.adv.br` are not ours to judge) and no `preload`. |
+| `Strict-Transport-Security` | `max-age=2592000` | HTTPS only. Started at one day (Phase 5), 30 days since 2026-10-31; no `includeSubDomains` (other subdomains of `mmec.adv.br` are not ours to judge) and no `preload`. |
 | `X-Content-Type-Options` | `nosniff` | No MIME sniffing. |
 | `X-Frame-Options` | `DENY` | Older browsers that ignore `frame-ancestors`. |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | External sites see only the origin. |
@@ -19,7 +19,7 @@ Source: `public/_headers`. The build writes the Content-Security-Policy into `di
 | `Cache-Control` on `/_astro/*` | `public, max-age=31536000, immutable` | File names carry a content hash. |
 | `Cache-Control` elsewhere | platform default `public, max-age=0, must-revalidate` | HTML, PDFs, brand files and favicons keep their URL when the content changes (a new PDF edition replaces the file at the same path, Q-12), so browsers revalidate with the ETag. |
 
-HSTS ramp-up after the cutover, one step at a time once the previous one ran without problems: `max-age=86400` (Phase 5) → `max-age=2592000` (30 days, after the cutover is stable) → `max-age=31536000` (one year). `preload` stays out unless a decision record says otherwise.
+HSTS ramp-up after the cutover, one step at a time once the previous one ran without problems: `max-age=86400` (Phase 5) → `max-age=2592000` (30 days; done on 2026-10-31, three days after the cutover, with HTTPS, the certificate and the redirects verified) → `max-age=31536000` (one year, next step). `preload` stays out unless a decision record says otherwise.
 
 ### Content-Security-Policy
 
