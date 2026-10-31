@@ -50,7 +50,7 @@ The site uses the existing Web Analytics site for `mmec.adv.br` (token in `src/c
 
 ### Response headers
 
-- [ ] Raise `Strict-Transport-Security` `max-age` from `86400` (one day, `public/_headers`) once HTTPS is confirmed working on `mmec.adv.br`. Keep it without `preload` (and without `includeSubDomains`, see `docs/security.md`). Update the header table in `docs/security.md` in the same change.
+- [x] Raise `Strict-Transport-Security` `max-age` from `86400` (one day, `public/_headers`) to `2592000` (30 days, 2026-10-31); the one-year step remains. Condition: once HTTPS is confirmed working on `mmec.adv.br`. Keep it without `preload` (and without `includeSubDomains`, see `docs/security.md`). Update the header table in `docs/security.md` in the same change.
 - [x] After the switch, `curl -sI https://mmec.adv.br/` shows the CSP (with the two Cloudflare Insights hosts), HSTS, `nosniff`, `X-Frame-Options: DENY`, referrer, permissions and COOP policies, and no `X-Robots-Tag`. Done 2026-10-28.
 
 ## 4. Switch and verification (Phase 8)
