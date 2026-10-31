@@ -61,7 +61,8 @@ function check(sample, response, body) {
 
 const site = await serveSite(process.argv[2]);
 // A live workers.dev host is noindex by design (public/_headers); any other live host is indexable.
-const liveRobots = site.live && site.base.hostname.endsWith(".workers.dev") ? /^noindex, nofollow$/ : null;
+const liveRobots =
+  site.live && site.base.hostname.endsWith(".workers.dev") ? /^noindex, nofollow$/ : null;
 // Locally the request host is chosen per check; live, only the given site can be reached.
 const checks = [
   ...samples.map((sample) => ({ ...sample, robots: site.live ? liveRobots : null })),
